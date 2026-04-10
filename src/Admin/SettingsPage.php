@@ -156,18 +156,18 @@ final class SettingsPage
         );
 
         $colors = [
-            'appin_chat_color_primary' => __('Primary', 'appin-chat'),
-            'appin_chat_color_surface' => __('Surface', 'appin-chat'),
-            'appin_chat_color_surface_alt' => __('Surface Alt', 'appin-chat'),
-            'appin_chat_color_text' => __('Text', 'appin-chat'),
-            'appin_chat_color_text_muted' => __('Text Muted', 'appin-chat'),
-            'appin_chat_color_border' => __('Border', 'appin-chat'),
-            'appin_chat_color_user_bg' => __('User Message BG', 'appin-chat'),
-            'appin_chat_color_assistant_bg' => __('Assistant Message BG', 'appin-chat'),
+            'appin_chat_color_primary' => [__('Primary', 'appin-chat'), '#37B7FF'],
+            'appin_chat_color_surface' => [__('Surface', 'appin-chat'), '#FFFFFF'],
+            'appin_chat_color_surface_alt' => [__('Surface Alt', 'appin-chat'), '#F4F4F5'],
+            'appin_chat_color_text' => [__('Text', 'appin-chat'), '#18181B'],
+            'appin_chat_color_text_muted' => [__('Text Muted', 'appin-chat'), '#71717A'],
+            'appin_chat_color_border' => [__('Border', 'appin-chat'), '#E4E4E7'],
+            'appin_chat_color_user_bg' => [__('User Message BG', 'appin-chat'), '#EFF6FF'],
+            'appin_chat_color_assistant_bg' => [__('Assistant Message BG', 'appin-chat'), '#F0FDF4'],
         ];
 
-        foreach ($colors as $key => $label) {
-            $this->addColorField($key, $label, 'appin_chat_colors');
+        foreach ($colors as $key => [$label, $placeholder]) {
+            $this->addColorField($key, $label, 'appin_chat_colors', placeholder: $placeholder);
         }
 
         $this->addTextField(
@@ -257,6 +257,7 @@ final class SettingsPage
         string $label,
         string $section,
         string $description = '',
+        string $placeholder = '#000000',
     ): void {
         register_setting(self::OPTION_GROUP, $key, [
             'type' => 'string',
@@ -267,17 +268,20 @@ final class SettingsPage
         add_settings_field(
             $key,
             $label,
-            function () use ($key, $description): void {
+            function () use ($key, $description, $placeholder): void {
                 $value = get_option($key, '');
+                $display = $value !== '' ? $value : $placeholder;
                 printf(
-                    '<input type="color" name="%s" value="%s" style="width:60px;height:34px;padding:2px;" />',
+                    '<input type="color" name="%s" value="%s" data-default="%s" style="width:60px;height:34px;padding:2px;" />',
                     esc_attr($key),
-                    esc_attr($value),
+                    esc_attr($display),
+                    esc_attr($placeholder),
                 );
                 printf(
-                    ' <input type="text" data-color-text="%s" value="%s" class="small-text" placeholder="#000000" style="width:80px;" />',
+                    ' <input type="text" data-color-text="%s" value="%s" class="small-text" placeholder="%s" style="width:80px;" />',
                     esc_attr($key),
                     esc_attr($value),
+                    esc_attr($placeholder),
                 );
                 if ($description !== '') {
                     printf('<p class="description">%s</p>', esc_html($description));
@@ -377,6 +381,8 @@ final class SettingsPage
             textInput.addEventListener('input', function() {
                 if (/^#[0-9a-fA-F]{6}$/.test(textInput.value)) {
                     picker.value = textInput.value;
+                } else if (textInput.value === '') {
+                    picker.value = picker.dataset.default || '#000000';
                 }
             });
         });
