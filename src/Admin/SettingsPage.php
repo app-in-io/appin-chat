@@ -14,6 +14,16 @@ final class SettingsPage
     {
         add_action('admin_menu', [$this, 'addMenu']);
         add_action('admin_init', [$this, 'registerSettings']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueueMedia']);
+    }
+
+    public function enqueueMedia(string $hook): void
+    {
+        if ($hook !== 'settings_page_appin-chat') {
+            return;
+        }
+
+        wp_enqueue_media();
     }
 
     public function addMenu(): void
@@ -82,11 +92,11 @@ final class SettingsPage
             __('Chat header subtitle. Leave empty to hide.', 'appin-chat'),
         );
 
-        $this->addTextField(
+        $this->addImageField(
             'appin_chat_logo_url',
-            __('Logo URL', 'appin-chat'),
+            __('Logo', 'appin-chat'),
             'appin_chat_appearance',
-            __('URL of the logo image displayed in the chat header.', 'appin-chat'),
+            __('Image displayed in the chat header.', 'appin-chat'),
         );
 
         $this->addSelectField(
@@ -278,6 +288,60 @@ final class SettingsPage
         );
     }
 
+    private function addImageField(
+        string $key,
+        string $label,
+        string $section,
+        string $description = '',
+    ): void {
+        register_setting(self::OPTION_GROUP, $key, [
+            'type' => 'string',
+            'sanitize_callback' => 'esc_url_raw',
+            'default' => '',
+        ]);
+
+        add_settings_field(
+            $key,
+            $label,
+            function () use ($key, $description): void {
+                $value = get_option($key, '');
+                printf(
+                    '<input type="hidden" id="%1$s" name="%1$s" value="%2$s" />',
+                    esc_attr($key),
+                    esc_attr($value),
+                );
+                printf(
+                    '<div id="%s-preview" style="margin-bottom:8px;">',
+                    esc_attr($key),
+                );
+                if ($value !== '') {
+                    printf(
+                        '<img src="%s" style="max-width:200px;max-height:80px;display:block;" />',
+                        esc_url($value),
+                    );
+                }
+                echo '</div>';
+                printf(
+                    '<button type="button" class="button appin-upload-image" data-target="%s">%s</button>',
+                    esc_attr($key),
+                    esc_html__('Select Image', 'appin-chat'),
+                );
+                if ($value !== '') {
+                    printf(
+                        ' <button type="button" class="button appin-remove-image" data-target="%s">%s</button>',
+                        esc_attr($key),
+                        esc_html__('Remove', 'appin-chat'),
+                    );
+                }
+                if ($description !== '') {
+                    printf('<p class="description">%s</p>', esc_html($description));
+                }
+            },
+            self::SLUG,
+            $section,
+        );
+    }
+
     public function render(): void
     {
         if (! current_user_can('manage_options')) {
@@ -294,6 +358,7 @@ final class SettingsPage
         echo '</form>';
 
         $this->renderColorSyncScript();
+        $this->renderMediaPickerScript();
 
         echo '</div>';
     }
@@ -315,6 +380,51 @@ final class SettingsPage
                 }
             });
         });
+        </script>
+        <?php
+    }
+
+    private function renderMediaPickerScript(): void
+    {
+        ?>
+        <script>
+        document.querySelectorAll('.appin-upload-image').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = btn.dataset.target;
+                var frame = wp.media({ multiple: false, library: { type: 'image' } });
+                frame.on('select', function() {
+                    var url = frame.state().get('selection').first().toJSON().url;
+                    document.getElementById(target).value = url;
+                    var preview = document.getElementById(target + '-preview');
+                    preview.innerHTML = '<img src="' + url + '" style="max-width:200px;max-height:80px;display:block;" />';
+                    // Show remove button if hidden
+                    var removeBtn = btn.nextElementSibling;
+                    if (removeBtn && removeBtn.classList.contains('appin-remove-image')) {
+                        removeBtn.style.display = '';
+                    } else {
+                        var rm = document.createElement('button');
+                        rm.type = 'button';
+                        rm.className = 'button appin-remove-image';
+                        rm.dataset.target = target;
+                        rm.textContent = '<?php echo esc_js(__('Remove', 'appin-chat')); ?>';
+                        btn.after(rm);
+                        bindRemove(rm);
+                    }
+                });
+                frame.open();
+            });
+        });
+        function bindRemove(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = btn.dataset.target;
+                document.getElementById(target).value = '';
+                document.getElementById(target + '-preview').innerHTML = '';
+                btn.remove();
+            });
+        }
+        document.querySelectorAll('.appin-remove-image').forEach(bindRemove);
         </script>
         <?php
     }
