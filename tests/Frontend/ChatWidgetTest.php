@@ -76,6 +76,8 @@ class ChatWidgetTest extends TestCase
         });
 
         Functions\when('esc_attr')->returnArg();
+        Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('has_filter')->justReturn(false);
 
         $widget = new ChatWidget;
 
@@ -85,7 +87,7 @@ class ChatWidgetTest extends TestCase
 
         self::assertStringContainsString('<app-in-chat', $output);
         self::assertStringContainsString('site-id="ch_abc123"', $output);
-        self::assertStringNotContainsString('style=', $output);
+        self::assertStringContainsString('lang="en"', $output);
     }
 
     public function test_render_element_skipped_when_no_site_id(): void
@@ -117,6 +119,7 @@ class ChatWidgetTest extends TestCase
         });
 
         Functions\when('esc_attr')->returnArg();
+        Functions\when('has_filter')->justReturn(false);
 
         $widget = new ChatWidget;
 
@@ -130,7 +133,6 @@ class ChatWidgetTest extends TestCase
         self::assertStringContainsString('logo-url="https://example.com/logo.png"', $output);
         self::assertStringContainsString('theme="dark"', $output);
         self::assertStringContainsString('position="bottom-left"', $output);
-        self::assertStringContainsString('lang="de"', $output);
         self::assertStringContainsString('accent-color="#FF5500"', $output);
         self::assertStringContainsString('price-prefix="from"', $output);
     }
@@ -146,6 +148,8 @@ class ChatWidgetTest extends TestCase
         });
 
         Functions\when('esc_attr')->returnArg();
+        Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('has_filter')->justReturn(false);
 
         $widget = new ChatWidget;
 
@@ -169,6 +173,8 @@ class ChatWidgetTest extends TestCase
         });
 
         Functions\when('esc_attr')->returnArg();
+        Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('has_filter')->justReturn(false);
 
         $widget = new ChatWidget;
 
@@ -198,5 +204,69 @@ class ChatWidgetTest extends TestCase
         $result = $widget->addModuleType($tag, 'other-script');
 
         self::assertStringNotContainsString('type="module"', $result);
+    }
+
+    public function test_resolve_lang_from_polylang(): void
+    {
+        Functions\when('pll_current_language')->justReturn('de');
+        Functions\when('get_option')->justReturn('');
+        Functions\when('esc_attr')->returnArg();
+
+        $widget = new ChatWidget;
+
+        self::assertSame('de', $widget->resolveLang());
+    }
+
+    public function test_resolve_lang_from_manual_setting(): void
+    {
+        // pll_current_language may exist from prior test — return empty to skip Polylang path
+        Functions\when('pll_current_language')->justReturn('');
+        Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
+            'appin_chat_lang' => 'fr',
+            default => $default,
+        });
+
+        Functions\when('has_filter')->justReturn(false);
+
+        $widget = new ChatWidget;
+
+        self::assertSame('fr', $widget->resolveLang());
+    }
+
+    public function test_resolve_lang_from_wp_locale(): void
+    {
+        Functions\when('pll_current_language')->justReturn('');
+        Functions\when('get_option')->justReturn('');
+        Functions\when('get_locale')->justReturn('de_DE');
+        Functions\when('has_filter')->justReturn(false);
+
+        $widget = new ChatWidget;
+
+        self::assertSame('de', $widget->resolveLang());
+    }
+
+    public function test_polylang_translates_title(): void
+    {
+        Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
+            'appin_chat_site_id' => 'ch_abc123',
+            'appin_chat_title' => 'Help Bot',
+            default => $default,
+        });
+
+        Functions\when('pll__')->alias(fn (string $str) => match ($str) {
+            'Help Bot' => 'Hilfe-Bot',
+            default => $str,
+        });
+
+        Functions\when('pll_current_language')->justReturn('de');
+        Functions\when('esc_attr')->returnArg();
+
+        $widget = new ChatWidget;
+
+        ob_start();
+        $widget->renderElement();
+        $output = ob_get_clean();
+
+        self::assertStringContainsString('title="Hilfe-Bot"', $output);
     }
 }

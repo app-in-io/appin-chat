@@ -115,7 +115,7 @@ final class SettingsPage
             'appin_chat_lang',
             __('Language', 'appin-chat'),
             'appin_chat_appearance',
-            __('Language code (e.g. en, de, fr). Leave empty for auto-detection.', 'appin-chat'),
+            __('Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active.', 'appin-chat'),
         );
 
         $this->addColorField(

@@ -14,9 +14,15 @@ final class ChatWidget
         'appin_chat_logo_url' => 'logo-url',
         'appin_chat_theme' => 'theme',
         'appin_chat_position' => 'position',
-        'appin_chat_lang' => 'lang',
         'appin_chat_accent_color' => 'accent-color',
         'appin_chat_price_prefix' => 'price-prefix',
+    ];
+
+    /** @var list<string> Options that should be translated via Polylang */
+    private const TRANSLATABLE_OPTIONS = [
+        'appin_chat_title',
+        'appin_chat_subtitle',
+        'appin_chat_price_prefix',
     ];
 
     /** @var array<string, string> Map of option keys to CSS custom properties */
@@ -83,13 +89,20 @@ final class ChatWidget
         $parts = [];
 
         foreach (self::ATTRIBUTE_MAP as $option => $attribute) {
-            $value = get_option($option, '');
+            $value = $this->getOption($option);
 
             if ($value === '') {
                 continue;
             }
 
             $parts[] = sprintf('%s="%s"', $attribute, esc_attr($value));
+        }
+
+        // Lang is resolved dynamically, not from a static option
+        $lang = $this->resolveLang();
+
+        if ($lang !== '') {
+            $parts[] = sprintf('lang="%s"', esc_attr($lang));
         }
 
         return implode(' ', $parts);
@@ -114,6 +127,82 @@ final class ChatWidget
         }
 
         return sprintf(' style="%s"', implode('; ', $vars));
+    }
+
+    /**
+     * Resolve current language: Polylang → WPML → manual setting → WP locale.
+     */
+    public function resolveLang(): string
+    {
+        // Polylang
+        if (function_exists('pll_current_language')) {
+            $lang = pll_current_language('slug');
+
+            if (is_string($lang) && $lang !== '') {
+                return $lang;
+            }
+        }
+
+        // WPML
+        if (has_filter('wpml_current_language')) {
+            $lang = apply_filters('wpml_current_language', null);
+
+            if (is_string($lang) && $lang !== '' && $lang !== 'all') {
+                return $lang;
+            }
+        }
+
+        // Manual setting
+        $manual = get_option('appin_chat_lang', '');
+
+        if ($manual !== '') {
+            return $manual;
+        }
+
+        // WordPress locale (de_DE → de)
+        $locale = get_locale();
+
+        return substr($locale, 0, 2);
+    }
+
+    /**
+     * Register translatable strings with Polylang.
+     * Called on `init` from Plugin::boot().
+     */
+    public static function registerPolylangStrings(): void
+    {
+        if (! function_exists('pll_register_string')) {
+            return;
+        }
+
+        foreach (self::TRANSLATABLE_OPTIONS as $option) {
+            $value = get_option($option, '');
+
+            if ($value === '') {
+                continue;
+            }
+
+            pll_register_string($option, $value, 'AppIn Chat');
+        }
+    }
+
+    /**
+     * Get option value, applying Polylang translation for translatable strings.
+     * WPML translates automatically via wpml-config.xml.
+     */
+    private function getOption(string $key): string
+    {
+        $value = get_option($key, '');
+
+        if ($value === '') {
+            return '';
+        }
+
+        if (function_exists('pll__') && \in_array($key, self::TRANSLATABLE_OPTIONS, true)) {
+            return pll__($value);
+        }
+
+        return $value;
     }
 
     private function getSiteId(): string

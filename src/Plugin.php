@@ -22,5 +22,7 @@ final class Plugin
     {
         (new SettingsPage)->register();
         (new ChatWidget)->register();
+
+        add_action('init', [ChatWidget::class, 'registerPolylangStrings']);
     }
 }
