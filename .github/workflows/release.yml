@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set version from tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          sed -i "s/0.0.0-dev/$VERSION/" appin-chat.php
+
+      - name: Build zip
+        run: |
+          git archive --format=zip --prefix=appin-chat/ -o appin-chat.zip HEAD
+
+      - name: Upload to release
+        run: gh release upload "$GITHUB_REF_NAME" appin-chat.zip --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
