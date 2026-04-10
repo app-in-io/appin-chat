@@ -9,7 +9,6 @@ final class ChatWidget
     /** @var array<string, string> Map of option keys to HTML attributes */
     private const ATTRIBUTE_MAP = [
         'appin_chat_site_id' => 'site-id',
-        'appin_chat_api_url' => 'api-url',
         'appin_chat_title' => 'title',
         'appin_chat_subtitle' => 'subtitle',
         'appin_chat_logo_url' => 'logo-url',

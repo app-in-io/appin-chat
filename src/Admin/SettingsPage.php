@@ -53,13 +53,6 @@ final class SettingsPage
             __('Web Channel ID from the AppIn dashboard. Required for the widget to work.', 'appin-chat'),
         );
 
-        $this->addTextField(
-            'appin_chat_api_url',
-            __('API URL', 'appin-chat'),
-            'appin_chat_connection',
-            __('Custom API endpoint. Leave empty to use the default (https://api.app-in.io/v1).', 'appin-chat'),
-            'https://api.app-in.io/v1',
-        );
     }
 
     private function registerAppearanceSection(): void

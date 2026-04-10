@@ -105,7 +105,6 @@ class ChatWidgetTest extends TestCase
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
             'appin_chat_site_id' => 'ch_abc123',
-            'appin_chat_api_url' => 'https://custom.api.com/v1',
             'appin_chat_title' => 'Help Bot',
             'appin_chat_subtitle' => 'We are here to help',
             'appin_chat_logo_url' => 'https://example.com/logo.png',
@@ -126,7 +125,6 @@ class ChatWidgetTest extends TestCase
         $output = ob_get_clean();
 
         self::assertStringContainsString('site-id="ch_abc123"', $output);
-        self::assertStringContainsString('api-url="https://custom.api.com/v1"', $output);
         self::assertStringContainsString('title="Help Bot"', $output);
         self::assertStringContainsString('subtitle="We are here to help"', $output);
         self::assertStringContainsString('logo-url="https://example.com/logo.png"', $output);
