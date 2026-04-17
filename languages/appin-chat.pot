@@ -1,0 +1,199 @@
+# Copyright (C) 2026 AppIn
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: AppIn Chat 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/appin-chat\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-04-17T19:45:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: appin-chat\n"
+
+#. Plugin Name of the plugin
+#: appin-chat.php
+#: src/Admin/SettingsPage.php:50
+#: src/Admin/SettingsPage.php:51
+msgid "AppIn Chat"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: appin-chat.php
+msgid "https://app-in.io"
+msgstr ""
+
+#. Description of the plugin
+#: appin-chat.php
+msgid "Add an AI chat widget to your WordPress site. Powered by AppIn."
+msgstr ""
+
+#. Author of the plugin
+#: appin-chat.php
+msgid "AppIn"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:42
+#: src/Admin/SettingsPage.php:355
+msgid "Remove"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:69
+msgid "Connection"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:72
+msgid "Connect your site to the AppIn chat widget."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:79
+msgid "Site ID"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:81
+msgid "Web Channel ID from the AppIn dashboard. Required for the widget to work."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:90
+msgid "Appearance"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:93
+msgid "Customize the look and feel of the chat widget."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:100
+msgid "Title"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:102
+msgid "Chat header title. Defaults to \"AI Assistant\"."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:108
+msgid "Subtitle"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:110
+msgid "Chat header subtitle. Leave empty to hide."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:115
+msgid "Logo"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:117
+msgid "Image displayed in the chat header."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:122
+msgid "Theme"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:125
+msgid "Light"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:126
+msgid "Dark"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:133
+msgid "Position"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:136
+msgid "Bottom Right"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:137
+msgid "Bottom Left"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:144
+msgid "Language"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:146
+msgid "Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:151
+msgid "Accent Color"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:153
+msgid "Primary accent color for buttons and highlights."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:158
+msgid "Price Prefix"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:160
+msgid "Prefix for price display in product cards (e.g. \"from\")."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:168
+msgid "Custom Colors"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:171
+msgid "Override individual CSS color variables. Leave empty to use defaults."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:177
+msgid "Primary"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:178
+msgid "Surface"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:179
+msgid "Surface Alt"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:180
+msgid "Text"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:181
+msgid "Text Muted"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:182
+msgid "Border"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:183
+msgid "User Message BG"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:184
+msgid "Assistant Message BG"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:193
+msgid "Body Font"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:195
+msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:200
+msgid "Heading Font"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:202
+msgid "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:349
+msgid "Select Image"
+msgstr ""

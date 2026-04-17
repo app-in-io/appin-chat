@@ -46,7 +46,7 @@ class ChatWidgetTest extends TestCase
                 'appin-chat-widget',
                 APPIN_CHAT_CDN_URL,
                 [],
-                APPIN_CHAT_VERSION,
+                null,
                 ['strategy' => 'defer', 'in_footer' => true]
             );
 

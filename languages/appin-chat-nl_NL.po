@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AppIn Chat 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/appin-chat\n"
+"Last-Translator: AppIn <hello@app-in.io>\n"
+"Language-Team: Nederlands\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: appin-chat\n"
+
+msgid "AppIn Chat"
+msgstr "AppIn Chat"
+
+msgid "Add an AI chat widget to your WordPress site. Powered by AppIn."
+msgstr "Voeg een AI-chatwidget toe aan je WordPress-site. Mogelijk gemaakt door AppIn."
+
+msgid "AppIn"
+msgstr "AppIn"
+
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgid "Connection"
+msgstr "Verbinding"
+
+msgid "Connect your site to the AppIn chat widget."
+msgstr "Verbind je site met de AppIn-chatwidget."
+
+msgid "Site ID"
+msgstr "Site-ID"
+
+msgid "Web Channel ID from the AppIn dashboard. Required for the widget to work."
+msgstr "Web Channel ID uit het AppIn-dashboard. Vereist om de widget te laten werken."
+
+msgid "Appearance"
+msgstr "Weergave"
+
+msgid "Customize the look and feel of the chat widget."
+msgstr "Pas het uiterlijk en de stijl van de chatwidget aan."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Chat header title. Defaults to \"AI Assistant\"."
+msgstr "Titel van de chat-header. Standaard: „AI Assistant“."
+
+msgid "Subtitle"
+msgstr "Ondertitel"
+
+msgid "Chat header subtitle. Leave empty to hide."
+msgstr "Ondertitel van de chat-header. Laat leeg om te verbergen."
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Image displayed in the chat header."
+msgstr "Afbeelding die in de chat-header wordt weergegeven."
+
+msgid "Theme"
+msgstr "Thema"
+
+msgid "Light"
+msgstr "Licht"
+
+msgid "Dark"
+msgstr "Donker"
+
+msgid "Position"
+msgstr "Positie"
+
+msgid "Bottom Right"
+msgstr "Rechtsonder"
+
+msgid "Bottom Left"
+msgstr "Linksonder"
+
+msgid "Language"
+msgstr "Taal"
+
+msgid "Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active."
+msgstr "Taalcode als fallback (bijv. en, de, fr). Automatisch gedetecteerd via Polylang/WPML indien actief."
+
+msgid "Accent Color"
+msgstr "Accentkleur"
+
+msgid "Primary accent color for buttons and highlights."
+msgstr "Primaire accentkleur voor knoppen en accenten."
+
+msgid "Price Prefix"
+msgstr "Prijsvoorvoegsel"
+
+msgid "Prefix for price display in product cards (e.g. \"from\")."
+msgstr "Voorvoegsel voor prijsweergave op productkaarten (bijv. „vanaf“)."
+
+msgid "Custom Colors"
+msgstr "Aangepaste kleuren"
+
+msgid "Override individual CSS color variables. Leave empty to use defaults."
+msgstr "Overschrijf afzonderlijke CSS-kleurvariabelen. Laat leeg om standaardwaarden te gebruiken."
+
+msgid "Primary"
+msgstr "Primair"
+
+msgid "Surface"
+msgstr "Oppervlak"
+
+msgid "Surface Alt"
+msgstr "Oppervlak (alt)"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Text Muted"
+msgstr "Tekst gedempt"
+
+msgid "Border"
+msgstr "Rand"
+
+msgid "User Message BG"
+msgstr "Achtergrond gebruikersbericht"
+
+msgid "Assistant Message BG"
+msgstr "Achtergrond assistentbericht"
+
+msgid "Body Font"
+msgstr "Tekst-lettertype"
+
+msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
+msgstr "CSS font-family voor de broodtekst (bijv. Inter, system-ui, sans-serif)."
+
+msgid "Heading Font"
+msgstr "Kop-lettertype"
+
+msgid "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
+msgstr "CSS font-family voor koppen (bijv. Space Grotesk, system-ui, sans-serif)."
+
+msgid "Select Image"
+msgstr "Afbeelding kiezen"

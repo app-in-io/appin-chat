@@ -7,6 +7,10 @@ namespace AppIn\Chat;
 use AppIn\Chat\Admin\SettingsPage;
 use AppIn\Chat\Frontend\ChatWidget;
 
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 final class Plugin
 {
     private static ?self $instance = null;

@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AppIn Chat 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/appin-chat\n"
+"Last-Translator: AppIn <hello@app-in.io>\n"
+"Language-Team: Українська\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Domain: appin-chat\n"
+
+msgid "AppIn Chat"
+msgstr "AppIn Chat"
+
+msgid "Add an AI chat widget to your WordPress site. Powered by AppIn."
+msgstr "Додайте віджет ШІ-чату на ваш сайт WordPress. Працює на AppIn."
+
+msgid "AppIn"
+msgstr "AppIn"
+
+msgid "Remove"
+msgstr "Видалити"
+
+msgid "Connection"
+msgstr "З’єднання"
+
+msgid "Connect your site to the AppIn chat widget."
+msgstr "Під’єднайте ваш сайт до віджета чату AppIn."
+
+msgid "Site ID"
+msgstr "ID сайту"
+
+msgid "Web Channel ID from the AppIn dashboard. Required for the widget to work."
+msgstr "Web Channel ID з панелі AppIn. Обов’язковий для роботи віджета."
+
+msgid "Appearance"
+msgstr "Вигляд"
+
+msgid "Customize the look and feel of the chat widget."
+msgstr "Налаштуйте вигляд і поведінку віджета чату."
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Chat header title. Defaults to \"AI Assistant\"."
+msgstr "Заголовок шапки чату. За замовчуванням — „AI Assistant“."
+
+msgid "Subtitle"
+msgstr "Підзаголовок"
+
+msgid "Chat header subtitle. Leave empty to hide."
+msgstr "Підзаголовок шапки чату. Залиште порожнім, щоб приховати."
+
+msgid "Logo"
+msgstr "Логотип"
+
+msgid "Image displayed in the chat header."
+msgstr "Зображення, яке показується в шапці чату."
+
+msgid "Theme"
+msgstr "Тема"
+
+msgid "Light"
+msgstr "Світла"
+
+msgid "Dark"
+msgstr "Темна"
+
+msgid "Position"
+msgstr "Розташування"
+
+msgid "Bottom Right"
+msgstr "Внизу праворуч"
+
+msgid "Bottom Left"
+msgstr "Внизу ліворуч"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active."
+msgstr "Резервний код мови (напр. en, de, fr). Автоматично визначається з Polylang/WPML, коли вони активні."
+
+msgid "Accent Color"
+msgstr "Акцентний колір"
+
+msgid "Primary accent color for buttons and highlights."
+msgstr "Основний акцентний колір для кнопок і виділень."
+
+msgid "Price Prefix"
+msgstr "Префікс ціни"
+
+msgid "Prefix for price display in product cards (e.g. \"from\")."
+msgstr "Префікс для відображення ціни у картках товарів (напр. „від“)."
+
+msgid "Custom Colors"
+msgstr "Власні кольори"
+
+msgid "Override individual CSS color variables. Leave empty to use defaults."
+msgstr "Перевизначте окремі CSS-змінні кольорів. Залиште порожніми, щоб використати типові."
+
+msgid "Primary"
+msgstr "Основний"
+
+msgid "Surface"
+msgstr "Поверхня"
+
+msgid "Surface Alt"
+msgstr "Поверхня (альт.)"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Text Muted"
+msgstr "Приглушений текст"
+
+msgid "Border"
+msgstr "Межа"
+
+msgid "User Message BG"
+msgstr "Фон повідомлення користувача"
+
+msgid "Assistant Message BG"
+msgstr "Фон повідомлення асистента"
+
+msgid "Body Font"
+msgstr "Шрифт тексту"
+
+msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
+msgstr "CSS font-family для основного тексту (напр. Inter, system-ui, sans-serif)."
+
+msgid "Heading Font"
+msgstr "Шрифт заголовків"
+
+msgid "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
+msgstr "CSS font-family для заголовків (напр. Space Grotesk, system-ui, sans-serif)."
+
+msgid "Select Image"
+msgstr "Обрати зображення"

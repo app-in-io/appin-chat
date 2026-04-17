@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AppIn Chat 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/appin-chat\n"
+"Last-Translator: AppIn <hello@app-in.io>\n"
+"Language-Team: Deutsch\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: appin-chat\n"
+
+msgid "AppIn Chat"
+msgstr "AppIn Chat"
+
+msgid "Add an AI chat widget to your WordPress site. Powered by AppIn."
+msgstr "Fügt deiner WordPress-Seite einen KI-Chat-Widget hinzu. Bereitgestellt von AppIn."
+
+msgid "AppIn"
+msgstr "AppIn"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Connection"
+msgstr "Verbindung"
+
+msgid "Connect your site to the AppIn chat widget."
+msgstr "Verbinde deine Seite mit dem AppIn-Chat-Widget."
+
+msgid "Site ID"
+msgstr "Site-ID"
+
+msgid "Web Channel ID from the AppIn dashboard. Required for the widget to work."
+msgstr "Web-Channel-ID aus dem AppIn-Dashboard. Erforderlich, damit das Widget funktioniert."
+
+msgid "Appearance"
+msgstr "Erscheinungsbild"
+
+msgid "Customize the look and feel of the chat widget."
+msgstr "Passe das Aussehen und Verhalten des Chat-Widgets an."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Chat header title. Defaults to \"AI Assistant\"."
+msgstr "Titel im Chat-Header. Standard: „AI Assistant“."
+
+msgid "Subtitle"
+msgstr "Untertitel"
+
+msgid "Chat header subtitle. Leave empty to hide."
+msgstr "Untertitel im Chat-Header. Leer lassen, um ihn auszublenden."
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Image displayed in the chat header."
+msgstr "Bild, das im Chat-Header angezeigt wird."
+
+msgid "Theme"
+msgstr "Design"
+
+msgid "Light"
+msgstr "Hell"
+
+msgid "Dark"
+msgstr "Dunkel"
+
+msgid "Position"
+msgstr "Position"
+
+msgid "Bottom Right"
+msgstr "Unten rechts"
+
+msgid "Bottom Left"
+msgstr "Unten links"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active."
+msgstr "Ersatz-Sprachcode (z. B. en, de, fr). Wird automatisch aus Polylang/WPML erkannt, wenn aktiv."
+
+msgid "Accent Color"
+msgstr "Akzentfarbe"
+
+msgid "Primary accent color for buttons and highlights."
+msgstr "Hauptakzentfarbe für Schaltflächen und Hervorhebungen."
+
+msgid "Price Prefix"
+msgstr "Preis-Präfix"
+
+msgid "Prefix for price display in product cards (e.g. \"from\")."
+msgstr "Präfix für die Preisanzeige in Produktkarten (z. B. „ab“)."
+
+msgid "Custom Colors"
+msgstr "Benutzerdefinierte Farben"
+
+msgid "Override individual CSS color variables. Leave empty to use defaults."
+msgstr "Einzelne CSS-Farbvariablen überschreiben. Leer lassen, um Standardwerte zu verwenden."
+
+msgid "Primary"
+msgstr "Primär"
+
+msgid "Surface"
+msgstr "Oberfläche"
+
+msgid "Surface Alt"
+msgstr "Oberfläche alternativ"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Text Muted"
+msgstr "Text gedämpft"
+
+msgid "Border"
+msgstr "Rahmen"
+
+msgid "User Message BG"
+msgstr "Hintergrund Nutzernachricht"
+
+msgid "Assistant Message BG"
+msgstr "Hintergrund Assistentennachricht"
+
+msgid "Body Font"
+msgstr "Textschrift"
+
+msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
+msgstr "CSS-font-family für den Fließtext (z. B. Inter, system-ui, sans-serif)."
+
+msgid "Heading Font"
+msgstr "Überschriftenschrift"
+
+msgid "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
+msgstr "CSS-font-family für Überschriften (z. B. Space Grotesk, system-ui, sans-serif)."
+
+msgid "Select Image"
+msgstr "Bild auswählen"
