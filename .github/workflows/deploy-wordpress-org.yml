@@ -1,14 +1,15 @@
-name: Release
+name: Deploy to WordPress.org
 
 on:
   release:
     types: [published]
 
 jobs:
-  build:
+  deploy:
+    name: Deploy to WordPress.org SVN
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -19,17 +20,11 @@ jobs:
           sed -i -E "s/(\* Version:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" appin-chat.php
           sed -i -E "s/(APPIN_CHAT_VERSION', ')[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" appin-chat.php
           sed -i -E "s/(Stable tag:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" readme.txt
-          if ! git diff --quiet; then
-            git config user.email "ci@app-in.io"
-            git config user.name "ci"
-            git commit -am "ci: set version $VERSION"
-          fi
 
-      - name: Build zip
-        run: |
-          git archive --format=zip --prefix=appin-chat/ -o appin-chat.zip HEAD
-
-      - name: Upload to release
-        run: gh release upload "$GITHUB_REF_NAME" appin-chat.zip --clobber
+      - name: Deploy to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@stable
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SVN_USERNAME: ${{ secrets.WP_ORG_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.WP_ORG_PASSWORD }}
+          SLUG: appin-chat
+          ASSETS_DIR: .wordpress-org

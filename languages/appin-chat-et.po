@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AppIn Chat 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/appin-chat\n"
+"Last-Translator: AppIn <hello@app-in.io>\n"
+"Language-Team: Eesti\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: appin-chat\n"
+
+msgid "AppIn Chat"
+msgstr "AppIn Chat"
+
+msgid "Add an AI chat widget to your WordPress site. Powered by AppIn."
+msgstr "Lisa WordPressi saidile AI-vestlusevidin. Rakendab AppIn."
+
+msgid "AppIn"
+msgstr "AppIn"
+
+msgid "Remove"
+msgstr "Eemalda"
+
+msgid "Connection"
+msgstr "Ühendus"
+
+msgid "Connect your site to the AppIn chat widget."
+msgstr "Ühenda sait AppIn-i vestlusevidinaga."
+
+msgid "Site ID"
+msgstr "Saidi ID"
+
+msgid "Web Channel ID from the AppIn dashboard. Required for the widget to work."
+msgstr "Web Channel ID AppIn-i töölaualt. Vidina toimimiseks kohustuslik."
+
+msgid "Appearance"
+msgstr "Välimus"
+
+msgid "Customize the look and feel of the chat widget."
+msgstr "Kohanda vestlusevidina välimust ja käitumist."
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "Chat header title. Defaults to \"AI Assistant\"."
+msgstr "Vestluse päise pealkiri. Vaikimisi „AI Assistant“."
+
+msgid "Subtitle"
+msgstr "Alapealkiri"
+
+msgid "Chat header subtitle. Leave empty to hide."
+msgstr "Vestluse päise alapealkiri. Peitmiseks jäta tühjaks."
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Image displayed in the chat header."
+msgstr "Vestluse päises kuvatav pilt."
+
+msgid "Theme"
+msgstr "Teema"
+
+msgid "Light"
+msgstr "Hele"
+
+msgid "Dark"
+msgstr "Tume"
+
+msgid "Position"
+msgstr "Asukoht"
+
+msgid "Bottom Right"
+msgstr "All paremal"
+
+msgid "Bottom Left"
+msgstr "All vasakul"
+
+msgid "Language"
+msgstr "Keel"
+
+msgid "Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active."
+msgstr "Varukeelekood (nt en, de, fr). Tuvastatakse automaatselt Polylangist/WPMList, kui need on aktiivsed."
+
+msgid "Accent Color"
+msgstr "Rõhuvärv"
+
+msgid "Primary accent color for buttons and highlights."
+msgstr "Nuppude ja esiletõstude peamine rõhuvärv."
+
+msgid "Price Prefix"
+msgstr "Hinnaeesliide"
+
+msgid "Prefix for price display in product cards (e.g. \"from\")."
+msgstr "Hinnaeesliide tootekaartidel (nt „alates“)."
+
+msgid "Custom Colors"
+msgstr "Kohandatud värvid"
+
+msgid "Override individual CSS color variables. Leave empty to use defaults."
+msgstr "Kirjuta üle üksikud CSS-i värvimuutujad. Vaikeväärtuste kasutamiseks jäta tühjaks."
+
+msgid "Primary"
+msgstr "Peamine"
+
+msgid "Surface"
+msgstr "Pind"
+
+msgid "Surface Alt"
+msgstr "Pind (alternatiiv)"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Text Muted"
+msgstr "Tuhm tekst"
+
+msgid "Border"
+msgstr "Äärejoon"
+
+msgid "User Message BG"
+msgstr "Kasutaja sõnumi taust"
+
+msgid "Assistant Message BG"
+msgstr "Assistendi sõnumi taust"
+
+msgid "Body Font"
+msgstr "Põhiteksti kirjatüüp"
+
+msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
+msgstr "Põhiteksti CSS font-family (nt Inter, system-ui, sans-serif)."
+
+msgid "Heading Font"
+msgstr "Pealkirja kirjatüüp"
+
+msgid "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
+msgstr "Pealkirjade CSS font-family (nt Space Grotesk, system-ui, sans-serif)."
+
+msgid "Select Image"
+msgstr "Vali pilt"

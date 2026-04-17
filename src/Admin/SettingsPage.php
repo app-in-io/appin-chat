@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace AppIn\Chat\Admin;
 
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 final class SettingsPage
 {
     private const OPTION_GROUP = 'appin_chat';
@@ -24,6 +28,20 @@ final class SettingsPage
         }
 
         wp_enqueue_media();
+
+        wp_enqueue_script(
+            'appin-chat-settings',
+            APPIN_CHAT_PLUGIN_URL.'assets/js/settings.js',
+            [],
+            APPIN_CHAT_VERSION,
+            true,
+        );
+
+        wp_localize_script('appin-chat-settings', 'AppInChatSettings', [
+            'i18n' => [
+                'remove' => __('Remove', 'appin-chat'),
+            ],
+        ]);
     }
 
     public function addMenu(): void
@@ -353,7 +371,7 @@ final class SettingsPage
         }
 
         echo '<div class="wrap">';
-        echo '<h1>' . esc_html(get_admin_page_title()) . '</h1>';
+        echo '<h1>'.esc_html(get_admin_page_title()).'</h1>';
 
         echo '<form method="post" action="options.php">';
         settings_fields(self::OPTION_GROUP);
@@ -361,77 +379,6 @@ final class SettingsPage
         submit_button();
         echo '</form>';
 
-        $this->renderColorSyncScript();
-        $this->renderMediaPickerScript();
-
         echo '</div>';
-    }
-
-    private function renderColorSyncScript(): void
-    {
-        ?>
-        <script>
-        document.querySelectorAll('input[type="color"]').forEach(function(picker) {
-            var textInput = picker.nextElementSibling;
-            if (!textInput || !textInput.dataset.colorText) return;
-
-            picker.addEventListener('input', function() {
-                textInput.value = picker.value;
-            });
-            textInput.addEventListener('input', function() {
-                if (/^#[0-9a-fA-F]{6}$/.test(textInput.value)) {
-                    picker.value = textInput.value;
-                } else if (textInput.value === '') {
-                    picker.value = picker.dataset.default || '#000000';
-                }
-            });
-        });
-        </script>
-        <?php
-    }
-
-    private function renderMediaPickerScript(): void
-    {
-        ?>
-        <script>
-        document.querySelectorAll('.appin-upload-image').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                var target = btn.dataset.target;
-                var frame = wp.media({ multiple: false, library: { type: 'image' } });
-                frame.on('select', function() {
-                    var url = frame.state().get('selection').first().toJSON().url;
-                    document.getElementById(target).value = url;
-                    var preview = document.getElementById(target + '-preview');
-                    preview.innerHTML = '<img src="' + url + '" style="max-width:200px;max-height:80px;display:block;" />';
-                    // Show remove button if hidden
-                    var removeBtn = btn.nextElementSibling;
-                    if (removeBtn && removeBtn.classList.contains('appin-remove-image')) {
-                        removeBtn.style.display = '';
-                    } else {
-                        var rm = document.createElement('button');
-                        rm.type = 'button';
-                        rm.className = 'button appin-remove-image';
-                        rm.dataset.target = target;
-                        rm.textContent = '<?php echo esc_js(__('Remove', 'appin-chat')); ?>';
-                        btn.after(rm);
-                        bindRemove(rm);
-                    }
-                });
-                frame.open();
-            });
-        });
-        function bindRemove(btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                var target = btn.dataset.target;
-                document.getElementById(target).value = '';
-                document.getElementById(target + '-preview').innerHTML = '';
-                btn.remove();
-            });
-        }
-        document.querySelectorAll('.appin-remove-image').forEach(bindRemove);
-        </script>
-        <?php
     }
 }

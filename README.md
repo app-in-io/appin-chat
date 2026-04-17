@@ -1,95 +1,124 @@
 # AppIn Chat for WordPress
 
-Add an [AppIn AI](https://app-in.io) chat widget to any WordPress site. No WooCommerce required.
+Thin WordPress plugin that adds the [AppIn AI](https://app-in.io) chat widget to any WordPress site. No WooCommerce required.
+
+This repository is the **plugin shell** — the actual chat widget JavaScript is loaded from CDN (`https://cdn.app-in.io/v1/chat.js`) and lives in the separate `widget/` repo.
+
+> For end-user documentation, install instructions, and the list of features, see [`readme.txt`](./readme.txt) (the wordpress.org-format readme).
 
 ## Requirements
 
-- WordPress 6.0+
+- WordPress 6.3+
 - PHP 8.1+
-- AppIn Web Channel ID ([get one here](https://my.app-in.io))
 
-## Installation
-
-1. Download the plugin zip or clone this repo into `wp-content/plugins/appin-chat/`
-2. Activate in WordPress Admin > Plugins
-3. Go to Settings > AppIn Chat
-4. Enter your Web Channel ID (Site ID) and save
-
-## Features
-
-### Chat Widget
-
-Renders the `<app-in-chat>` web component on every page. The widget script is loaded from CDN (`https://cdn.app-in.io/v1/chat.js`) as an ES module.
-
-### Full Customization
-
-All widget properties are configurable from the admin panel:
-
-| Setting | Attribute | Description |
-|---|---|---|
-| Site ID | `site-id` | Web Channel ID (required) |
-| Title | `title` | Chat header title |
-| Subtitle | `subtitle` | Chat header subtitle |
-| Logo URL | `logo-url` | Header logo image |
-| Theme | `theme` | `light` or `dark` |
-| Position | `position` | `bottom-right` or `bottom-left` |
-| Language | `lang` | Auto-detected or manual fallback |
-| Accent Color | `accent-color` | Primary color for buttons |
-| Price Prefix | `price-prefix` | Prefix for product card prices |
-
-### Custom Colors (CSS Variables)
-
-Override individual color variables via the admin panel:
-
-| Setting | CSS Variable |
-|---|---|
-| Primary | `--app-in-primary` |
-| Surface | `--app-in-surface` |
-| Surface Alt | `--app-in-surface-alt` |
-| Text | `--app-in-text` |
-| Text Muted | `--app-in-text-muted` |
-| Border | `--app-in-border` |
-| User Message BG | `--app-in-user-bg` |
-| Assistant Message BG | `--app-in-assistant-bg` |
-| Body Font | `--app-in-font` |
-| Heading Font | `--app-in-heading-font` |
-
-### Multilingual Support (Polylang / WPML)
-
-Language is auto-detected when a translation plugin is active:
-
-1. **Polylang** — `pll_current_language()` per page
-2. **WPML** — `wpml_current_language` filter per page
-3. **Manual setting** — fallback from admin panel
-4. **WordPress locale** — `get_locale()` → first 2 chars
-
-Translatable strings (title, subtitle, price prefix):
-
-- **Polylang** — registered via `pll_register_string()`, translate in Strings Translation
-- **WPML** — auto-translated via `wpml-config.xml`, translate in String Translation
-
-### Local Development
-
-Override the CDN URL in `wp-config.php`:
-
-```php
-define('APPIN_CHAT_CDN_URL', 'http://localhost:5173/src/chat/index.ts');
-```
-
-## Architecture
+## Repository layout
 
 ```
-appin-chat.php              Bootstrap, constants
-autoload.php                PSR-4 autoloader (no Composer required)
-wpml-config.xml             WPML string translation config
+appin-chat.php              Bootstrap: header, constants, autoloader wiring
+autoload.php                PSR-4 autoloader (no Composer needed at runtime)
+uninstall.php               Removes all plugin options on plugin deletion
+readme.txt                  wordpress.org readme (Stable tag, FAQ, screenshots)
+README.md                   This file (for developers)
+LICENSE                     GPL-2.0
+CHANGELOG.md                Per-version changes (developer-facing)
+wpml-config.xml             WPML String Translation config
+pint.json                   Laravel Pint (code style) config
+phpstan.neon                PHPStan (static analysis) config, level 5
+phpunit.xml                 PHPUnit config
+composer.json               Dev dependencies + scripts (test, lint, analyse)
+
 src/
   Plugin.php                Singleton, boot sequence
-  Admin/SettingsPage.php    Settings page (3 sections: connection, appearance, colors)
-  Frontend/ChatWidget.php   CDN script enqueue + <app-in-chat> rendering
+  Admin/SettingsPage.php    Settings page (Connection, Appearance, Custom Colors)
+  Frontend/ChatWidget.php   Script enqueue + <app-in-chat> rendering
+
+assets/
+  js/settings.js            Admin-side JS (color sync, media picker)
+
+languages/                  Translation files (.pot/.po/.mo)
+
+tests/
+  bootstrap.php             Brain Monkey + WordPress stubs
+  Admin/SettingsPageTest.php
+  Frontend/ChatWidgetTest.php
+
+.wordpress-org/             Assets for wordpress.org SVN (icons, banners, screenshots)
+                            Excluded from plugin distribution zip
+.github/workflows/
+  test.yml                  PHPUnit + Pint + PHPStan on PHP 8.1–8.4
+  release.yml               Build zip on GitHub Release, attach to release
+  deploy-wordpress-org.yml  Push to wordpress.org SVN on release
 ```
 
-Namespace: `AppIn\Chat`
+## Local development
+
+Install dev dependencies:
+
+```bash
+composer install
+```
+
+Run the test suite:
+
+```bash
+composer test           # all tests
+composer test:filter X  # filter by name
+```
+
+Lint + static analysis:
+
+```bash
+composer lint           # check style (pint --test)
+composer lint:fix       # auto-fix (pint)
+composer analyse        # phpstan level 5
+composer ci             # lint + analyse + test
+```
+
+### Testing against a real WordPress install
+
+```bash
+# clone into your WP plugins directory
+cd wp-content/plugins
+git clone https://github.com/app-in-io/appin-chat.git
+cd appin-chat
+composer install --no-dev
+# activate in WP Admin, configure at Settings → AppIn Chat
+```
+
+## CI/CD
+
+- **On PR / push to main** (`test.yml`): PHPUnit + Pint + PHPStan on PHP 8.1, 8.2, 8.3, 8.4.
+- **On GitHub Release** (`release.yml`): builds `appin-chat.zip` with the tag version substituted into `appin-chat.php` and `readme.txt`, attaches it to the release.
+- **On GitHub Release** (`deploy-wordpress-org.yml`): pushes the same build to wordpress.org SVN (both `trunk/` and `tags/X.Y.Z/`), uploads `.wordpress-org/` contents to SVN `assets/`. Requires `WP_ORG_USERNAME` and `WP_ORG_PASSWORD` secrets.
+
+## Cutting a release
+
+1. Update `[Unreleased]` → `[X.Y.Z] - YYYY-MM-DD` in `CHANGELOG.md`.
+2. Update the `== Changelog ==` section in `readme.txt` with a user-facing summary.
+3. Commit.
+4. Tag: `git tag vX.Y.Z && git push --tags`.
+5. Create a GitHub Release from the tag. Both workflows fire automatically.
+
+Version strings in `appin-chat.php` (`Version:` header, `APPIN_CHAT_VERSION` constant) and `readme.txt` (`Stable tag:`) are substituted by CI — you do not edit them manually.
+
+## Architecture notes
+
+- **Namespace**: `AppIn\Chat`
+- **No Composer at runtime**: a hand-rolled PSR-4 autoloader in `autoload.php` resolves classes from `src/`. Keeps the zip small and avoids shipping `vendor/`.
+- **Widget script**: enqueued from a fixed CDN path (`/v1/chat.js`). The plugin passes `null` as the version to `wp_enqueue_script` — the JS build is versioned at the path level and cached by CDN headers; the plugin version is unrelated.
+- **Options prefix**: all settings are stored as `appin_chat_*` options.
+- **i18n**: text domain `appin-chat`. No `load_plugin_textdomain()` call — wordpress.org auto-loads translations from the WP translate server for plugins hosted there.
+
+## Releases to wordpress.org
+
+Asset files in `.wordpress-org/`:
+
+- `icon-256x256.png`, `icon-128x128.png` — plugin icon
+- `banner-1544x500.png`, `banner-772x250.png` — plugin page banner
+- `screenshot-1.png`, `screenshot-2.png` — screenshots, numbered to match descriptions in `readme.txt`
+
+These files go to the wordpress.org SVN `assets/` directory, **not** into the distributed zip (excluded via `.gitattributes` `export-ignore`).
 
 ## License
 
-GPL-2.0-or-later
+GPL-2.0-or-later — see [`LICENSE`](./LICENSE).

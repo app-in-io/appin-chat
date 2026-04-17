@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace AppIn\Chat\Frontend;
 
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 final class ChatWidget
 {
     /** @var array<string, string> Map of option keys to HTML attributes */
@@ -52,18 +56,24 @@ final class ChatWidget
             return;
         }
 
+        // The widget script is hosted on AppIn's CDN under a versioned path
+        // (/v1/chat.js) with long-lived cache headers set by the CDN.
+        // The plugin version is unrelated to the widget build, so passing
+        // null prevents WordPress from appending an incorrect ?ver= query.
+        // phpcs:disable WordPress.WP.EnqueuedResourceParameters.MissingVersion
         wp_enqueue_script(
             'appin-chat-widget',
             APPIN_CHAT_CDN_URL,
             [],
-            APPIN_CHAT_VERSION,
+            null,
             ['strategy' => 'defer', 'in_footer' => true]
         );
+        // phpcs:enable WordPress.WP.EnqueuedResourceParameters.MissingVersion
     }
 
     public function addModuleType(string $tag, string $handle): string
     {
-        if ('appin-chat-widget' !== $handle) {
+        if ($handle !== 'appin-chat-widget') {
             return $tag;
         }
 
@@ -81,6 +91,9 @@ final class ChatWidget
         $attrs = $this->buildAttributes();
         $style = $this->buildStyleAttribute();
 
+        // $attrs and $style are built internally and every value inside them
+        // is individually escaped via esc_attr() — safe to output as-is.
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         printf('<app-in-chat %s%s></app-in-chat>', $attrs, $style);
     }
 
@@ -143,9 +156,11 @@ final class ChatWidget
             }
         }
 
-        // WPML
+        // WPML — third-party filter from WPML plugin, not our own.
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
         if (has_filter('wpml_current_language')) {
             $lang = apply_filters('wpml_current_language', null);
+            // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
             if (is_string($lang) && $lang !== '' && $lang !== 'all') {
                 return $lang;
