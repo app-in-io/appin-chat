@@ -89,27 +89,50 @@ jobs:
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
+          payload-templated: true
+          # JSON payload with toJSON() for the release body so quotes / colons /
+          # newlines in the notes can't break the parser (the old raw-YAML payload did).
           payload: |
-            text: "${{ steps.slack_prep.outputs.status == 'success' && '✅' || '❌' }} AppIn Chat ${{ steps.slack_prep.outputs.tag }} — ${{ steps.slack_prep.outputs.status }}"
-            blocks:
-              - type: header
-                text:
-                  type: plain_text
-                  text: "${{ steps.slack_prep.outputs.status == 'success' && '✅' || '❌' }} ${{ steps.slack_prep.outputs.tag }} ${{ steps.slack_prep.outputs.status == 'success' && 'released' || 'release failed' }}"
-                  emoji: true
-              - type: section
-                text:
-                  type: mrkdwn
-                  text: "${{ steps.slack_prep.outputs.status == 'success' && steps.slack_prep.outputs.body || format('*Failed at:* {0}', steps.slack_prep.outputs.failed_step) }}"
-              - type: context
-                elements:
-                  - type: mrkdwn
-                    text: "`AppIn Chat` · ${{ github.repository }}"
-              - type: actions
-                elements:
-                  - type: button
-                    text:
-                      type: plain_text
-                      text: "${{ steps.slack_prep.outputs.status == 'success' && 'View Release' || 'View Run' }}"
-                    url: "${{ steps.slack_prep.outputs.status == 'success' && github.event.release.html_url || format('https://github.com/{0}/actions/runs/{1}', github.repository, github.run_id) }}"
-                    action_id: view_link
+            {
+              "text": "${{ steps.slack_prep.outputs.status == 'success' && '✅' || '❌' }} AppIn Chat ${{ steps.slack_prep.outputs.tag }} — ${{ steps.slack_prep.outputs.status }}",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "${{ steps.slack_prep.outputs.status == 'success' && '✅' || '❌' }} ${{ steps.slack_prep.outputs.tag }} ${{ steps.slack_prep.outputs.status == 'success' && 'released' || 'release failed' }}",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ${{ steps.slack_prep.outputs.status == 'success' && toJSON(steps.slack_prep.outputs.body) || toJSON(format('*Failed at:* {0}', steps.slack_prep.outputs.failed_step)) }}
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "`AppIn Chat` · ${{ github.repository }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "${{ steps.slack_prep.outputs.status == 'success' && 'View Release' || 'View Run' }}"
+                      },
+                      "url": "${{ steps.slack_prep.outputs.status == 'success' && github.event.release.html_url || format('https://github.com/{0}/actions/runs/{1}', github.repository, github.run_id) }}",
+                      "action_id": "view_link"
+                    }
+                  ]
+                }
+              ]
+            }

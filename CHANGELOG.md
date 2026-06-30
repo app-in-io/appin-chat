@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.1.4] - 2026-06-30
+
+### Fixed
+- **Release workflow: harden the Slack notification payload.** Switched the `Notify Slack` step from a raw-YAML payload to JSON with `toJSON()` for the release body, so quotes / colons / newlines in release notes can no longer break the parser (v1.1.2's notification failed for exactly this reason).
+
 ## [1.1.3] - 2026-06-30
 
 ### Fixed
