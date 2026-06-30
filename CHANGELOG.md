@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.1.3] - 2026-06-30
+
+### Fixed
+- **Plugin header: remove duplicate `Author URI`.** The WordPress.org directory review rejects identical `Plugin URI` and `Author URI`. Kept `Plugin URI: https://app-in.io` and dropped the redundant `Author URI`.
+
 ## [1.1.2] - 2026-06-30
 
 ### Fixed

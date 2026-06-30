@@ -6,7 +6,6 @@
  * Description:       Add an AI chat widget to your WordPress site. Powered by AppIn.
  * Version:           1.0.0
  * Author:            AppIn
- * Author URI:        https://app-in.io
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       appin-chat
