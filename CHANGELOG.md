@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-06-30
+
+### Fixed
+- **`readme.txt`: bump "Tested up to" to 7.0.** Plugin Check flagged `Tested up to: 6.9 < 7.0`; the WordPress.org directory requires this to match the current WordPress version or the plugin is hidden from search.
+
 ## [1.1.1] - 2026-06-30
 
 ### Changed
