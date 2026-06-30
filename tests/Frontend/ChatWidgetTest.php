@@ -137,6 +137,75 @@ class ChatWidgetTest extends TestCase
         self::assertStringContainsString('price-prefix="from"', $output);
     }
 
+    public function test_render_element_emits_auto_open_once_with_delay(): void
+    {
+        Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
+            'appin_chat_site_id' => 'ch_abc123',
+            'appin_chat_auto_open' => 'once',
+            'appin_chat_auto_open_delay' => '8',
+            default => $default,
+        });
+
+        Functions\when('esc_attr')->returnArg();
+        Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('has_filter')->justReturn(false);
+
+        $widget = new ChatWidget;
+
+        ob_start();
+        $widget->renderElement();
+        $output = ob_get_clean();
+
+        self::assertStringContainsString('auto-open="once"', $output);
+        self::assertStringContainsString('auto-open-delay="8"', $output);
+    }
+
+    public function test_render_element_emits_auto_open_always(): void
+    {
+        Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
+            'appin_chat_site_id' => 'ch_abc123',
+            'appin_chat_auto_open' => 'always',
+            default => $default,
+        });
+
+        Functions\when('esc_attr')->returnArg();
+        Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('has_filter')->justReturn(false);
+
+        $widget = new ChatWidget;
+
+        ob_start();
+        $widget->renderElement();
+        $output = ob_get_clean();
+
+        self::assertStringContainsString('auto-open="always"', $output);
+        // No delay configured → attribute omitted, widget falls back to its default.
+        self::assertStringNotContainsString('auto-open-delay', $output);
+    }
+
+    public function test_render_element_omits_auto_open_when_never(): void
+    {
+        Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
+            'appin_chat_site_id' => 'ch_abc123',
+            'appin_chat_auto_open' => 'never',
+            'appin_chat_auto_open_delay' => '5',
+            default => $default,
+        });
+
+        Functions\when('esc_attr')->returnArg();
+        Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('has_filter')->justReturn(false);
+
+        $widget = new ChatWidget;
+
+        ob_start();
+        $widget->renderElement();
+        $output = ob_get_clean();
+
+        // "never" is the default — neither attribute should be emitted.
+        self::assertStringNotContainsString('auto-open', $output);
+    }
+
     public function test_render_element_with_css_custom_properties(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {

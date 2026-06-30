@@ -139,3 +139,27 @@ msgstr "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)
 
 msgid "Select Image"
 msgstr "Select Image"
+
+msgid "Behavior"
+msgstr "Behavior"
+
+msgid "Control how the chat window behaves after the page loads."
+msgstr "Control how the chat window behaves after the page loads."
+
+msgid "Auto-open"
+msgstr "Auto-open"
+
+msgid "Never"
+msgstr "Never"
+
+msgid "Once per session"
+msgstr "Once per session"
+
+msgid "Every page load"
+msgstr "Every page load"
+
+msgid "Auto-open Delay (seconds)"
+msgstr "Auto-open Delay (seconds)"
+
+msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
+msgstr "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."

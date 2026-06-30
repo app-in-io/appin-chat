@@ -118,6 +118,20 @@ final class ChatWidget
             $parts[] = sprintf('lang="%s"', esc_attr($lang));
         }
 
+        // Auto-open is emitted only when enabled (not the "never" default), so the
+        // attribute does not appear on every page; the delay only when auto-open is on.
+        $autoOpen = get_option('appin_chat_auto_open', 'never');
+
+        if (\is_string($autoOpen) && $autoOpen !== '' && $autoOpen !== 'never') {
+            $parts[] = sprintf('auto-open="%s"', esc_attr($autoOpen));
+
+            $delay = (string) get_option('appin_chat_auto_open_delay', '');
+
+            if ($delay !== '') {
+                $parts[] = sprintf('auto-open-delay="%s"', esc_attr($delay));
+            }
+        }
+
         return implode(' ', $parts);
     }
 

@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-06-30
+
+### Added
+- **Auto-open settings.** New "Behavior" section in the admin page: `Auto-open` (Never / Once per session / Every page load, default Never) and `Auto-open Delay (seconds)` (default 5). When enabled, the chat window opens itself after the configured delay following page load; "Once per session" opens only the first time per visit. Rendered as the `auto-open` / `auto-open-delay` attributes on `<app-in-chat>` (emitted only when enabled, so the default stays clean). Options: `appin_chat_auto_open`, `appin_chat_auto_open_delay`.
+
 ## [1.0.0] - 2026-04-17
 
 ### Added

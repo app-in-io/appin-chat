@@ -139,3 +139,27 @@ msgstr "CSS font-family для заголовків (напр. Space Grotesk, sy
 
 msgid "Select Image"
 msgstr "Обрати зображення"
+
+msgid "Behavior"
+msgstr "Поведінка"
+
+msgid "Control how the chat window behaves after the page loads."
+msgstr "Налаштуйте, як поводиться вікно чату після завантаження сторінки."
+
+msgid "Auto-open"
+msgstr "Автовідкриття"
+
+msgid "Never"
+msgstr "Ніколи"
+
+msgid "Once per session"
+msgstr "Один раз за сесію"
+
+msgid "Every page load"
+msgstr "При кожному завантаженні сторінки"
+
+msgid "Auto-open Delay (seconds)"
+msgstr "Затримка автовідкриття (секунди)"
+
+msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
+msgstr "Кількість секунд очікування після завантаження сторінки перед автоматичним відкриттям. Використовується лише коли автовідкриття увімкнено."

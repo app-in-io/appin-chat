@@ -139,3 +139,27 @@ msgstr "CSS-font-family für Überschriften (z. B. Space Grotesk, system-ui, san
 
 msgid "Select Image"
 msgstr "Bild auswählen"
+
+msgid "Behavior"
+msgstr "Verhalten"
+
+msgid "Control how the chat window behaves after the page loads."
+msgstr "Steuern Sie, wie sich das Chat-Fenster nach dem Laden der Seite verhält."
+
+msgid "Auto-open"
+msgstr "Automatisch öffnen"
+
+msgid "Never"
+msgstr "Nie"
+
+msgid "Once per session"
+msgstr "Einmal pro Sitzung"
+
+msgid "Every page load"
+msgstr "Bei jedem Seitenaufruf"
+
+msgid "Auto-open Delay (seconds)"
+msgstr "Verzögerung beim automatischen Öffnen (Sekunden)"
+
+msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
+msgstr "Sekunden, die nach dem Laden der Seite gewartet wird, bevor automatisch geöffnet wird. Wird nur verwendet, wenn „Automatisch öffnen“ aktiviert ist."

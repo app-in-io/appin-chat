@@ -54,6 +54,7 @@ Using this plugin means the chat widget script runs in visitors' browsers and en
 3. Go to **Settings → AppIn Chat**.
 4. Enter your AppIn **Web Channel ID** (Site ID) and save.
 5. Optionally customize title, subtitle, logo, theme, position, colors, and fonts.
+6. Optionally enable **Auto-open** under **Behavior** to have the chat open by itself a few seconds after the page loads.
 
 The widget appears on the front end as soon as a Site ID is set.
 
@@ -88,12 +89,19 @@ Yes. The **Custom Colors** section in **Settings → AppIn Chat** lets you overr
 
 In the site footer (`wp_footer` hook), as an `<app-in-chat>` web component. The widget script is loaded as a deferred ES module from the AppIn CDN.
 
+= Can the chat open automatically? =
+
+Yes. Under **Behavior** in **Settings → AppIn Chat**, set **Auto-open** to "Once per session" (opens only the first time per visit) or "Every page load", and set the delay in seconds. It is off ("Never") by default. If the visitor opens or closes the chat before the delay elapses, the automatic open is cancelled.
+
 == Screenshots ==
 
 1. Chat widget open on the front end — header with logo, title, subtitle, and message input.
 2. WordPress admin settings page — Site ID, appearance options (title, subtitle, logo, theme, position, language, accent color, price prefix).
 
 == Changelog ==
+
+= 1.1.0 =
+* Added Auto-open: optionally open the chat window a few seconds after the page loads — never (default), once per session, or on every page load — configurable in a new Behavior section. Translations updated (de, et, nl, uk).
 
 = 1.0.0 =
 * Initial release.
@@ -104,6 +112,9 @@ In the site footer (`wp_footer` hook), as an `<app-in-chat>` web component. The 
 * CSS custom properties for full color and font theming.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Adds optional auto-open of the chat window after the page loads.
 
 = 1.0.0 =
 Initial release.
