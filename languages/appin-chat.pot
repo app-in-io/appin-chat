@@ -197,3 +197,35 @@ msgstr ""
 #: src/Admin/SettingsPage.php:349
 msgid "Select Image"
 msgstr ""
+
+#: src/Admin/SettingsPage.php:169
+msgid "Behavior"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:172
+msgid "Control how the chat window behaves after the page loads."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:179
+msgid "Auto-open"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:182
+msgid "Never"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:183
+msgid "Once per session"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:184
+msgid "Every page load"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:197
+msgid "Auto-open Delay (seconds)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:207
+msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
+msgstr ""

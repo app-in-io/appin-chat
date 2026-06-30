@@ -59,6 +59,7 @@ final class SettingsPage
     {
         $this->registerConnectionSection();
         $this->registerAppearanceSection();
+        $this->registerBehaviorSection();
         $this->registerColorsSection();
     }
 
@@ -158,6 +159,56 @@ final class SettingsPage
             __('Price Prefix', 'appin-chat'),
             'appin_chat_appearance',
             __('Prefix for price display in product cards (e.g. "from").', 'appin-chat'),
+        );
+    }
+
+    private function registerBehaviorSection(): void
+    {
+        add_settings_section(
+            'appin_chat_behavior',
+            __('Behavior', 'appin-chat'),
+            fn () => printf(
+                '<p>%s</p>',
+                esc_html__('Control how the chat window behaves after the page loads.', 'appin-chat')
+            ),
+            self::SLUG,
+        );
+
+        $this->addSelectField(
+            'appin_chat_auto_open',
+            __('Auto-open', 'appin-chat'),
+            'appin_chat_behavior',
+            [
+                'never' => __('Never', 'appin-chat'),
+                'once' => __('Once per session', 'appin-chat'),
+                'always' => __('Every page load', 'appin-chat'),
+            ],
+            'never',
+        );
+
+        register_setting(self::OPTION_GROUP, 'appin_chat_auto_open_delay', [
+            'type' => 'integer',
+            'sanitize_callback' => 'absint',
+            'default' => 5,
+        ]);
+
+        add_settings_field(
+            'appin_chat_auto_open_delay',
+            __('Auto-open Delay (seconds)', 'appin-chat'),
+            function (): void {
+                $value = (string) get_option('appin_chat_auto_open_delay', 5);
+                printf(
+                    '<input type="number" min="0" name="%s" value="%s" class="small-text" />',
+                    esc_attr('appin_chat_auto_open_delay'),
+                    esc_attr($value),
+                );
+                printf(
+                    '<p class="description">%s</p>',
+                    esc_html__('Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled.', 'appin-chat')
+                );
+            },
+            self::SLUG,
+            'appin_chat_behavior',
         );
     }
 

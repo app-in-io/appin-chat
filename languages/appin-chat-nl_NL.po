@@ -139,3 +139,27 @@ msgstr "CSS font-family voor koppen (bijv. Space Grotesk, system-ui, sans-serif)
 
 msgid "Select Image"
 msgstr "Afbeelding kiezen"
+
+msgid "Behavior"
+msgstr "Gedrag"
+
+msgid "Control how the chat window behaves after the page loads."
+msgstr "Bepaal hoe het chatvenster zich gedraagt nadat de pagina is geladen."
+
+msgid "Auto-open"
+msgstr "Automatisch openen"
+
+msgid "Never"
+msgstr "Nooit"
+
+msgid "Once per session"
+msgstr "Eén keer per sessie"
+
+msgid "Every page load"
+msgstr "Bij elke paginalading"
+
+msgid "Auto-open Delay (seconds)"
+msgstr "Vertraging automatisch openen (seconden)"
+
+msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
+msgstr "Aantal seconden dat na het laden van de pagina wordt gewacht voordat automatisch wordt geopend. Wordt alleen gebruikt wanneer automatisch openen is ingeschakeld."

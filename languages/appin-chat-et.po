@@ -139,3 +139,27 @@ msgstr "Pealkirjade CSS font-family (nt Space Grotesk, system-ui, sans-serif)."
 
 msgid "Select Image"
 msgstr "Vali pilt"
+
+msgid "Behavior"
+msgstr "Käitumine"
+
+msgid "Control how the chat window behaves after the page loads."
+msgstr "Määrake, kuidas vestlusaken pärast lehe laadimist käitub."
+
+msgid "Auto-open"
+msgstr "Automaatne avamine"
+
+msgid "Never"
+msgstr "Mitte kunagi"
+
+msgid "Once per session"
+msgstr "Üks kord seansi kohta"
+
+msgid "Every page load"
+msgstr "Iga lehe laadimisel"
+
+msgid "Auto-open Delay (seconds)"
+msgstr "Automaatse avamise viivitus (sekundites)"
+
+msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
+msgstr "Sekundid, mille võrra pärast lehe laadimist enne automaatset avamist oodatakse. Kasutatakse ainult siis, kui automaatne avamine on lubatud."
