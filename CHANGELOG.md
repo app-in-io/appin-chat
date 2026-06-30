@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-06-30
+
+### Changed
+- **Release workflow: distribute via R2 + Slack notification.** `release.yml` now uploads `appin-chat.zip` to R2 at the stable public path `https://cdn.app-in.io/plugins/appin-chat.zip` (cache-control `max-age=300`) and posts a Slack notification on success/failure. New required secrets: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `SLACK_WEBHOOK_URL`.
+- **WordPress.org deploy temporarily disabled.** `deploy-wordpress-org.yml` trigger changed from `release: [published]` to `workflow_dispatch` (manual only) until the plugin is approved on the wordpress.org directory.
+
 ## [1.1.0] - 2026-06-30
 
 ### Added

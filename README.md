@@ -46,8 +46,8 @@ tests/
                             Excluded from plugin distribution zip
 .github/workflows/
   test.yml                  PHPUnit + Pint + PHPStan on PHP 8.1–8.4
-  release.yml               Build zip on GitHub Release, attach to release
-  deploy-wordpress-org.yml  Push to wordpress.org SVN on release
+  release.yml               Build zip on GitHub Release: attach to release, upload to R2, Slack notify
+  deploy-wordpress-org.yml  Push to wordpress.org SVN (temporarily disabled — manual dispatch only)
 ```
 
 ## Local development
@@ -88,8 +88,8 @@ composer install --no-dev
 ## CI/CD
 
 - **On PR / push to main** (`test.yml`): PHPUnit + Pint + PHPStan on PHP 8.1, 8.2, 8.3, 8.4.
-- **On GitHub Release** (`release.yml`): builds `appin-chat.zip` with the tag version substituted into `appin-chat.php` and `readme.txt`, attaches it to the release.
-- **On GitHub Release** (`deploy-wordpress-org.yml`): pushes the same build to wordpress.org SVN (both `trunk/` and `tags/X.Y.Z/`), uploads `.wordpress-org/` contents to SVN `assets/`. Requires `WP_ORG_USERNAME` and `WP_ORG_PASSWORD` secrets.
+- **On GitHub Release** (`release.yml`): builds `appin-chat.zip` with the tag version substituted into `appin-chat.php` and `readme.txt`, attaches it to the release, uploads it to R2 at the stable public path `https://cdn.app-in.io/plugins/appin-chat.zip`, and posts a Slack notification. Requires `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, and `SLACK_WEBHOOK_URL` secrets.
+- **`deploy-wordpress-org.yml`** (temporarily disabled): would push the build to wordpress.org SVN (`trunk/` + `tags/X.Y.Z/`) and upload `.wordpress-org/` to SVN `assets/`. Disabled because the plugin is not yet approved on the wordpress.org directory; trigger is `workflow_dispatch` only. Re-enable by restoring the `release: [published]` trigger once approved (requires `WP_ORG_USERNAME` / `WP_ORG_PASSWORD`).
 
 ## Cutting a release
 
@@ -97,7 +97,7 @@ composer install --no-dev
 2. Update the `== Changelog ==` section in `readme.txt` with a user-facing summary.
 3. Commit.
 4. Tag: `git tag vX.Y.Z && git push --tags`.
-5. Create a GitHub Release from the tag. Both workflows fire automatically.
+5. Create a GitHub Release from the tag. `release.yml` fires automatically (zip → GitHub Release + R2 + Slack). The wordpress.org deploy is currently disabled.
 
 Version strings in `appin-chat.php` (`Version:` header, `APPIN_CHAT_VERSION` constant) and `readme.txt` (`Stable tag:`) are substituted by CI — you do not edit them manually.
 
