@@ -1,8 +1,11 @@
 name: Deploy to WordPress.org
 
+# Temporarily disabled: the plugin is not yet approved on the WordPress.org
+# directory (no SVN repo / no WP_ORG_* secrets), so the SVN deploy always fails.
+# Distribution currently goes via GitHub Releases + R2 (see release.yml).
+# Re-enable by restoring the `release: [published]` trigger once WP.org approves.
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
 
 jobs:
   deploy:
