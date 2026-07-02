@@ -16,6 +16,7 @@
 /pint.json        export-ignore
 /CHANGELOG.md     export-ignore
 /README.md        export-ignore
+/CLAUDE.md        export-ignore
 
 # Treat as text
 *.php             text eol=lf

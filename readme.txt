@@ -100,6 +100,9 @@ Yes. Under **Behavior** in **Settings → AppIn Chat**, set **Auto-open** to "On
 
 == Changelog ==
 
+= 1.2.1 =
+* Maintenance: smaller plugin package — internal development files are no longer bundled.
+
 = 1.2.0 =
 * Updated the plugin author and WordPress.org contributor to appinio.
 * Synced this changelog with all released versions.
