@@ -1,5 +1,5 @@
 === AppIn Chat ===
-Contributors: appin
+Contributors: appinio
 Tags: chat, ai, chatbot, assistant, multilingual
 Requires at least: 6.3
 Tested up to: 7.0
@@ -99,6 +99,22 @@ Yes. Under **Behavior** in **Settings → AppIn Chat**, set **Auto-open** to "On
 2. WordPress admin settings page — Site ID, appearance options (title, subtitle, logo, theme, position, language, accent color, price prefix).
 
 == Changelog ==
+
+= 1.2.0 =
+* Updated the plugin author and WordPress.org contributor to appinio.
+* Synced this changelog with all released versions.
+
+= 1.1.4 =
+* Maintenance: hardened the release notification tooling.
+
+= 1.1.3 =
+* Removed the duplicate Author URI from the plugin header (WordPress.org directory requirement).
+
+= 1.1.2 =
+* Confirmed compatibility with WordPress 7.0 ("Tested up to" bumped).
+
+= 1.1.1 =
+* Maintenance: new plugin zip distribution channel; WordPress.org deploy paused until directory approval.
 
 = 1.1.0 =
 * Added Auto-open: optionally open the chat window a few seconds after the page loads — never (default), once per session, or on every page load — configurable in a new Behavior section. Translations updated (de, et, nl, uk).
