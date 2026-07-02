@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-02
+
+### Changed
+- **WordPress.org contributor: `appin` → `appinio`.** Updated `Contributors:` in `readme.txt` and `Author:` in the plugin header to match the wordpress.org username used for the directory submission.
+- **`readme.txt` changelog synced.** Added the missing 1.1.1–1.1.4 entries to the `== Changelog ==` section (it stopped at 1.1.0 while releases reached v1.1.4).
+
+### Added
+- **`CLAUDE.md`.** Project instructions for AI-assisted development: critical rules (PR-only flow, changelog discipline, no Composer autoload in production), commands, release checklist — including the new rule to sync `readme.txt` `== Changelog ==` on every release.
+
 ## [1.1.4] - 2026-06-30
 
 ### Fixed
