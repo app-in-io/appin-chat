@@ -61,7 +61,6 @@ The widget appears on the front end as soon as a Site ID is set.
 == Support ==
 
 * Bug reports and feature requests: [github.com/app-in-io/appin-chat/issues](https://github.com/app-in-io/appin-chat/issues)
-* Account, billing, and widget help: [app-in.io/support](https://app-in.io/support)
 
 == Frequently Asked Questions ==
 
