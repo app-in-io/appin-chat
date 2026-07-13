@@ -99,15 +99,24 @@ composer install --no-dev
 4. Tag: `git tag vX.Y.Z && git push --tags`.
 5. Create a GitHub Release from the tag. `release.yml` fires automatically (zip → GitHub Release + R2 + Slack). The wordpress.org deploy is currently disabled.
 
-Version strings in `appin-chat.php` (`Version:` header, `APPIN_CHAT_VERSION` constant) and `readme.txt` (`Stable tag:`) are substituted by CI — you do not edit them manually.
+Version strings in `appin-chat.php` (`Version:` header), `src/Plugin.php` (`Plugin::VERSION`) and `readme.txt` (`Stable tag:`) are substituted by CI — you do not edit them manually.
 
 ## Architecture notes
 
-- **Namespace**: `AppIn\Chat`
+- **Namespace**: `AppInIo\Chat`
 - **No Composer at runtime**: a hand-rolled PSR-4 autoloader in `autoload.php` resolves classes from `src/`. Keeps the zip small and avoids shipping `vendor/`.
+- **No global constants**: the plugin defines none (WordPress.org rejects `define()`s on a generic prefix). The widget script URL resolves through the `appinio_chat_cdn_url` filter — the sole override seam, with the production default baked into `Frontend\ChatWidget::cdnUrl()`. The plugin path is `Plugin::file()`, the version `Plugin::VERSION`.
 - **Widget script**: enqueued from a fixed CDN path (`/v1/chat.js`). The plugin passes `null` as the version to `wp_enqueue_script` — the JS build is versioned at the path level and cached by CDN headers; the plugin version is unrelated.
-- **Options prefix**: all settings are stored as `appin_chat_*` options.
+- **Options prefix**: all settings are stored as `appinio_chat_*` options, listed once in `src/Options.php` (`SettingsPage`, `Migration` and `uninstall.php` all read from it). Pre-1.3.0 `appin_chat_*` rows are renamed on upgrade by `src/Migration.php`.
 - **i18n**: text domain `appin-chat`. No `load_plugin_textdomain()` call — wordpress.org auto-loads translations from the WP translate server for plugins hosted there.
+
+### Local dev
+
+The dev harness (in the parent `app-in.io` repo) points the widget at the local Vite server via the filter, from a tracked mu-plugin — there is no `define()` to set:
+
+```php
+add_filter('appinio_chat_cdn_url', fn () => 'http://localhost:5174/src/chat/loader.ts', PHP_INT_MAX);
+```
 
 ## Releases to wordpress.org
 

@@ -2,33 +2,35 @@
 
 declare(strict_types=1);
 
+use AppInIo\Chat\Options;
+
 if (! defined('WP_UNINSTALL_PLUGIN')) {
     exit;
 }
 
-$appin_chat_options = [
-    'appin_chat_site_id',
-    'appin_chat_title',
-    'appin_chat_subtitle',
-    'appin_chat_logo_url',
-    'appin_chat_theme',
-    'appin_chat_position',
-    'appin_chat_lang',
-    'appin_chat_accent_color',
-    'appin_chat_price_prefix',
-    'appin_chat_color_primary',
-    'appin_chat_color_surface',
-    'appin_chat_color_surface_alt',
-    'appin_chat_color_text',
-    'appin_chat_color_text_muted',
-    'appin_chat_color_border',
-    'appin_chat_color_user_bg',
-    'appin_chat_color_assistant_bg',
-    'appin_chat_font',
-    'appin_chat_heading_font',
-];
+require_once __DIR__.'/autoload.php';
 
-foreach ($appin_chat_options as $appin_chat_option) {
-    delete_option($appin_chat_option);
-    delete_site_option($appin_chat_option);
+// Both option generations: the current `appinio_chat_*` rows, the migration marker,
+// and any pre-1.3.0 `appin_chat_*` rows left behind on an install that was deleted
+// before Migration ever ran. Driven off Options so the list cannot drift again —
+// before 1.3.0 this file hardcoded 19 keys and silently leaked the two auto-open
+// options added in 1.1.0.
+//
+// Every row is written per-site (update_option), and Migration runs on plugins_loaded
+// in each blog of a network-activated multisite, so each blog must be purged
+// individually — same shape as appin-search's uninstall.
+$appinio_chat_purge = static function (): void {
+    foreach (Options::allIncludingLegacy() as $appinio_chat_option) {
+        delete_option($appinio_chat_option);
+    }
+};
+
+if (is_multisite()) {
+    foreach (get_sites(['fields' => 'ids', 'number' => 0]) as $appinio_chat_site_id) {
+        switch_to_blog((int) $appinio_chat_site_id);
+        $appinio_chat_purge();
+        restore_current_blog();
+    }
+} else {
+    $appinio_chat_purge();
 }

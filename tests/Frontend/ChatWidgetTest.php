@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AppIn\Chat\Tests\Frontend;
+namespace AppInIo\Chat\Tests\Frontend;
 
-use AppIn\Chat\Frontend\ChatWidget;
+use AppInIo\Chat\Frontend\ChatWidget;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +36,7 @@ class ChatWidgetTest extends TestCase
     public function test_enqueue_assets_when_site_id_set(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
+            'appinio_chat_site_id' => 'ch_abc123',
             default => $default,
         });
 
@@ -44,7 +44,7 @@ class ChatWidgetTest extends TestCase
             ->once()
             ->with(
                 'appin-chat-widget',
-                APPIN_CHAT_CDN_URL,
+                'https://cdn.app-in.io/v1/chat.js',
                 [],
                 null,
                 ['strategy' => 'defer', 'in_footer' => true]
@@ -54,6 +54,22 @@ class ChatWidgetTest extends TestCase
         $widget->enqueueAssets();
 
         self::assertTrue(true);
+    }
+
+    public function test_cdn_url_defaults_to_production_cdn(): void
+    {
+        self::assertSame('https://cdn.app-in.io/v1/chat.js', ChatWidget::cdnUrl());
+    }
+
+    public function test_cdn_url_is_overridable_via_filter(): void
+    {
+        Functions\when('apply_filters')->alias(
+            fn (string $hook, $value) => $hook === 'appinio_chat_cdn_url'
+                ? 'http://localhost:5174/src/chat/loader.ts'
+                : $value
+        );
+
+        self::assertSame('http://localhost:5174/src/chat/loader.ts', ChatWidget::cdnUrl());
     }
 
     public function test_enqueue_assets_skipped_when_no_site_id(): void
@@ -71,7 +87,7 @@ class ChatWidgetTest extends TestCase
     public function test_render_element_with_site_id(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
+            'appinio_chat_site_id' => 'ch_abc123',
             default => $default,
         });
 
@@ -106,15 +122,15 @@ class ChatWidgetTest extends TestCase
     public function test_render_element_with_all_attributes(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
-            'appin_chat_title' => 'Help Bot',
-            'appin_chat_subtitle' => 'We are here to help',
-            'appin_chat_logo_url' => 'https://example.com/logo.png',
-            'appin_chat_theme' => 'dark',
-            'appin_chat_position' => 'bottom-left',
-            'appin_chat_lang' => 'de',
-            'appin_chat_accent_color' => '#FF5500',
-            'appin_chat_price_prefix' => 'from',
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_title' => 'Help Bot',
+            'appinio_chat_subtitle' => 'We are here to help',
+            'appinio_chat_logo_url' => 'https://example.com/logo.png',
+            'appinio_chat_theme' => 'dark',
+            'appinio_chat_position' => 'bottom-left',
+            'appinio_chat_lang' => 'de',
+            'appinio_chat_accent_color' => '#FF5500',
+            'appinio_chat_price_prefix' => 'from',
             default => $default,
         });
 
@@ -140,9 +156,9 @@ class ChatWidgetTest extends TestCase
     public function test_render_element_emits_auto_open_once_with_delay(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
-            'appin_chat_auto_open' => 'once',
-            'appin_chat_auto_open_delay' => '8',
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_auto_open' => 'once',
+            'appinio_chat_auto_open_delay' => '8',
             default => $default,
         });
 
@@ -163,8 +179,8 @@ class ChatWidgetTest extends TestCase
     public function test_render_element_emits_auto_open_always(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
-            'appin_chat_auto_open' => 'always',
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_auto_open' => 'always',
             default => $default,
         });
 
@@ -186,9 +202,9 @@ class ChatWidgetTest extends TestCase
     public function test_render_element_omits_auto_open_when_never(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
-            'appin_chat_auto_open' => 'never',
-            'appin_chat_auto_open_delay' => '5',
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_auto_open' => 'never',
+            'appinio_chat_auto_open_delay' => '5',
             default => $default,
         });
 
@@ -209,10 +225,10 @@ class ChatWidgetTest extends TestCase
     public function test_render_element_with_css_custom_properties(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
-            'appin_chat_color_primary' => '#37B7FF',
-            'appin_chat_color_surface' => '#FFFFFF',
-            'appin_chat_color_text' => '#18181B',
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_color_primary' => '#37B7FF',
+            'appinio_chat_color_surface' => '#FFFFFF',
+            'appinio_chat_color_text' => '#18181B',
             default => $default,
         });
 
@@ -235,9 +251,9 @@ class ChatWidgetTest extends TestCase
     public function test_render_element_with_custom_fonts(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
-            'appin_chat_font' => 'Roboto, sans-serif',
-            'appin_chat_heading_font' => 'Montserrat, sans-serif',
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_font' => 'Roboto, sans-serif',
+            'appinio_chat_heading_font' => 'Montserrat, sans-serif',
             default => $default,
         });
 
@@ -291,7 +307,7 @@ class ChatWidgetTest extends TestCase
         // pll_current_language may exist from prior test — return empty to skip Polylang path
         Functions\when('pll_current_language')->justReturn('');
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_lang' => 'fr',
+            'appinio_chat_lang' => 'fr',
             default => $default,
         });
 
@@ -317,8 +333,8 @@ class ChatWidgetTest extends TestCase
     public function test_polylang_translates_title(): void
     {
         Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
-            'appin_chat_site_id' => 'ch_abc123',
-            'appin_chat_title' => 'Help Bot',
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_title' => 'Help Bot',
             default => $default,
         });
 

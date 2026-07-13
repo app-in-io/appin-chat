@@ -4,7 +4,7 @@ Tags: chat, ai, chatbot, assistant, multilingual
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,7 +74,7 @@ Yes. AppIn Chat has no WooCommerce dependency.
 
 = Can I translate the chat title and subtitle? =
 
-Yes. With Polylang, the plugin auto-registers `appin_chat_title`, `appin_chat_subtitle`, and `appin_chat_price_prefix` via `pll_register_string()` — translate them in **Languages → String Translations**. With WPML, the same strings are registered via `wpml-config.xml` — translate them in **WPML → String Translation**.
+Yes. With Polylang, the plugin auto-registers `appinio_chat_title`, `appinio_chat_subtitle`, and `appinio_chat_price_prefix` via `pll_register_string()` — translate them in **Languages → String Translations**. With WPML, the same strings are registered via `wpml-config.xml` — translate them in **WPML → String Translation**.
 
 = How is the widget language chosen? =
 
@@ -98,6 +98,11 @@ Yes. Under **Behavior** in **Settings → AppIn Chat**, set **Auto-open** to "On
 2. WordPress admin settings page — Site ID, appearance options (title, subtitle, logo, theme, position, language, accent color, price prefix).
 
 == Changelog ==
+
+= 1.3.0 =
+* Internal rename required by the WordPress.org plugin directory: every setting the plugin stores is now named `appinio_chat_*` instead of `appin_chat_*`. Your settings are migrated automatically on upgrade — nothing to re-enter.
+* WPML only: the chat title, subtitle, and price prefix are registered as admin texts under their new names, so their existing translations do not carry over — re-translate them once in WPML → String Translation. Polylang translations are unaffected.
+* Uninstalling the plugin now removes every setting it created, including the two auto-open settings, which were previously left behind. On a multisite network, settings are now removed from every site.
 
 = 1.2.1 =
 * Maintenance: smaller plugin package — internal development files are no longer bundled.
@@ -130,6 +135,9 @@ Yes. Under **Behavior** in **Settings → AppIn Chat**, set **Auto-open** to "On
 * CSS custom properties for full color and font theming.
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Settings are renamed internally and migrated for you. WPML users only: re-translate the chat title, subtitle, and price prefix once in String Translation.
 
 = 1.1.0 =
 Adds optional auto-open of the chat window after the page loads.

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var i18n = (window.AppInChatSettings && window.AppInChatSettings.i18n) || { remove: 'Remove' };
+    var i18n = (window.AppInIoChatSettings && window.AppInIoChatSettings.i18n) || { remove: 'Remove' };
 
     function bindRemove(btn) {
         btn.addEventListener('click', function (e) {

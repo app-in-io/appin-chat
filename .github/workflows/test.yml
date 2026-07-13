@@ -26,12 +26,10 @@ jobs:
           coverage: none
           tools: composer:v2
 
-      - name: Cache composer dependencies
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: composer-${{ matrix.php }}-${{ hashFiles('composer.lock') }}
-
+      # No vendor cache: composer.lock is gitignored, so there is nothing to key on
+      # that actually pins the resolved dependency set. Keying on composer.json (bare
+      # constraints) would restore a stale vendor/ under an unchanged key long after
+      # the resolved versions moved. Dev deps install in seconds — correctness wins.
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
 
@@ -46,3 +44,28 @@ jobs:
 
       - name: Run PHPStan (static analysis)
         run: vendor/bin/phpstan analyse --no-progress --memory-limit=512M
+
+  # The same checks the WordPress.org directory runs on submission. Catches
+  # generic-prefix, escaping, readme and header regressions here instead of in
+  # the review queue — the 1.3.0 prefix rename exists because a reviewer, not
+  # CI, found the problem.
+  plugin-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Check the artifact users actually get, not the raw checkout. `git archive`
+      # applies .gitattributes export-ignore, so dist/ holds exactly the release zip's
+      # contents — no .git, no tests/, no vendor/, no dev configs. Checking the
+      # checkout instead would scan files that never ship and miss nothing that does.
+      - name: Build the distribution tree
+        run: |
+          mkdir -p dist/appin-chat
+          git archive HEAD | tar x --directory=dist/appin-chat
+          find dist -type f | sort
+
+      - name: Run WordPress Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: ./dist/appin-chat

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wpml-config>
     <admin-texts>
-        <key name="appin_chat_title" />
-        <key name="appin_chat_subtitle" />
-        <key name="appin_chat_price_prefix" />
+        <key name="appinio_chat_title" />
+        <key name="appinio_chat_subtitle" />
+        <key name="appinio_chat_price_prefix" />
     </admin-texts>
 </wpml-config>

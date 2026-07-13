@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AppIn\Chat\Tests\Admin;
+namespace AppInIo\Chat\Tests\Admin;
 
-use AppIn\Chat\Admin\SettingsPage;
+use AppInIo\Chat\Admin\SettingsPage;
+use AppInIo\Chat\Plugin;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
@@ -65,6 +66,9 @@ class SettingsPageTest extends TestCase
     public function test_enqueue_media_runs_on_settings_page(): void
     {
         Functions\when('__')->returnArg();
+        Functions\when('plugins_url')->alias(
+            fn (string $path, string $pluginFile): string => 'https://example.com/wp-content/plugins/appin-chat/'.$path
+        );
 
         Functions\expect('wp_enqueue_media')->once();
         Functions\expect('wp_enqueue_script')
@@ -73,12 +77,12 @@ class SettingsPageTest extends TestCase
                 'appin-chat-settings',
                 \Mockery::pattern('#assets/js/settings\.js$#'),
                 [],
-                APPIN_CHAT_VERSION,
+                Plugin::VERSION,
                 true,
             );
         Functions\expect('wp_localize_script')
             ->once()
-            ->with('appin-chat-settings', 'AppInChatSettings', \Mockery::type('array'));
+            ->with('appin-chat-settings', 'AppInIoChatSettings', \Mockery::type('array'));
 
         (new SettingsPage)->enqueueMedia('settings_page_appin-chat');
 
