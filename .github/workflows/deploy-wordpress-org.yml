@@ -20,8 +20,16 @@ jobs:
       - name: Set version from tag
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
+          # This workflow is workflow_dispatch-only, so GITHUB_REF_NAME is whatever ref
+          # the dispatch targeted — a branch name if it was not a tag. Without this gate
+          # a dispatch from `main` would sed the literal string "main" into Plugin::VERSION
+          # (the migration gate) and into readme.txt's Stable tag, and publish it.
+          if ! printf '%s' "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?$'; then
+            echo "::error::Dispatch this workflow from a version tag (vX.Y.Z). Got ref '${GITHUB_REF_NAME}'."
+            exit 1
+          fi
           sed -i -E "s/(\* Version:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" appin-chat.php
-          sed -i -E "s/(APPIN_CHAT_VERSION', ')[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" appin-chat.php
+          sed -i -E "s/(public const VERSION = ')[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" src/Plugin.php
           sed -i -E "s/(Stable tag:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" readme.txt
 
       - name: Deploy to WordPress.org

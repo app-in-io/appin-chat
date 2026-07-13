@@ -1,0 +1,27 @@
+# Files excluded from the WordPress.org SVN deploy (10up action reads .distignore).
+# Mirrors .gitattributes export-ignore, which governs the git-archive release zip.
+#
+# /.git is NOT optional. The presence of this file switches 10up's deploy.sh from
+# `git archive HEAD | tar x` to `rsync -rc --exclude-from=.distignore $GITHUB_WORKSPACE/ trunk/`
+# — an rsync of the raw checkout, where .git is a real directory and is NOT excluded
+# for free the way git-archive excludes it. Without this line the entire git history
+# is committed to the WordPress.org SVN trunk and shipped in the user-facing zip.
+/.git
+/.github
+/.wordpress-org
+/.claude
+/tests
+/vendor
+/languages/*.po
+/.gitattributes
+/.gitignore
+/.distignore
+/.phpunit.cache
+/composer.json
+/composer.lock
+/phpunit.xml
+/phpstan.neon
+/pint.json
+/CHANGELOG.md
+/README.md
+/CLAUDE.md

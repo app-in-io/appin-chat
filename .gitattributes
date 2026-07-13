@@ -12,8 +12,8 @@
 /composer.lock    export-ignore
 /phpunit.xml      export-ignore
 /phpstan.neon     export-ignore
-/phpstan-stubs.php export-ignore
 /pint.json        export-ignore
+/.distignore      export-ignore
 /CHANGELOG.md     export-ignore
 /README.md        export-ignore
 /CLAUDE.md        export-ignore

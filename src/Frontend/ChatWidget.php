@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AppIn\Chat\Frontend;
+namespace AppInIo\Chat\Frontend;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -10,38 +10,56 @@ if (! defined('ABSPATH')) {
 
 final class ChatWidget
 {
+    private const DEFAULT_CDN_URL = 'https://cdn.app-in.io/v1/chat.js';
+
     /** @var array<string, string> Map of option keys to HTML attributes */
     private const ATTRIBUTE_MAP = [
-        'appin_chat_site_id' => 'site-id',
-        'appin_chat_title' => 'title',
-        'appin_chat_subtitle' => 'subtitle',
-        'appin_chat_logo_url' => 'logo-url',
-        'appin_chat_theme' => 'theme',
-        'appin_chat_position' => 'position',
-        'appin_chat_accent_color' => 'accent-color',
-        'appin_chat_price_prefix' => 'price-prefix',
+        'appinio_chat_site_id' => 'site-id',
+        'appinio_chat_title' => 'title',
+        'appinio_chat_subtitle' => 'subtitle',
+        'appinio_chat_logo_url' => 'logo-url',
+        'appinio_chat_theme' => 'theme',
+        'appinio_chat_position' => 'position',
+        'appinio_chat_accent_color' => 'accent-color',
+        'appinio_chat_price_prefix' => 'price-prefix',
     ];
 
     /** @var list<string> Options that should be translated via Polylang */
     private const TRANSLATABLE_OPTIONS = [
-        'appin_chat_title',
-        'appin_chat_subtitle',
-        'appin_chat_price_prefix',
+        'appinio_chat_title',
+        'appinio_chat_subtitle',
+        'appinio_chat_price_prefix',
     ];
 
     /** @var array<string, string> Map of option keys to CSS custom properties */
     private const CSS_VAR_MAP = [
-        'appin_chat_color_primary' => '--app-in-primary',
-        'appin_chat_color_surface' => '--app-in-surface',
-        'appin_chat_color_surface_alt' => '--app-in-surface-alt',
-        'appin_chat_color_text' => '--app-in-text',
-        'appin_chat_color_text_muted' => '--app-in-text-muted',
-        'appin_chat_color_border' => '--app-in-border',
-        'appin_chat_color_user_bg' => '--app-in-user-bg',
-        'appin_chat_color_assistant_bg' => '--app-in-assistant-bg',
-        'appin_chat_font' => '--app-in-font',
-        'appin_chat_heading_font' => '--app-in-heading-font',
+        'appinio_chat_color_primary' => '--app-in-primary',
+        'appinio_chat_color_surface' => '--app-in-surface',
+        'appinio_chat_color_surface_alt' => '--app-in-surface-alt',
+        'appinio_chat_color_text' => '--app-in-text',
+        'appinio_chat_color_text_muted' => '--app-in-text-muted',
+        'appinio_chat_color_border' => '--app-in-border',
+        'appinio_chat_color_user_bg' => '--app-in-user-bg',
+        'appinio_chat_color_assistant_bg' => '--app-in-assistant-bg',
+        'appinio_chat_font' => '--app-in-font',
+        'appinio_chat_heading_font' => '--app-in-heading-font',
     ];
+
+    /**
+     * Resolve the chat widget script URL.
+     *
+     * The production default is baked in as DEFAULT_CDN_URL and passed through the
+     * `appinio_chat_cdn_url` filter — the sole override seam (used by the dev harness
+     * to target the local Vite dev server). This is a full script URL, not a base.
+     *
+     * Replaces the removed APPIN_CHAT_CDN_URL constant: the WordPress.org review
+     * rejects globals defined on a generic prefix, and a filter is the WordPress-native
+     * seam anyway. This mirrors AppInIo\Frontend\SearchWidget::cdnUrl() in appin-search.
+     */
+    public static function cdnUrl(): string
+    {
+        return (string) apply_filters('appinio_chat_cdn_url', self::DEFAULT_CDN_URL);
+    }
 
     public function register(): void
     {
@@ -63,7 +81,7 @@ final class ChatWidget
         // phpcs:disable WordPress.WP.EnqueuedResourceParameters.MissingVersion
         wp_enqueue_script(
             'appin-chat-widget',
-            APPIN_CHAT_CDN_URL,
+            self::cdnUrl(),
             [],
             null,
             ['strategy' => 'defer', 'in_footer' => true]
@@ -120,12 +138,12 @@ final class ChatWidget
 
         // Auto-open is emitted only when enabled (not the "never" default), so the
         // attribute does not appear on every page; the delay only when auto-open is on.
-        $autoOpen = get_option('appin_chat_auto_open', 'never');
+        $autoOpen = get_option('appinio_chat_auto_open', 'never');
 
         if (\is_string($autoOpen) && $autoOpen !== '' && $autoOpen !== 'never') {
             $parts[] = sprintf('auto-open="%s"', esc_attr($autoOpen));
 
-            $delay = (string) get_option('appin_chat_auto_open_delay', '');
+            $delay = (string) get_option('appinio_chat_auto_open_delay', '');
 
             if ($delay !== '') {
                 $parts[] = sprintf('auto-open-delay="%s"', esc_attr($delay));
@@ -182,7 +200,7 @@ final class ChatWidget
         }
 
         // Manual setting
-        $manual = get_option('appin_chat_lang', '');
+        $manual = get_option('appinio_chat_lang', '');
 
         if ($manual !== '') {
             return $manual;
@@ -236,6 +254,6 @@ final class ChatWidget
 
     private function getSiteId(): string
     {
-        return get_option('appin_chat_site_id', '');
+        return get_option('appinio_chat_site_id', '');
     }
 }

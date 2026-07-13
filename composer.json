@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AppIn\\Chat\\": "src/"
+            "AppInIo\\Chat\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AppIn\\Chat\\Tests\\": "tests/"
+            "AppInIo\\Chat\\Tests\\": "tests/"
         }
     },
     "config": {
