@@ -50,3 +50,18 @@ composer ci             # lint + analyse + test (run before push)
 - Slug: `appin-chat`, Contributors: `appinio`
 - `readme.txt` must keep: valid `Stable tag` placeholder, `Tested up to` matching current WP version, `== External services ==` disclosure (api.app-in.io + cdn.app-in.io)
 - Directory assets (banners, icons, screenshots) live in `.wordpress-org/`
+
+## Knowledge graph (graphify)
+
+This repo has its own knowledge graph in `graphify-out/` (gitignored, rebuilt locally).
+
+- Codebase questions: run `graphify query "<question>"` **before** grepping — it returns a scoped
+  subgraph instead of raw text. Also: `graphify path "<A>" "<B>"`, `graphify explain "<concept>"`,
+  `graphify affected "<symbol>"`.
+- Cross-repo questions (this repo ↔ api ↔ embeddings ↔ widget): use the merged graph —
+  `graphify query "<question>" --graph <api-repo>/graphify-out/merged-graph.json`, or
+  `make graph-query q="..."` from the api repo. This repo's tag in the merged graph is `wordpress-chat`.
+- **Freshness is automatic**: a `graphify watch` daemon rebuilds the graph ~3s after any file save,
+  git hooks rebuild it on commit/checkout, and an hourly job refreshes the docs + semantic layer.
+  Never hand-rebuild; if in doubt run `make graph-status` in the api repo.
+- Never commit `graphify-out/` — it is derived output plus an LLM cache.
