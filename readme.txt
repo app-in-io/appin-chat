@@ -99,6 +99,11 @@ Yes. Under **Behavior** in **Settings → Appinio Chat**, set **Auto-open** to "
 
 == Changelog ==
 
+= 1.4.0 =
+* The plugin is now called **Appinio Chat**. The name, the settings page address and the download link all move from "appin-chat" to "appinio-chat", as required by the WordPress.org plugin directory's rule that a plugin use one distinct prefix throughout. Your settings, the chat widget and its behavior are unchanged. Bookmarks to the old settings page address stop working — reach it at Settings → Appinio Chat.
+* Upgrading from 1.2.1 or older? Your Site ID and colours are not carried over and must be entered once more. Upgrading from 1.3.0 keeps everything.
+* Translations (English, German, Estonian, Dutch, Ukrainian) continue to work.
+
 = 1.3.0 =
 * Internal rename required by the WordPress.org plugin directory: every setting the plugin stores is now named `appinio_chat_*` instead of `appin_chat_*`. Your settings are migrated automatically on upgrade — nothing to re-enter.
 * WPML only: the chat title, subtitle, and price prefix are registered as admin texts under their new names, so their existing translations do not carry over — re-translate them once in WPML → String Translation. Polylang translations are unaffected.
