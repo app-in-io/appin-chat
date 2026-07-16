@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-07-16
+
 ### Changed
 - **Renamed to "Appinio Chat" (slug `appinio-chat`) — one prefix everywhere.** The directory review pended the plugin a third time over prefixes, now counting three: *"`app_in_io` for 4 element(s), `appin_chat` for 1 element(s), `appinio_chat` for 2 element(s). Using the common word 'app' as a prefix."* Their tooling counts distinct prefixes rather than checking uniqueness, and splits CamelCase on capitals — `AppInIo` reads as `app_in_io`, whose first fragment is the "common word" `app`. 1.3.0's defence, that a plugin's own slug is always an acceptable prefix, is a real rule from their handbook and was ignored: the same lines came back. So everything moves onto one prefix that their tooling cannot split:
   - Namespace `AppInIo\Chat` → `Appinio\Chat` (and the manual `autoload.php` PSR-4 prefix, plus both `composer.json` maps).
@@ -12,8 +14,11 @@
 - **Slug-derived strings are no longer literals.** `SettingsPage::enqueueMedia()` hardcoded `'settings_page_appin-chat'`, and `ChatWidget::addModuleType()` hardcoded `'appin-chat-widget'`. WordPress derives the settings-page hook from the menu slug, so renaming the slug would have made both guards silently stop matching — no error, just a dead image picker and a widget without `type="module"`. Both now build from `self::SLUG` / `self::HANDLE`.
 - Translations survive the rename: the `.po` msgids were updated in lockstep with the four rebranded UI strings and the `.mo` files recompiled. Polylang is unaffected by the string-group rename (`pll__()` resolves by source value, not by group).
 
+### Added
+- **This repo is indexed into the workspace knowledge graph** (`graphify`) — dev tooling only. `graphify-out/` is gitignored and `.distignore`d, so nothing new ships in the release zip (#11).
+
 ### Removed
-- **The one-time option migration (`src/Migration.php`) and its legacy plumbing** — `Options::LEGACY_PREFIX`, `Options::legacy()`, and `Options::allIncludingLegacy()` (now `Options::all()`). It shipped in 1.3.0 and has done its job; keeping it was also the last thing holding the string `appin_chat_` in the code. **An install still on ≤1.2.1 that upgrades straight to this version loses its Site ID and theming and must re-enter them**, and uninstall no longer purges leftover `appin_chat_*` rows.
+- **The one-time option migration (`src/Migration.php`) and its legacy plumbing** — `Options::LEGACY_PREFIX`, `Options::legacy()`, and `Options::allIncludingLegacy()` (now `Options::forUninstall()`, deliberately not `all()`: one character from the `ALL` constant it is built from). It shipped in 1.3.0 and has done its job; keeping it was also the last thing holding the string `appin_chat_` in the code. **An install still on ≤1.2.1 that upgrades straight to this version loses its Site ID and theming and must re-enter them**, and uninstall no longer purges leftover `appin_chat_*` rows. `Options::VERSION` stays: nothing writes it any more, but uninstall still clears the marker row on installs that ran 1.3.0.
 
 ## [1.3.0] - 2026-07-13
 
