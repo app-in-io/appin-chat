@@ -61,11 +61,11 @@ jobs:
       # checkout instead would scan files that never ship and miss nothing that does.
       - name: Build the distribution tree
         run: |
-          mkdir -p dist/appin-chat
-          git archive HEAD | tar x --directory=dist/appin-chat
+          mkdir -p dist/appinio-chat
+          git archive HEAD | tar x --directory=dist/appinio-chat
           find dist -type f | sort
 
       - name: Run WordPress Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: ./dist/appin-chat
+          build-dir: ./dist/appinio-chat

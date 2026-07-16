@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AppInIo\Chat\Tests\Admin;
+namespace Appinio\Chat\Tests\Admin;
 
-use AppInIo\Chat\Admin\SettingsPage;
-use AppInIo\Chat\Plugin;
+use Appinio\Chat\Admin\SettingsPage;
+use Appinio\Chat\Plugin;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
@@ -41,10 +41,10 @@ class SettingsPageTest extends TestCase
         Functions\expect('add_options_page')
             ->once()
             ->with(
-                'AppIn Chat',
-                'AppIn Chat',
+                'Appinio Chat',
+                'Appinio Chat',
                 'manage_options',
-                'appin-chat',
+                'appinio-chat',
                 \Mockery::type('array'),
             );
 
@@ -67,14 +67,14 @@ class SettingsPageTest extends TestCase
     {
         Functions\when('__')->returnArg();
         Functions\when('plugins_url')->alias(
-            fn (string $path, string $pluginFile): string => 'https://example.com/wp-content/plugins/appin-chat/'.$path
+            fn (string $path, string $pluginFile): string => 'https://example.com/wp-content/plugins/appinio-chat/'.$path
         );
 
         Functions\expect('wp_enqueue_media')->once();
         Functions\expect('wp_enqueue_script')
             ->once()
             ->with(
-                'appin-chat-settings',
+                'appinio-chat-settings',
                 \Mockery::pattern('#assets/js/settings\.js$#'),
                 [],
                 Plugin::VERSION,
@@ -82,9 +82,9 @@ class SettingsPageTest extends TestCase
             );
         Functions\expect('wp_localize_script')
             ->once()
-            ->with('appin-chat-settings', 'AppInIoChatSettings', \Mockery::type('array'));
+            ->with('appinio-chat-settings', 'AppinioChatSettings', \Mockery::type('array'));
 
-        (new SettingsPage)->enqueueMedia('settings_page_appin-chat');
+        (new SettingsPage)->enqueueMedia('settings_page_appinio-chat');
 
         self::assertTrue(true);
     }
@@ -117,7 +117,7 @@ class SettingsPageTest extends TestCase
     public function test_render_outputs_wrap_and_form(): void
     {
         Functions\when('current_user_can')->justReturn(true);
-        Functions\when('get_admin_page_title')->justReturn('AppIn Chat');
+        Functions\when('get_admin_page_title')->justReturn('Appinio Chat');
         Functions\when('esc_html')->returnArg();
         Functions\when('settings_fields')->justReturn(null);
         Functions\when('do_settings_sections')->justReturn(null);
@@ -131,7 +131,7 @@ class SettingsPageTest extends TestCase
 
         self::assertStringContainsString('<div class="wrap">', $output);
         self::assertStringContainsString('<form method="post" action="options.php">', $output);
-        self::assertStringContainsString('AppIn Chat', $output);
+        self::assertStringContainsString('Appinio Chat', $output);
         self::assertStringContainsString('<button>Save</button>', $output);
         self::assertStringContainsString('</form>', $output);
     }

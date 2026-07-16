@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AppInIo\Chat\Tests\Frontend;
+namespace Appinio\Chat\Tests\Frontend;
 
-use AppInIo\Chat\Frontend\ChatWidget;
+use Appinio\Chat\Frontend\ChatWidget;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +43,7 @@ class ChatWidgetTest extends TestCase
         Functions\expect('wp_enqueue_script')
             ->once()
             ->with(
-                'appin-chat-widget',
+                'appinio-chat-widget',
                 'https://cdn.app-in.io/v1/chat.js',
                 [],
                 null,
@@ -276,7 +276,7 @@ class ChatWidgetTest extends TestCase
         $widget = new ChatWidget;
 
         $tag = '<script src="https://cdn.app-in.io/v1/chat.js"></script>';
-        $result = $widget->addModuleType($tag, 'appin-chat-widget');
+        $result = $widget->addModuleType($tag, 'appinio-chat-widget');
 
         self::assertStringContainsString('type="module"', $result);
     }

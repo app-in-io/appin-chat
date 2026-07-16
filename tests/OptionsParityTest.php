@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace AppInIo\Chat\Tests;
+namespace Appinio\Chat\Tests;
 
-use AppInIo\Chat\Admin\SettingsPage;
-use AppInIo\Chat\Options;
+use Appinio\Chat\Admin\SettingsPage;
+use Appinio\Chat\Options;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Enforces the invariant the whole 1.3.0 refactor rests on: the settings
- * SettingsPage registers are exactly the ones Options knows about — which are the
- * ones Migration renames and uninstall.php deletes.
+ * Enforces the invariant the options refactor rests on: the settings SettingsPage
+ * registers are exactly the ones Options knows about — which are the ones
+ * uninstall.php deletes.
  *
  * Without this test the invariant is only a comment, and the 1.1.0 bug (auto_open /
  * auto_open_delay added to SettingsPage, never added to the uninstall list, left in
@@ -57,7 +57,7 @@ class OptionsParityTest extends TestCase
             $expected,
             $registered,
             'SettingsPage and Options::ALL disagree — a setting registered here but missing from '
-            .'Options will never be migrated and will survive uninstall.'
+            .'Options will survive uninstall.'
         );
     }
 
@@ -70,21 +70,13 @@ class OptionsParityTest extends TestCase
         self::assertStringStartsWith(Options::PREFIX, Options::VERSION);
     }
 
-    public function test_legacy_maps_the_prefix_and_nothing_else(): void
+    public function test_uninstall_list_covers_every_option_and_the_marker(): void
     {
-        self::assertSame('appin_chat_site_id', Options::legacy('appinio_chat_site_id'));
-        self::assertSame('appin_chat_auto_open_delay', Options::legacy('appinio_chat_auto_open_delay'));
-    }
-
-    public function test_uninstall_list_covers_both_generations_and_the_marker(): void
-    {
-        $all = Options::allIncludingLegacy();
+        $all = Options::forUninstall();
 
         self::assertContains('appinio_chat_auto_open', $all);
-        self::assertContains('appin_chat_auto_open', $all);
         self::assertContains('appinio_chat_auto_open_delay', $all);
-        self::assertContains('appin_chat_auto_open_delay', $all);
         self::assertContains(Options::VERSION, $all);
-        self::assertCount(\count(Options::ALL) * 2 + 1, $all);
+        self::assertCount(\count(Options::ALL) + 1, $all);
     }
 }

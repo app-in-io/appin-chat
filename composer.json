@@ -1,6 +1,6 @@
 {
-    "name": "appin/appin-chat",
-    "description": "AI chat widget for WordPress, powered by AppIn",
+    "name": "appinio/appinio-chat",
+    "description": "AI chat widget for WordPress, powered by Appinio",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "require": {
@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AppInIo\\Chat\\": "src/"
+            "Appinio\\Chat\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AppInIo\\Chat\\Tests\\": "tests/"
+            "Appinio\\Chat\\Tests\\": "tests/"
         }
     },
     "config": {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AppInIo\Chat;
+namespace Appinio\Chat;
 
-use AppInIo\Chat\Admin\SettingsPage;
-use AppInIo\Chat\Frontend\ChatWidget;
+use Appinio\Chat\Admin\SettingsPage;
+use Appinio\Chat\Frontend\ChatWidget;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -27,16 +27,14 @@ final class Plugin
     }
 
     /**
-     * @param  string  $file  Absolute path to the main plugin file. Replaces the
-     *                        removed APPIN_CHAT_PLUGIN_FILE/_DIR/_URL constants —
-     *                        the WordPress.org review rejects globals defined on a
-     *                        generic prefix, so the plugin now defines none at all.
+     * @param  string  $file  Absolute path to the main plugin file. Carried here
+     *                        instead of in a global constant — the WordPress.org
+     *                        review rejects globals defined on a generic prefix,
+     *                        so the plugin defines none at all.
      */
     public function boot(string $file): void
     {
         $this->file = $file;
-
-        Migration::maybeRun();
 
         (new SettingsPage)->register();
         (new ChatWidget)->register();

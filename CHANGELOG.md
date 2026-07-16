@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+### Changed
+- **Renamed to "Appinio Chat" (slug `appinio-chat`) — one prefix everywhere.** The directory review pended the plugin a third time over prefixes, now counting three: *"`app_in_io` for 4 element(s), `appin_chat` for 1 element(s), `appinio_chat` for 2 element(s). Using the common word 'app' as a prefix."* Their tooling counts distinct prefixes rather than checking uniqueness, and splits CamelCase on capitals — `AppInIo` reads as `app_in_io`, whose first fragment is the "common word" `app`. 1.3.0's defence, that a plugin's own slug is always an acceptable prefix, is a real rule from their handbook and was ignored: the same lines came back. So everything moves onto one prefix that their tooling cannot split:
+  - Namespace `AppInIo\Chat` → `Appinio\Chat` (and the manual `autoload.php` PSR-4 prefix, plus both `composer.json` maps).
+  - Plugin slug and text domain `appin-chat` → `appinio-chat`; main file `appin-chat.php` → `appinio-chat.php`; the 11 files in `languages/` renamed and recompiled to match.
+  - Display name "AppIn Chat" → "Appinio Chat"; menu slug, script handles (`appinio-chat-settings`, `appinio-chat-widget`) and the JS global (`AppinioChatSettings`) likewise.
+  - Release artifacts follow: `appinio-chat.zip`, R2 path `https://cdn.app-in.io/plugins/appinio-chat.zip`, WordPress.org SLUG `appinio-chat`. **The old CDN URL stops working.**
+  - Options and the `appinio_chat_cdn_url` filter are untouched — they were already on the target prefix.
+- **Slug-derived strings are no longer literals.** `SettingsPage::enqueueMedia()` hardcoded `'settings_page_appin-chat'`, and `ChatWidget::addModuleType()` hardcoded `'appin-chat-widget'`. WordPress derives the settings-page hook from the menu slug, so renaming the slug would have made both guards silently stop matching — no error, just a dead image picker and a widget without `type="module"`. Both now build from `self::SLUG` / `self::HANDLE`.
+- Translations survive the rename: the `.po` msgids were updated in lockstep with the four rebranded UI strings and the `.mo` files recompiled. Polylang is unaffected by the string-group rename (`pll__()` resolves by source value, not by group).
+
+### Removed
+- **The one-time option migration (`src/Migration.php`) and its legacy plumbing** — `Options::LEGACY_PREFIX`, `Options::legacy()`, and `Options::allIncludingLegacy()` (now `Options::all()`). It shipped in 1.3.0 and has done its job; keeping it was also the last thing holding the string `appin_chat_` in the code. **An install still on ≤1.2.1 that upgrades straight to this version loses its Site ID and theming and must re-enter them**, and uninstall no longer purges leftover `appin_chat_*` rows.
+
 ## [1.3.0] - 2026-07-13
 
 ### Changed

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AppInIo\Chat\Admin;
+namespace Appinio\Chat\Admin;
 
-use AppInIo\Chat\Plugin;
+use Appinio\Chat\Plugin;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -15,10 +15,14 @@ final class SettingsPage
     private const OPTION_GROUP = 'appinio_chat';
 
     /**
-     * Menu slug and script handle. Stays `appin-chat`: it is the plugin's own
-     * WordPress.org slug and text domain, which is always an acceptable prefix.
+     * Menu slug, script handle and text domain — the plugin's own WordPress.org
+     * slug. Everything the plugin names sits on the single `appinio` prefix; the
+     * review team's tooling counts distinct prefixes and rejected the plugin three
+     * times while `appin-chat` and `appinio_chat_*` coexisted.
      */
-    private const SLUG = 'appin-chat';
+    private const SLUG = 'appinio-chat';
+
+    private const SCRIPT_HANDLE = self::SLUG.'-settings';
 
     public function register(): void
     {
@@ -29,23 +33,23 @@ final class SettingsPage
 
     public function enqueueMedia(string $hook): void
     {
-        if ($hook !== 'settings_page_appin-chat') {
+        if ($hook !== 'settings_page_'.self::SLUG) {
             return;
         }
 
         wp_enqueue_media();
 
         wp_enqueue_script(
-            'appin-chat-settings',
+            self::SCRIPT_HANDLE,
             plugins_url('assets/js/settings.js', Plugin::instance()->file()),
             [],
             Plugin::VERSION,
             true,
         );
 
-        wp_localize_script('appin-chat-settings', 'AppInIoChatSettings', [
+        wp_localize_script(self::SCRIPT_HANDLE, 'AppinioChatSettings', [
             'i18n' => [
-                'remove' => __('Remove', 'appin-chat'),
+                'remove' => __('Remove', 'appinio-chat'),
             ],
         ]);
     }
@@ -53,8 +57,8 @@ final class SettingsPage
     public function addMenu(): void
     {
         add_options_page(
-            __('AppIn Chat', 'appin-chat'),
-            __('AppIn Chat', 'appin-chat'),
+            __('Appinio Chat', 'appinio-chat'),
+            __('Appinio Chat', 'appinio-chat'),
             'manage_options',
             self::SLUG,
             [$this, 'render'],
@@ -73,19 +77,19 @@ final class SettingsPage
     {
         add_settings_section(
             'appinio_chat_connection',
-            __('Connection', 'appin-chat'),
+            __('Connection', 'appinio-chat'),
             fn () => printf(
                 '<p>%s</p>',
-                esc_html__('Connect your site to the AppIn chat widget.', 'appin-chat')
+                esc_html__('Connect your site to the Appinio chat widget.', 'appinio-chat')
             ),
             self::SLUG,
         );
 
         $this->addTextField(
             'appinio_chat_site_id',
-            __('Site ID', 'appin-chat'),
+            __('Site ID', 'appinio-chat'),
             'appinio_chat_connection',
-            __('Web Channel ID from the AppIn dashboard. Required for the widget to work.', 'appin-chat'),
+            __('Web Channel ID from the Appinio dashboard. Required for the widget to work.', 'appinio-chat'),
         );
 
     }
@@ -94,77 +98,77 @@ final class SettingsPage
     {
         add_settings_section(
             'appinio_chat_appearance',
-            __('Appearance', 'appin-chat'),
+            __('Appearance', 'appinio-chat'),
             fn () => printf(
                 '<p>%s</p>',
-                esc_html__('Customize the look and feel of the chat widget.', 'appin-chat')
+                esc_html__('Customize the look and feel of the chat widget.', 'appinio-chat')
             ),
             self::SLUG,
         );
 
         $this->addTextField(
             'appinio_chat_title',
-            __('Title', 'appin-chat'),
+            __('Title', 'appinio-chat'),
             'appinio_chat_appearance',
-            __('Chat header title. Defaults to "AI Assistant".', 'appin-chat'),
+            __('Chat header title. Defaults to "AI Assistant".', 'appinio-chat'),
             'AI Assistant',
         );
 
         $this->addTextField(
             'appinio_chat_subtitle',
-            __('Subtitle', 'appin-chat'),
+            __('Subtitle', 'appinio-chat'),
             'appinio_chat_appearance',
-            __('Chat header subtitle. Leave empty to hide.', 'appin-chat'),
+            __('Chat header subtitle. Leave empty to hide.', 'appinio-chat'),
         );
 
         $this->addImageField(
             'appinio_chat_logo_url',
-            __('Logo', 'appin-chat'),
+            __('Logo', 'appinio-chat'),
             'appinio_chat_appearance',
-            __('Image displayed in the chat header.', 'appin-chat'),
+            __('Image displayed in the chat header.', 'appinio-chat'),
         );
 
         $this->addSelectField(
             'appinio_chat_theme',
-            __('Theme', 'appin-chat'),
+            __('Theme', 'appinio-chat'),
             'appinio_chat_appearance',
             [
-                'light' => __('Light', 'appin-chat'),
-                'dark' => __('Dark', 'appin-chat'),
+                'light' => __('Light', 'appinio-chat'),
+                'dark' => __('Dark', 'appinio-chat'),
             ],
             'light',
         );
 
         $this->addSelectField(
             'appinio_chat_position',
-            __('Position', 'appin-chat'),
+            __('Position', 'appinio-chat'),
             'appinio_chat_appearance',
             [
-                'bottom-right' => __('Bottom Right', 'appin-chat'),
-                'bottom-left' => __('Bottom Left', 'appin-chat'),
+                'bottom-right' => __('Bottom Right', 'appinio-chat'),
+                'bottom-left' => __('Bottom Left', 'appinio-chat'),
             ],
             'bottom-right',
         );
 
         $this->addTextField(
             'appinio_chat_lang',
-            __('Language', 'appin-chat'),
+            __('Language', 'appinio-chat'),
             'appinio_chat_appearance',
-            __('Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active.', 'appin-chat'),
+            __('Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active.', 'appinio-chat'),
         );
 
         $this->addColorField(
             'appinio_chat_accent_color',
-            __('Accent Color', 'appin-chat'),
+            __('Accent Color', 'appinio-chat'),
             'appinio_chat_appearance',
-            __('Primary accent color for buttons and highlights.', 'appin-chat'),
+            __('Primary accent color for buttons and highlights.', 'appinio-chat'),
         );
 
         $this->addTextField(
             'appinio_chat_price_prefix',
-            __('Price Prefix', 'appin-chat'),
+            __('Price Prefix', 'appinio-chat'),
             'appinio_chat_appearance',
-            __('Prefix for price display in product cards (e.g. "from").', 'appin-chat'),
+            __('Prefix for price display in product cards (e.g. "from").', 'appinio-chat'),
         );
     }
 
@@ -172,22 +176,22 @@ final class SettingsPage
     {
         add_settings_section(
             'appinio_chat_behavior',
-            __('Behavior', 'appin-chat'),
+            __('Behavior', 'appinio-chat'),
             fn () => printf(
                 '<p>%s</p>',
-                esc_html__('Control how the chat window behaves after the page loads.', 'appin-chat')
+                esc_html__('Control how the chat window behaves after the page loads.', 'appinio-chat')
             ),
             self::SLUG,
         );
 
         $this->addSelectField(
             'appinio_chat_auto_open',
-            __('Auto-open', 'appin-chat'),
+            __('Auto-open', 'appinio-chat'),
             'appinio_chat_behavior',
             [
-                'never' => __('Never', 'appin-chat'),
-                'once' => __('Once per session', 'appin-chat'),
-                'always' => __('Every page load', 'appin-chat'),
+                'never' => __('Never', 'appinio-chat'),
+                'once' => __('Once per session', 'appinio-chat'),
+                'always' => __('Every page load', 'appinio-chat'),
             ],
             'never',
         );
@@ -200,7 +204,7 @@ final class SettingsPage
 
         add_settings_field(
             'appinio_chat_auto_open_delay',
-            __('Auto-open Delay (seconds)', 'appin-chat'),
+            __('Auto-open Delay (seconds)', 'appinio-chat'),
             function (): void {
                 $value = (string) get_option('appinio_chat_auto_open_delay', 5);
                 printf(
@@ -210,7 +214,7 @@ final class SettingsPage
                 );
                 printf(
                     '<p class="description">%s</p>',
-                    esc_html__('Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled.', 'appin-chat')
+                    esc_html__('Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled.', 'appinio-chat')
                 );
             },
             self::SLUG,
@@ -222,23 +226,23 @@ final class SettingsPage
     {
         add_settings_section(
             'appinio_chat_colors',
-            __('Custom Colors', 'appin-chat'),
+            __('Custom Colors', 'appinio-chat'),
             fn () => printf(
                 '<p>%s</p>',
-                esc_html__('Override individual CSS color variables. Leave empty to use defaults.', 'appin-chat')
+                esc_html__('Override individual CSS color variables. Leave empty to use defaults.', 'appinio-chat')
             ),
             self::SLUG,
         );
 
         $colors = [
-            'appinio_chat_color_primary' => [__('Primary', 'appin-chat'), '#37B7FF'],
-            'appinio_chat_color_surface' => [__('Surface', 'appin-chat'), '#FFFFFF'],
-            'appinio_chat_color_surface_alt' => [__('Surface Alt', 'appin-chat'), '#F4F4F5'],
-            'appinio_chat_color_text' => [__('Text', 'appin-chat'), '#18181B'],
-            'appinio_chat_color_text_muted' => [__('Text Muted', 'appin-chat'), '#71717A'],
-            'appinio_chat_color_border' => [__('Border', 'appin-chat'), '#E4E4E7'],
-            'appinio_chat_color_user_bg' => [__('User Message BG', 'appin-chat'), '#EFF6FF'],
-            'appinio_chat_color_assistant_bg' => [__('Assistant Message BG', 'appin-chat'), '#F0FDF4'],
+            'appinio_chat_color_primary' => [__('Primary', 'appinio-chat'), '#37B7FF'],
+            'appinio_chat_color_surface' => [__('Surface', 'appinio-chat'), '#FFFFFF'],
+            'appinio_chat_color_surface_alt' => [__('Surface Alt', 'appinio-chat'), '#F4F4F5'],
+            'appinio_chat_color_text' => [__('Text', 'appinio-chat'), '#18181B'],
+            'appinio_chat_color_text_muted' => [__('Text Muted', 'appinio-chat'), '#71717A'],
+            'appinio_chat_color_border' => [__('Border', 'appinio-chat'), '#E4E4E7'],
+            'appinio_chat_color_user_bg' => [__('User Message BG', 'appinio-chat'), '#EFF6FF'],
+            'appinio_chat_color_assistant_bg' => [__('Assistant Message BG', 'appinio-chat'), '#F0FDF4'],
         ];
 
         foreach ($colors as $key => [$label, $placeholder]) {
@@ -247,16 +251,16 @@ final class SettingsPage
 
         $this->addTextField(
             'appinio_chat_font',
-            __('Body Font', 'appin-chat'),
+            __('Body Font', 'appinio-chat'),
             'appinio_chat_colors',
-            __('CSS font-family for body text (e.g. Inter, system-ui, sans-serif).', 'appin-chat'),
+            __('CSS font-family for body text (e.g. Inter, system-ui, sans-serif).', 'appinio-chat'),
         );
 
         $this->addTextField(
             'appinio_chat_heading_font',
-            __('Heading Font', 'appin-chat'),
+            __('Heading Font', 'appinio-chat'),
             'appinio_chat_colors',
-            __('CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif).', 'appin-chat'),
+            __('CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif).', 'appinio-chat'),
         );
     }
 
@@ -403,13 +407,13 @@ final class SettingsPage
                 printf(
                     '<button type="button" class="button appin-upload-image" data-target="%s">%s</button>',
                     esc_attr($key),
-                    esc_html__('Select Image', 'appin-chat'),
+                    esc_html__('Select Image', 'appinio-chat'),
                 );
                 if ($value !== '') {
                     printf(
                         ' <button type="button" class="button appin-remove-image" data-target="%s">%s</button>',
                         esc_attr($key),
-                        esc_html__('Remove', 'appin-chat'),
+                        esc_html__('Remove', 'appinio-chat'),
                     );
                 }
                 if ($description !== '') {
