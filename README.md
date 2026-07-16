@@ -1,6 +1,6 @@
-# AppIn Chat for WordPress
+# Appinio Chat for WordPress
 
-Thin WordPress plugin that adds the [AppIn AI](https://app-in.io) chat widget to any WordPress site. No WooCommerce required.
+Thin WordPress plugin that adds the [Appinio AI](https://app-in.io) chat widget to any WordPress site. No WooCommerce required.
 
 This repository is the **plugin shell** — the actual chat widget JavaScript is loaded from CDN (`https://cdn.app-in.io/v1/chat.js`) and lives in the separate `widget/` repo.
 
@@ -14,7 +14,7 @@ This repository is the **plugin shell** — the actual chat widget JavaScript is
 ## Repository layout
 
 ```
-appin-chat.php              Bootstrap: header, constants, autoloader wiring
+appinio-chat.php              Bootstrap: header, constants, autoloader wiring
 autoload.php                PSR-4 autoloader (no Composer needed at runtime)
 uninstall.php               Removes all plugin options on plugin deletion
 readme.txt                  wordpress.org readme (Stable tag, FAQ, screenshots)
@@ -79,16 +79,18 @@ composer ci             # lint + analyse + test
 ```bash
 # clone into your WP plugins directory
 cd wp-content/plugins
-git clone https://github.com/app-in-io/appin-chat.git
-cd appin-chat
+# the directory name is the plugin slug and must match the text domain —
+# the git repo keeps the older `appin-chat` name, so clone into `appinio-chat`
+git clone https://github.com/app-in-io/appin-chat.git appinio-chat
+cd appinio-chat
 composer install --no-dev
-# activate in WP Admin, configure at Settings → AppIn Chat
+# activate in WP Admin, configure at Settings → Appinio Chat
 ```
 
 ## CI/CD
 
 - **On PR / push to main** (`test.yml`): PHPUnit + Pint + PHPStan on PHP 8.1, 8.2, 8.3, 8.4.
-- **On GitHub Release** (`release.yml`): builds `appin-chat.zip` with the tag version substituted into `appin-chat.php` and `readme.txt`, attaches it to the release, uploads it to R2 at the stable public path `https://cdn.app-in.io/plugins/appin-chat.zip`, and posts a Slack notification. Requires `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, and `SLACK_WEBHOOK_URL` secrets.
+- **On GitHub Release** (`release.yml`): builds `appinio-chat.zip` with the tag version substituted into `appinio-chat.php` and `readme.txt`, attaches it to the release, uploads it to R2 at the stable public path `https://cdn.app-in.io/plugins/appinio-chat.zip`, and posts a Slack notification. Requires `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, and `SLACK_WEBHOOK_URL` secrets.
 - **`deploy-wordpress-org.yml`** (temporarily disabled): would push the build to wordpress.org SVN (`trunk/` + `tags/X.Y.Z/`) and upload `.wordpress-org/` to SVN `assets/`. Disabled because the plugin is not yet approved on the wordpress.org directory; trigger is `workflow_dispatch` only. Re-enable by restoring the `release: [published]` trigger once approved (requires `WP_ORG_USERNAME` / `WP_ORG_PASSWORD`).
 
 ## Cutting a release
@@ -99,16 +101,16 @@ composer install --no-dev
 4. Tag: `git tag vX.Y.Z && git push --tags`.
 5. Create a GitHub Release from the tag. `release.yml` fires automatically (zip → GitHub Release + R2 + Slack). The wordpress.org deploy is currently disabled.
 
-Version strings in `appin-chat.php` (`Version:` header), `src/Plugin.php` (`Plugin::VERSION`) and `readme.txt` (`Stable tag:`) are substituted by CI — you do not edit them manually.
+Version strings in `appinio-chat.php` (`Version:` header), `src/Plugin.php` (`Plugin::VERSION`) and `readme.txt` (`Stable tag:`) are substituted by CI — you do not edit them manually.
 
 ## Architecture notes
 
-- **Namespace**: `AppInIo\Chat`
+- **Namespace**: `Appinio\Chat`
 - **No Composer at runtime**: a hand-rolled PSR-4 autoloader in `autoload.php` resolves classes from `src/`. Keeps the zip small and avoids shipping `vendor/`.
 - **No global constants**: the plugin defines none (WordPress.org rejects `define()`s on a generic prefix). The widget script URL resolves through the `appinio_chat_cdn_url` filter — the sole override seam, with the production default baked into `Frontend\ChatWidget::cdnUrl()`. The plugin path is `Plugin::file()`, the version `Plugin::VERSION`.
 - **Widget script**: enqueued from a fixed CDN path (`/v1/chat.js`). The plugin passes `null` as the version to `wp_enqueue_script` — the JS build is versioned at the path level and cached by CDN headers; the plugin version is unrelated.
-- **Options prefix**: all settings are stored as `appinio_chat_*` options, listed once in `src/Options.php` (`SettingsPage`, `Migration` and `uninstall.php` all read from it). Pre-1.3.0 `appin_chat_*` rows are renamed on upgrade by `src/Migration.php`.
-- **i18n**: text domain `appin-chat`. No `load_plugin_textdomain()` call — wordpress.org auto-loads translations from the WP translate server for plugins hosted there.
+- **Options prefix**: all settings are stored as `appinio_chat_*` options, listed once in `src/Options.php` (`SettingsPage` and `uninstall.php` both read from it).
+- **i18n**: text domain `appinio-chat`, matching the plugin slug. No `load_plugin_textdomain()` call — wordpress.org auto-loads translations from the WP translate server for plugins hosted there.
 
 ### Local dev
 

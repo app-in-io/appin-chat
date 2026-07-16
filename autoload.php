@@ -7,7 +7,7 @@ if (! defined('ABSPATH')) {
 }
 
 spl_autoload_register(function (string $class): void {
-    $prefix = 'AppInIo\\Chat\\';
+    $prefix = 'Appinio\\Chat\\';
 
     if (! str_starts_with($class, $prefix)) {
         return;

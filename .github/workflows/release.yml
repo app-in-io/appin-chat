@@ -16,7 +16,7 @@ jobs:
       - name: Set version from tag
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          sed -i -E "s/(\* Version:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" appin-chat.php
+          sed -i -E "s/(\* Version:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" appinio-chat.php
           sed -i -E "s/(public const VERSION = ')[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" src/Plugin.php
           sed -i -E "s/(Stable tag:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" readme.txt
           if ! git diff --quiet; then
@@ -28,20 +28,20 @@ jobs:
       - name: Build zip
         id: build_zip
         run: |
-          git archive --format=zip --prefix=appin-chat/ -o appin-chat.zip HEAD
+          git archive --format=zip --prefix=appinio-chat/ -o appinio-chat.zip HEAD
 
       - name: Upload to release
         id: upload_release
-        run: gh release upload "$GITHUB_REF_NAME" appin-chat.zip --clobber
+        run: gh release upload "$GITHUB_REF_NAME" appinio-chat.zip --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload to R2
         id: upload_r2
-        # Served publicly at https://cdn.app-in.io/plugins/appin-chat.zip (stable "latest" path).
+        # Served publicly at https://cdn.app-in.io/plugins/appinio-chat.zip (stable "latest" path).
         # Short max-age so the stable URL refreshes within minutes of a release — no CDN purge needed.
         run: |
-          aws s3 cp appin-chat.zip "s3://${R2_BUCKET}/plugins/appin-chat.zip" \
+          aws s3 cp appinio-chat.zip "s3://${R2_BUCKET}/plugins/appinio-chat.zip" \
             --endpoint-url "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
             --content-type application/zip \
             --cache-control "public, max-age=300"
@@ -94,7 +94,7 @@ jobs:
           # newlines in the notes can't break the parser (the old raw-YAML payload did).
           payload: |
             {
-              "text": "${{ steps.slack_prep.outputs.status == 'success' && '✅' || '❌' }} AppIn Chat ${{ steps.slack_prep.outputs.tag }} — ${{ steps.slack_prep.outputs.status }}",
+              "text": "${{ steps.slack_prep.outputs.status == 'success' && '✅' || '❌' }} Appinio Chat ${{ steps.slack_prep.outputs.tag }} — ${{ steps.slack_prep.outputs.status }}",
               "blocks": [
                 {
                   "type": "header",
@@ -116,7 +116,7 @@ jobs:
                   "elements": [
                     {
                       "type": "mrkdwn",
-                      "text": "`AppIn Chat` · ${{ github.repository }}"
+                      "text": "`Appinio Chat` · ${{ github.repository }}"
                     }
                   ]
                 },

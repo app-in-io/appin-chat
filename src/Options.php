@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AppInIo\Chat;
+namespace Appinio\Chat;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -11,9 +11,8 @@ if (! defined('ABSPATH')) {
 /**
  * Single source of truth for every option this plugin owns.
  *
- * SettingsPage registers them, Migration renames the pre-1.3.0 ones,
- * and uninstall.php deletes both generations. Keeping the list here is
- * what stops the three from drifting apart (before 1.3.0 uninstall.php
+ * SettingsPage registers them and uninstall.php deletes them. Keeping the list
+ * here is what stops the two from drifting apart (before 1.3.0 uninstall.php
  * silently leaked the two auto-open options added in 1.1.0).
  */
 final class Options
@@ -21,13 +20,11 @@ final class Options
     public const PREFIX = 'appinio_chat_';
 
     /**
-     * Pre-1.3.0 prefix. Rejected by the WordPress.org review as too generic
-     * ("app" is a common word); kept only so Migration and uninstall.php can
-     * find and remove the old rows.
+     * Marker row written by the 1.3.0 option migration, which has since been removed.
+     * Nothing writes it any more — it is kept solely so uninstall still clears it from
+     * installs that ran 1.3.0. Do not delete the constant: that would strand the row in
+     * wp_options forever.
      */
-    public const LEGACY_PREFIX = 'appin_chat_';
-
-    /** Stores the version whose migrations have already run. */
     public const VERSION = self::PREFIX.'version';
 
     /** @var list<string> Every setting, current prefix. */
@@ -56,27 +53,14 @@ final class Options
     ];
 
     /**
-     * The pre-1.3.0 name of a current option key.
-     */
-    public static function legacy(string $key): string
-    {
-        return self::LEGACY_PREFIX.substr($key, \strlen(self::PREFIX));
-    }
-
-    /**
-     * Every option row the plugin may have written, both generations, plus the
-     * migration marker — i.e. exactly what uninstall must delete.
+     * Every option row the plugin may have written, plus the leftover 1.3.0 marker —
+     * i.e. exactly what uninstall must delete. Deliberately not called all(): one
+     * character away from the ALL constant it is built from, and the two differ.
      *
      * @return list<string>
      */
-    public static function allIncludingLegacy(): array
+    public static function forUninstall(): array
     {
-        $keys = [...self::ALL, self::VERSION];
-
-        foreach (self::ALL as $key) {
-            $keys[] = self::legacy($key);
-        }
-
-        return $keys;
+        return [...self::ALL, self::VERSION];
     }
 }

@@ -1,6 +1,8 @@
 # appin-chat
 
-WordPress plugin: AI chat widget (`<app-in-chat>` web component) powered by the AppIn cloud service. PHP 8.1+ | PSR-4 | PHPUnit 11 + Brain Monkey.
+WordPress plugin: AI chat widget (`<app-in-chat>` web component) powered by the Appinio cloud service. PHP 8.1+ | PSR-4 | PHPUnit 11 + Brain Monkey.
+
+> **Naming:** the plugin ships as **Appinio Chat** (slug `appinio-chat`). The git repo and this directory keep the older `appin-chat` name — that is deliberate, it is dev-internal and invisible to the WordPress.org review.
 
 > **Layout:** This plugin lives at `wordpress-plugin/appin-chat/` as a subdirectory of the main API project. It has its own `.git`, CI/CD, and GitHub repo (`app-in-io/appin-chat`). The parent API repo ignores this directory.
 
@@ -14,11 +16,17 @@ WordPress plugin: AI chat widget (`<app-in-chat>` web component) powered by the 
 
 **ALWAYS** sync `readme.txt` `== Changelog ==` on every release. The release workflows inject the version into `Stable tag`, but nothing updates the readme changelog automatically — add a `= X.Y.Z =` entry (short, user-facing wording) alongside the `CHANGELOG.md` version section before tagging. `CHANGELOG.md` keeps the full technical detail; `readme.txt` gets the concise user-visible summary.
 
-**This plugin MUST work without Composer autoload in production** — the manual `autoload.php` handles PSR-4 loading (`AppInIo\Chat\` → `src/`). Composer is only for dev dependencies.
+**This plugin MUST work without Composer autoload in production** — the manual `autoload.php` handles PSR-4 loading (`Appinio\Chat\` → `src/`). Composer is only for dev dependencies.
 
-**Unique prefix** (WordPress.org requirement — the directory pended 1.2.1 over this): namespace `AppInIo\Chat`, options/hooks/filters `appinio_chat_*`, JS global `AppInIoChatSettings`. The plugin slug, text domain and script handles stay `appin-chat` (a plugin's own slug is always an acceptable prefix). **The plugin defines no global constants** — the widget CDN URL resolves through the `appinio_chat_cdn_url` filter (default in `Frontend\ChatWidget::cdnUrl()`), the plugin path through `Plugin::file()`, the version through `Plugin::VERSION`. Do not reintroduce a `define()`.
+**One prefix, everywhere: `appinio`** (WordPress.org requirement — the directory pended the plugin three times over this). Namespace `Appinio\Chat`, options/hooks/filters `appinio_chat_*`, JS global `AppinioChatSettings`, plugin slug / text domain / menu slug / script handles `appinio-chat*`, display name "Appinio Chat".
 
-**Options live in one place**: `src/Options.php`. `SettingsPage`, `Migration` and `uninstall.php` all read from it — adding a setting anywhere else will leak it on uninstall (which is exactly what happened to the 1.1.0 auto-open options).
+Why so absolute: the review team's tooling **counts distinct prefixes** rather than checking uniqueness, and it splits CamelCase on capitals — `AppInIo` read as `app_in_io`, which also tripped their "common word `app`" rule. The earlier defence "a plugin's own slug is always an acceptable prefix" is a real rule from their handbook, was argued in our 13 Jul reply, and was ignored: the same lines came back in the next review. Do not reintroduce a second prefix, and do not reintroduce a capital inside `Appinio`.
+
+**The plugin defines no global constants** — the widget CDN URL resolves through the `appinio_chat_cdn_url` filter (default in `Frontend\ChatWidget::cdnUrl()`), the plugin path through `Plugin::file()`, the version through `Plugin::VERSION`. Do not reintroduce a `define()`.
+
+**Slug-derived strings must never be literals.** WordPress builds the settings-page hook from the menu slug (`settings_page_{SLUG}`), so `SettingsPage::enqueueMedia()` matches on `'settings_page_'.self::SLUG`, and `ChatWidget::addModuleType()` matches on `self::HANDLE`. Both once hardcoded the slug; a rename would then have silently killed the image picker and the widget's `type="module"` with no error at all.
+
+**Options live in one place**: `src/Options.php`. `SettingsPage` and `uninstall.php` both read from it — adding a setting anywhere else will leak it on uninstall (which is exactly what happened to the 1.1.0 auto-open options).
 
 ## Commands
 
@@ -36,7 +44,7 @@ composer ci             # lint + analyse + test (run before push)
 1. Move `[Unreleased]` entries in `CHANGELOG.md` to a `## [X.Y.Z] - YYYY-MM-DD` section
 2. Add matching `= X.Y.Z =` entry to `readme.txt` `== Changelog ==`
 3. PR → squash merge to `main` → wait for CI
-4. `gh release create vX.Y.Z` — triggers `release.yml`: injects version into `appin-chat.php` + `readme.txt` `Stable tag`, builds zip, uploads to R2 (`cdn.app-in.io/plugins/appin-chat.zip`), notifies Slack
+4. `gh release create vX.Y.Z` — triggers `release.yml`: injects version into `appinio-chat.php` + `readme.txt` `Stable tag`, builds zip, uploads to R2 (`cdn.app-in.io/plugins/appinio-chat.zip`), notifies Slack
 5. `deploy-wordpress-org.yml` (SVN deploy) is manual-only until the plugin is approved on WordPress.org
 
 ## CI
@@ -47,7 +55,7 @@ composer ci             # lint + analyse + test (run before push)
 
 ## WordPress.org
 
-- Slug: `appin-chat`, Contributors: `appinio`
+- Slug: `appinio-chat`, Contributors: `appinio`
 - `readme.txt` must keep: valid `Stable tag` placeholder, `Tested up to` matching current WP version, `== External services ==` disclosure (api.app-in.io + cdn.app-in.io)
 - Directory assets (banners, icons, screenshots) live in `.wordpress-org/`
 

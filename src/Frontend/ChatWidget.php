@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AppInIo\Chat\Frontend;
+namespace Appinio\Chat\Frontend;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -11,6 +11,13 @@ if (! defined('ABSPATH')) {
 final class ChatWidget
 {
     private const DEFAULT_CDN_URL = 'https://cdn.app-in.io/v1/chat.js';
+
+    /**
+     * Script handle. Must stay in one place: enqueueAssets() registers it and
+     * addModuleType() matches on it — two literals would silently drift apart
+     * and the widget would lose its type="module".
+     */
+    private const HANDLE = 'appinio-chat-widget';
 
     /** @var array<string, string> Map of option keys to HTML attributes */
     private const ATTRIBUTE_MAP = [
@@ -52,9 +59,9 @@ final class ChatWidget
      * `appinio_chat_cdn_url` filter — the sole override seam (used by the dev harness
      * to target the local Vite dev server). This is a full script URL, not a base.
      *
-     * Replaces the removed APPIN_CHAT_CDN_URL constant: the WordPress.org review
-     * rejects globals defined on a generic prefix, and a filter is the WordPress-native
-     * seam anyway. This mirrors AppInIo\Frontend\SearchWidget::cdnUrl() in appin-search.
+     * The plugin defines no global constant for it: the WordPress.org review rejects
+     * globals defined on a generic prefix, and a filter is the WordPress-native seam
+     * anyway. This mirrors SearchWidget::cdnUrl() in appin-search.
      */
     public static function cdnUrl(): string
     {
@@ -74,13 +81,13 @@ final class ChatWidget
             return;
         }
 
-        // The widget script is hosted on AppIn's CDN under a versioned path
+        // The widget script is hosted on Appinio's CDN under a versioned path
         // (/v1/chat.js) with long-lived cache headers set by the CDN.
         // The plugin version is unrelated to the widget build, so passing
         // null prevents WordPress from appending an incorrect ?ver= query.
         // phpcs:disable WordPress.WP.EnqueuedResourceParameters.MissingVersion
         wp_enqueue_script(
-            'appin-chat-widget',
+            self::HANDLE,
             self::cdnUrl(),
             [],
             null,
@@ -91,7 +98,7 @@ final class ChatWidget
 
     public function addModuleType(string $tag, string $handle): string
     {
-        if ($handle !== 'appin-chat-widget') {
+        if ($handle !== self::HANDLE) {
             return $tag;
         }
 
@@ -229,7 +236,7 @@ final class ChatWidget
                 continue;
             }
 
-            pll_register_string($option, $value, 'AppIn Chat');
+            pll_register_string($option, $value, 'Appinio Chat');
         }
     }
 

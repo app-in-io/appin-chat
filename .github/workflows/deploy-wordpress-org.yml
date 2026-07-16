@@ -28,7 +28,7 @@ jobs:
             echo "::error::Dispatch this workflow from a version tag (vX.Y.Z). Got ref '${GITHUB_REF_NAME}'."
             exit 1
           fi
-          sed -i -E "s/(\* Version:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" appin-chat.php
+          sed -i -E "s/(\* Version:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" appinio-chat.php
           sed -i -E "s/(public const VERSION = ')[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" src/Plugin.php
           sed -i -E "s/(Stable tag:\s+)[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?/\1${VERSION}/" readme.txt
 
@@ -37,5 +37,5 @@ jobs:
         env:
           SVN_USERNAME: ${{ secrets.WP_ORG_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WP_ORG_PASSWORD }}
-          SLUG: appin-chat
+          SLUG: appinio-chat
           ASSETS_DIR: .wordpress-org
