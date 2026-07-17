@@ -1,11 +1,17 @@
 name: Deploy to WordPress.org
 
-# Temporarily disabled: the plugin is not yet approved on the WordPress.org
-# directory (no SVN repo / no WP_ORG_* secrets), so the SVN deploy always fails.
-# Distribution currently goes via GitHub Releases + R2 (see release.yml).
-# Re-enable by restoring the `release: [published]` trigger once WP.org approves.
+# Runs alongside release.yml on every published release: wordpress.org gets the SVN
+# deploy, GitHub Releases + R2 keep serving the zip (cdn.app-in.io/plugins/appinio-chat.zip).
+# The dispatch trigger stays for re-runs and for dry runs against an existing tag.
 on:
+  release:
+    types: [published]
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Build trunk and diff it against SVN without committing'
+        type: boolean
+        default: false
 
 jobs:
   deploy:
@@ -20,10 +26,10 @@ jobs:
       - name: Set version from tag
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          # This workflow is workflow_dispatch-only, so GITHUB_REF_NAME is whatever ref
-          # the dispatch targeted — a branch name if it was not a tag. Without this gate
-          # a dispatch from `main` would sed the literal string "main" into Plugin::VERSION
-          # (the migration gate) and into readme.txt's Stable tag, and publish it.
+          # On `release` GITHUB_REF_NAME is always the tag, but a dispatch can target any
+          # ref — a branch name if it was not a tag. Without this gate a dispatch from
+          # `main` would sed the literal string "main" into Plugin::VERSION and into
+          # readme.txt's Stable tag, and publish it.
           if ! printf '%s' "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.]+)?$'; then
             echo "::error::Dispatch this workflow from a version tag (vX.Y.Z). Got ref '${GITHUB_REF_NAME}'."
             exit 1
@@ -34,6 +40,14 @@ jobs:
 
       - name: Deploy to WordPress.org
         uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          # `|| false` is not cosmetic. The `release` event carries no inputs, so
+          # `inputs.dry_run` renders as an empty string — and the action would pass that
+          # straight through to deploy.sh's `if $INPUT_DRY_RUN; then`, which expands to
+          # `if ; then`: a bash syntax error, on every real release. The action's own
+          # `default: false` does not save us — defaults apply only to inputs that are
+          # not supplied at all, and `with:` supplies this one.
+          dry-run: ${{ inputs.dry_run || false }}
         env:
           SVN_USERNAME: ${{ secrets.WP_ORG_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WP_ORG_PASSWORD }}
