@@ -45,13 +45,15 @@ composer ci             # lint + analyse + test (run before push)
 2. Add matching `= X.Y.Z =` entry to `readme.txt` `== Changelog ==`
 3. PR → squash merge to `main` → wait for CI
 4. `gh release create vX.Y.Z` — triggers `release.yml`: injects version into `appinio-chat.php` + `readme.txt` `Stable tag`, builds zip, uploads to R2 (`cdn.app-in.io/plugins/appinio-chat.zip`), notifies Slack
-5. `deploy-wordpress-org.yml` (SVN deploy) is manual-only until the plugin is approved on WordPress.org
+5. `deploy-wordpress-org.yml` fires on the same release: commits the build to the WordPress.org SVN `trunk`, copies it to `tags/X.Y.Z` and syncs `.wordpress-org/` to the directory assets
+
+To rehearse a deploy without publishing, dispatch `deploy-wordpress-org.yml` **from a version tag** with `dry_run: true` — it checks out SVN and builds trunk but commits nothing. Dispatching from a branch is rejected by the version gate. Re-running a tag whose `tags/X.Y.Z` already exists in SVN is a no-op, so a failed deploy is safe to retry.
 
 ## CI
 
 - **test.yml**: PHP 8.2–8.4 matrix on PRs (runtime supports 8.1+, but PHPUnit 11.5+ needs 8.2+)
 - **release.yml**: on release published — version injection, zip, R2 upload, Slack
-- **deploy-wordpress-org.yml**: `workflow_dispatch` only — WordPress.org SVN deploy via 10up action, assets from `.wordpress-org/`
+- **deploy-wordpress-org.yml**: on release published (plus `workflow_dispatch` for re-runs and dry runs) — WordPress.org SVN deploy via 10up action, slug `appinio-chat`, assets from `.wordpress-org/`. Needs the `WP_ORG_USERNAME` / `WP_ORG_PASSWORD` secrets (the password is the wordpress.org **SVN password**, not the account password)
 
 ## WordPress.org
 
