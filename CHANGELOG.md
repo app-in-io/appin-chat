@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- **Bumped `slackapi/slack-github-action` to v4.0.0** in the release-notify step. CI only — nothing in the shipped plugin changes. v4's only breaking change is stricter YAML multiline indentation; the release body is `toJSON()`-escaped to a single line inside an indented `payload: |` block, so the payload is unaffected. Matches the sibling repos (api, widget, appin-search) now on v4.
 - **The WordPress.org SVN deploy is live again** — the directory approved the plugin and issued the SVN repo, so `deploy-wordpress-org.yml` gets its `release: [published]` trigger back and every release now publishes to wordpress.org alongside the GitHub Release + R2 zip. CI only; nothing in the shipped plugin changes.
 - **`workflow_dispatch` gains a `dry_run` input** — checks out SVN and builds trunk without committing, which is the only way to inspect what a release would publish. It is wired as `dry-run: ${{ inputs.dry_run || false }}`: the `release` event carries no inputs, and an empty string reaches deploy.sh's `if $INPUT_DRY_RUN; then` as `if ; then` — a bash syntax error on every real release. The action's own `default: false` does not cover it, because defaults apply only to inputs that are not supplied at all.
 
