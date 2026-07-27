@@ -15,6 +15,15 @@ class ChatWidgetTest extends TestCase
     {
         parent::setUp();
         Monkey\setUp();
+
+        // Brain Monkey leaves a stubbed function *declared* after tearDown(), so once any
+        // test in this file stubs pll__ or pll_current_language, function_exists() stays
+        // true for the rest of the process and ChatWidget calls them unmocked. The suite
+        // then passes only because the Polylang tests happen to be declared last:
+        // `phpunit --order-by=reverse` errored eight tests before these defaults existed.
+        // Individual tests still override them.
+        Functions\when('pll__')->returnArg();
+        Functions\when('pll_current_language')->justReturn('');
     }
 
     protected function tearDown(): void
@@ -128,6 +137,10 @@ class ChatWidgetTest extends TestCase
             'appinio_chat_logo_url' => 'https://example.com/logo.png',
             'appinio_chat_theme' => 'dark',
             'appinio_chat_position' => 'bottom-left',
+            'appinio_chat_launcher' => 'bar',
+            'appinio_chat_launcher_text' => 'Kirjuta meile',
+            'appinio_chat_handoff_button' => 'icon-text',
+            'appinio_chat_handoff_text' => 'Räägi agendiga',
             'appinio_chat_lang' => 'de',
             'appinio_chat_accent_color' => '#FF5500',
             'appinio_chat_price_prefix' => 'from',
@@ -149,8 +162,44 @@ class ChatWidgetTest extends TestCase
         self::assertStringContainsString('logo-url="https://example.com/logo.png"', $output);
         self::assertStringContainsString('theme="dark"', $output);
         self::assertStringContainsString('position="bottom-left"', $output);
+        self::assertStringContainsString('launcher="bar"', $output);
+        self::assertStringContainsString('launcher-text="Kirjuta meile"', $output);
+        self::assertStringContainsString('handoff-button="icon-text"', $output);
+        self::assertStringContainsString('handoff-text="Räägi agendiga"', $output);
         self::assertStringContainsString('accent-color="#FF5500"', $output);
         self::assertStringContainsString('price-prefix="from"', $output);
+    }
+
+    public function test_render_element_omits_empty_label_attributes(): void
+    {
+        // The omission is the feature, not an oversight: with no attribute the widget
+        // uses its own string, which is translated into 12 languages and follows the
+        // `lang` we send. Emitting an empty — or an English default — would replace 12
+        // languages with one. This is the whole answer for sites with no Polylang/WPML.
+        Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_launcher' => 'bar',
+            'appinio_chat_handoff_button' => 'icon-text',
+            default => $default,
+        });
+
+        Functions\when('esc_attr')->returnArg();
+        Functions\when('has_filter')->justReturn(false);
+        // No appinio_chat_lang here, so resolveLang() walks on to the site locale.
+        Functions\when('get_locale')->justReturn('et');
+
+        $widget = new ChatWidget;
+
+        ob_start();
+        $widget->renderElement();
+        $output = ob_get_clean();
+
+        self::assertStringContainsString('launcher="bar"', $output);
+        self::assertStringContainsString('handoff-button="icon-text"', $output);
+        self::assertStringNotContainsString('launcher-text', $output);
+        self::assertStringNotContainsString('handoff-text', $output);
+        // The language still reaches the widget — that is what picks the built-in wording.
+        self::assertStringContainsString('lang="et"', $output);
     }
 
     public function test_render_element_emits_auto_open_once_with_delay(): void
@@ -353,5 +402,60 @@ class ChatWidgetTest extends TestCase
         $output = ob_get_clean();
 
         self::assertStringContainsString('title="Hilfe-Bot"', $output);
+    }
+
+    public function test_polylang_translates_the_launcher_and_handoff_labels(): void
+    {
+        Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
+            'appinio_chat_site_id' => 'ch_abc123',
+            'appinio_chat_launcher_text' => 'Chat with us',
+            'appinio_chat_handoff_text' => 'Talk to a person',
+            default => $default,
+        });
+
+        Functions\when('pll__')->alias(fn (string $str) => match ($str) {
+            'Chat with us' => 'Schreiben Sie uns',
+            'Talk to a person' => 'Mit einer Person sprechen',
+            default => $str,
+        });
+
+        Functions\when('pll_current_language')->justReturn('de');
+        Functions\when('esc_attr')->returnArg();
+
+        $widget = new ChatWidget;
+
+        ob_start();
+        $widget->renderElement();
+        $output = ob_get_clean();
+
+        self::assertStringContainsString('launcher-text="Schreiben Sie uns"', $output);
+        self::assertStringContainsString('handoff-text="Mit einer Person sprechen"', $output);
+    }
+
+    public function test_register_polylang_strings_registers_every_filled_translatable_option(): void
+    {
+        Functions\when('get_option')->alias(fn ($key, $default = '') => match ($key) {
+            'appinio_chat_title' => 'Help Bot',
+            'appinio_chat_launcher_text' => 'Chat with us',
+            'appinio_chat_handoff_text' => 'Talk to a person',
+            default => $default,
+        });
+
+        $registered = [];
+        Functions\when('pll_register_string')->alias(
+            function (string $name, string $value) use (&$registered): void {
+                $registered[$name] = $value;
+            }
+        );
+
+        ChatWidget::registerPolylangStrings();
+
+        self::assertSame([
+            'appinio_chat_title' => 'Help Bot',
+            'appinio_chat_launcher_text' => 'Chat with us',
+            'appinio_chat_handoff_text' => 'Talk to a person',
+        ], $registered);
+        // Empty options are skipped — an empty Polylang string is nothing to translate.
+        self::assertArrayNotHasKey('appinio_chat_subtitle', $registered);
     }
 }

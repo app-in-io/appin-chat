@@ -2,164 +2,316 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Appinio Chat 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/appinio-chat\n"
+"POT-Creation-Date: 2026-07-27T00:14:19+00:00\n"
 "Last-Translator: Appinio <hello@app-in.io>\n"
 "Language-Team: Українська\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Domain: appinio-chat\n"
 
+#. Plugin Name of the plugin
+#: appinio-chat.php src/Admin/SettingsPage.php:60 src/Admin/SettingsPage.php:61
 msgid "Appinio Chat"
 msgstr "Appinio Chat"
 
+#. Plugin URI of the plugin
+#: appinio-chat.php
+msgid "https://app-in.io"
+msgstr ""
+
+#. Description of the plugin
+#: appinio-chat.php
 msgid "Add an AI chat widget to your WordPress site. Powered by Appinio."
 msgstr "Додайте віджет ШІ-чату на ваш сайт WordPress. Працює на Appinio."
 
-msgid "Appinio"
-msgstr "Appinio"
+#. Author of the plugin
+#: appinio-chat.php
+msgid "appinio"
+msgstr ""
 
+#: src/Admin/SettingsPage.php:52 src/Admin/SettingsPage.php:481
 msgid "Remove"
 msgstr "Видалити"
 
+#: src/Admin/SettingsPage.php:80
 msgid "Connection"
 msgstr "З’єднання"
 
+#: src/Admin/SettingsPage.php:83
 msgid "Connect your site to the Appinio chat widget."
 msgstr "Під’єднайте ваш сайт до віджета чату Appinio."
 
+#: src/Admin/SettingsPage.php:90
 msgid "Site ID"
 msgstr "ID сайту"
 
-msgid "Web Channel ID from the Appinio dashboard. Required for the widget to work."
+#: src/Admin/SettingsPage.php:92
+msgid ""
+"Web Channel ID from the Appinio dashboard. Required for the widget to work."
 msgstr "Web Channel ID з панелі Appinio. Обов’язковий для роботи віджета."
 
+#: src/Admin/SettingsPage.php:101
 msgid "Appearance"
 msgstr "Вигляд"
 
+#: src/Admin/SettingsPage.php:104
 msgid "Customize the look and feel of the chat widget."
 msgstr "Налаштуйте вигляд і поведінку віджета чату."
 
+#: src/Admin/SettingsPage.php:111
 msgid "Title"
 msgstr "Заголовок"
 
+#: src/Admin/SettingsPage.php:113
 msgid "Chat header title. Defaults to \"AI Assistant\"."
 msgstr "Заголовок шапки чату. За замовчуванням — „AI Assistant“."
 
+#: src/Admin/SettingsPage.php:119
 msgid "Subtitle"
 msgstr "Підзаголовок"
 
+#: src/Admin/SettingsPage.php:121
 msgid "Chat header subtitle. Leave empty to hide."
 msgstr "Підзаголовок шапки чату. Залиште порожнім, щоб приховати."
 
+#: src/Admin/SettingsPage.php:126
 msgid "Logo"
 msgstr "Логотип"
 
+#: src/Admin/SettingsPage.php:128
 msgid "Image displayed in the chat header."
 msgstr "Зображення, яке показується в шапці чату."
 
+#: src/Admin/SettingsPage.php:133
 msgid "Theme"
 msgstr "Тема"
 
+#: src/Admin/SettingsPage.php:136
 msgid "Light"
 msgstr "Світла"
 
+#: src/Admin/SettingsPage.php:137
 msgid "Dark"
 msgstr "Темна"
 
+#: src/Admin/SettingsPage.php:144
 msgid "Position"
 msgstr "Розташування"
 
+#: src/Admin/SettingsPage.php:147
 msgid "Bottom Right"
 msgstr "Внизу праворуч"
 
+#: src/Admin/SettingsPage.php:148
 msgid "Bottom Left"
 msgstr "Внизу ліворуч"
 
+#: src/Admin/SettingsPage.php:155
+msgid "Launcher Style"
+msgstr "Стиль відкриття чату"
+
+#: src/Admin/SettingsPage.php:158
+msgid "Round button"
+msgstr "Кругла кнопка"
+
+#: src/Admin/SettingsPage.php:159
+msgid "Bar with text"
+msgstr "Панель із текстом"
+
+#: src/Admin/SettingsPage.php:167
+msgid "Launcher Text"
+msgstr "Текст відкриття чату"
+
+#: src/Admin/SettingsPage.php:169
+msgid ""
+"Wording on the bar launcher; ignored while the style is \"Round button\". "
+"Leave empty to use the built-in wording, available in 12 languages and "
+"matched to the visitor's language automatically."
+msgstr "Текст на панелі чату; ігнорується, якщо вибрано стиль «Кругла кнопка». Залиште порожнім, щоб використати вбудований текст: доступний 12 мовами й автоматично узгоджується з мовою відвідувача."
+
+#: src/Admin/SettingsPage.php:174
+msgid "\"Talk to an Agent\" Button"
+msgstr "Кнопка «Зв'язатися з оператором»"
+
+#: src/Admin/SettingsPage.php:177
+msgid "Icon only"
+msgstr "Лише піктограма"
+
+#: src/Admin/SettingsPage.php:178
+msgid "Icon with text"
+msgstr "Піктограма з текстом"
+
+#: src/Admin/SettingsPage.php:179
+msgid "Text only"
+msgstr "Лише текст"
+
+#: src/Admin/SettingsPage.php:187
+msgid "\"Talk to an Agent\" Text"
+msgstr "Текст кнопки «Зв'язатися з оператором»"
+
+#: src/Admin/SettingsPage.php:189
+msgid ""
+"Wording on that button, which only appears when live-agent handoff is "
+"enabled for your site. Leave empty to use the built-in wording, available in "
+"12 languages. On narrow phone screens \"Icon with text\" shows the icon "
+"alone."
+msgstr "Текст цієї кнопки; вона з'являється, лише коли на сайті увімкнено передавання розмови оператору. Залиште порожнім, щоб використати вбудований текст: доступний 12 мовами. На вузьких екранах телефонів «Піктограма з текстом» показує лише піктограму."
+
+#: src/Admin/SettingsPage.php:194
 msgid "Language"
 msgstr "Мова"
 
-msgid "Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active."
-msgstr "Резервний код мови (напр. en, de, fr). Автоматично визначається з Polylang/WPML, коли вони активні."
+#: src/Admin/SettingsPage.php:196
+msgid ""
+"Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML "
+"when active."
+msgstr ""
+"Резервний код мови (напр. en, de, fr). Автоматично визначається з Polylang/"
+"WPML, коли вони активні."
 
+#: src/Admin/SettingsPage.php:201
 msgid "Accent Color"
 msgstr "Акцентний колір"
 
+#: src/Admin/SettingsPage.php:203
 msgid "Primary accent color for buttons and highlights."
 msgstr "Основний акцентний колір для кнопок і виділень."
 
+#: src/Admin/SettingsPage.php:208
 msgid "Price Prefix"
 msgstr "Префікс ціни"
 
+#: src/Admin/SettingsPage.php:210
 msgid "Prefix for price display in product cards (e.g. \"from\")."
 msgstr "Префікс для відображення ціни у картках товарів (напр. „від“)."
 
-msgid "Custom Colors"
-msgstr "Власні кольори"
-
-msgid "Override individual CSS color variables. Leave empty to use defaults."
-msgstr "Перевизначте окремі CSS-змінні кольорів. Залиште порожніми, щоб використати типові."
-
-msgid "Primary"
-msgstr "Основний"
-
-msgid "Surface"
-msgstr "Поверхня"
-
-msgid "Surface Alt"
-msgstr "Поверхня (альт.)"
-
-msgid "Text"
-msgstr "Текст"
-
-msgid "Text Muted"
-msgstr "Приглушений текст"
-
-msgid "Border"
-msgstr "Межа"
-
-msgid "User Message BG"
-msgstr "Фон повідомлення користувача"
-
-msgid "Assistant Message BG"
-msgstr "Фон повідомлення асистента"
-
-msgid "Body Font"
-msgstr "Шрифт тексту"
-
-msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
-msgstr "CSS font-family для основного тексту (напр. Inter, system-ui, sans-serif)."
-
-msgid "Heading Font"
-msgstr "Шрифт заголовків"
-
-msgid "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
-msgstr "CSS font-family для заголовків (напр. Space Grotesk, system-ui, sans-serif)."
-
-msgid "Select Image"
-msgstr "Обрати зображення"
-
+#: src/Admin/SettingsPage.php:218
 msgid "Behavior"
 msgstr "Поведінка"
 
+#: src/Admin/SettingsPage.php:221
 msgid "Control how the chat window behaves after the page loads."
 msgstr "Налаштуйте, як поводиться вікно чату після завантаження сторінки."
 
+#: src/Admin/SettingsPage.php:228
 msgid "Auto-open"
 msgstr "Автовідкриття"
 
+#: src/Admin/SettingsPage.php:231
 msgid "Never"
 msgstr "Ніколи"
 
+#: src/Admin/SettingsPage.php:232
 msgid "Once per session"
 msgstr "Один раз за сесію"
 
+#: src/Admin/SettingsPage.php:233
 msgid "Every page load"
 msgstr "При кожному завантаженні сторінки"
 
+#: src/Admin/SettingsPage.php:246
 msgid "Auto-open Delay (seconds)"
 msgstr "Затримка автовідкриття (секунди)"
 
-msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
-msgstr "Кількість секунд очікування після завантаження сторінки перед автоматичним відкриттям. Використовується лише коли автовідкриття увімкнено."
+#: src/Admin/SettingsPage.php:256
+msgid ""
+"Seconds to wait after page load before auto-opening. Used only when Auto-"
+"open is enabled."
+msgstr ""
+"Кількість секунд очікування після завантаження сторінки перед автоматичним "
+"відкриттям. Використовується лише коли автовідкриття увімкнено."
+
+#: src/Admin/SettingsPage.php:268
+msgid "Custom Colors"
+msgstr "Власні кольори"
+
+#: src/Admin/SettingsPage.php:271
+msgid "Override individual CSS color variables. Leave empty to use defaults."
+msgstr ""
+"Перевизначте окремі CSS-змінні кольорів. Залиште порожніми, щоб використати "
+"типові."
+
+#: src/Admin/SettingsPage.php:277
+msgid "Primary"
+msgstr "Основний"
+
+#: src/Admin/SettingsPage.php:278
+msgid "Surface"
+msgstr "Поверхня"
+
+#: src/Admin/SettingsPage.php:279
+msgid "Surface Alt"
+msgstr "Поверхня (альт.)"
+
+#: src/Admin/SettingsPage.php:280
+msgid "Text"
+msgstr "Текст"
+
+#: src/Admin/SettingsPage.php:281
+msgid "Text Muted"
+msgstr "Приглушений текст"
+
+#: src/Admin/SettingsPage.php:282
+msgid "Border"
+msgstr "Межа"
+
+#: src/Admin/SettingsPage.php:283
+msgid "User Message BG"
+msgstr "Фон повідомлення користувача"
+
+#: src/Admin/SettingsPage.php:284
+msgid "Assistant Message BG"
+msgstr "Фон повідомлення асистента"
+
+#: src/Admin/SettingsPage.php:293
+msgid "Body Font"
+msgstr "Шрифт тексту"
+
+#: src/Admin/SettingsPage.php:295
+msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
+msgstr ""
+"CSS font-family для основного тексту (напр. Inter, system-ui, sans-serif)."
+
+#: src/Admin/SettingsPage.php:300
+msgid "Heading Font"
+msgstr "Шрифт заголовків"
+
+#: src/Admin/SettingsPage.php:302
+msgid ""
+"CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
+msgstr ""
+"CSS font-family для заголовків (напр. Space Grotesk, system-ui, sans-serif)."
+
+#: src/Admin/SettingsPage.php:475
+msgid "Select Image"
+msgstr "Обрати зображення"
+
+#~ msgid ""
+#~ "Wording on the bar launcher. Leave empty to use the built-in text, which "
+#~ "is translated into 12 languages and follows the visitor's language "
+#~ "automatically."
+#~ msgstr ""
+#~ "Текст на смузі чату. Залиште порожнім, щоб використати вбудований текст — "
+#~ "його перекладено 12 мовами, і він автоматично враховує мову відвідувача."
+
+#~ msgid "\"Talk to a Person\" Button"
+#~ msgstr "Кнопка «Поговорити з людиною»"
+
+#~ msgid "\"Talk to a Person\" Text"
+#~ msgstr "Текст кнопки «Поговорити з людиною»"
+
+#~ msgid ""
+#~ "Wording on that button. Leave empty to use the built-in text, which is "
+#~ "translated into 12 languages. On narrow phone screens \"Icon with text\" "
+#~ "falls back to the icon alone."
+#~ msgstr ""
+#~ "Текст цієї кнопки. Залиште порожнім, щоб використати вбудований текст — "
+#~ "його перекладено 12 мовами. На вузьких екранах телефонів «Піктограма з "
+#~ "текстом» показує лише піктограму."
+
+#~ msgid "Appinio"
+#~ msgstr "Appinio"

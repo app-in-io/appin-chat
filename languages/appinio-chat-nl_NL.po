@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Appinio Chat 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/appinio-chat\n"
+"POT-Creation-Date: 2026-07-27T00:14:19+00:00\n"
 "Last-Translator: Appinio <hello@app-in.io>\n"
 "Language-Team: Nederlands\n"
 "Language: nl_NL\n"
@@ -11,155 +12,310 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: appinio-chat\n"
 
+#. Plugin Name of the plugin
+#: appinio-chat.php src/Admin/SettingsPage.php:60 src/Admin/SettingsPage.php:61
 msgid "Appinio Chat"
 msgstr "Appinio Chat"
 
+#. Plugin URI of the plugin
+#: appinio-chat.php
+msgid "https://app-in.io"
+msgstr ""
+
+#. Description of the plugin
+#: appinio-chat.php
 msgid "Add an AI chat widget to your WordPress site. Powered by Appinio."
-msgstr "Voeg een AI-chatwidget toe aan je WordPress-site. Mogelijk gemaakt door Appinio."
+msgstr ""
+"Voeg een AI-chatwidget toe aan je WordPress-site. Mogelijk gemaakt door "
+"Appinio."
 
-msgid "Appinio"
-msgstr "Appinio"
+#. Author of the plugin
+#: appinio-chat.php
+msgid "appinio"
+msgstr ""
 
+#: src/Admin/SettingsPage.php:52 src/Admin/SettingsPage.php:481
 msgid "Remove"
 msgstr "Verwijderen"
 
+#: src/Admin/SettingsPage.php:80
 msgid "Connection"
 msgstr "Verbinding"
 
+#: src/Admin/SettingsPage.php:83
 msgid "Connect your site to the Appinio chat widget."
 msgstr "Verbind je site met de Appinio-chatwidget."
 
+#: src/Admin/SettingsPage.php:90
 msgid "Site ID"
 msgstr "Site-ID"
 
-msgid "Web Channel ID from the Appinio dashboard. Required for the widget to work."
-msgstr "Web Channel ID uit het Appinio-dashboard. Vereist om de widget te laten werken."
+#: src/Admin/SettingsPage.php:92
+msgid ""
+"Web Channel ID from the Appinio dashboard. Required for the widget to work."
+msgstr ""
+"Web Channel ID uit het Appinio-dashboard. Vereist om de widget te laten "
+"werken."
 
+#: src/Admin/SettingsPage.php:101
 msgid "Appearance"
 msgstr "Weergave"
 
+#: src/Admin/SettingsPage.php:104
 msgid "Customize the look and feel of the chat widget."
 msgstr "Pas het uiterlijk en de stijl van de chatwidget aan."
 
+#: src/Admin/SettingsPage.php:111
 msgid "Title"
 msgstr "Titel"
 
+#: src/Admin/SettingsPage.php:113
 msgid "Chat header title. Defaults to \"AI Assistant\"."
 msgstr "Titel van de chat-header. Standaard: „AI Assistant“."
 
+#: src/Admin/SettingsPage.php:119
 msgid "Subtitle"
 msgstr "Ondertitel"
 
+#: src/Admin/SettingsPage.php:121
 msgid "Chat header subtitle. Leave empty to hide."
 msgstr "Ondertitel van de chat-header. Laat leeg om te verbergen."
 
+#: src/Admin/SettingsPage.php:126
 msgid "Logo"
 msgstr "Logo"
 
+#: src/Admin/SettingsPage.php:128
 msgid "Image displayed in the chat header."
 msgstr "Afbeelding die in de chat-header wordt weergegeven."
 
+#: src/Admin/SettingsPage.php:133
 msgid "Theme"
 msgstr "Thema"
 
+#: src/Admin/SettingsPage.php:136
 msgid "Light"
 msgstr "Licht"
 
+#: src/Admin/SettingsPage.php:137
 msgid "Dark"
 msgstr "Donker"
 
+#: src/Admin/SettingsPage.php:144
 msgid "Position"
 msgstr "Positie"
 
+#: src/Admin/SettingsPage.php:147
 msgid "Bottom Right"
 msgstr "Rechtsonder"
 
+#: src/Admin/SettingsPage.php:148
 msgid "Bottom Left"
 msgstr "Linksonder"
 
+#: src/Admin/SettingsPage.php:155
+msgid "Launcher Style"
+msgstr "Stijl van de chatopener"
+
+#: src/Admin/SettingsPage.php:158
+msgid "Round button"
+msgstr "Ronde knop"
+
+#: src/Admin/SettingsPage.php:159
+msgid "Bar with text"
+msgstr "Balk met tekst"
+
+#: src/Admin/SettingsPage.php:167
+msgid "Launcher Text"
+msgstr "Tekst van de chatopener"
+
+#: src/Admin/SettingsPage.php:169
+msgid ""
+"Wording on the bar launcher; ignored while the style is \"Round button\". "
+"Leave empty to use the built-in wording, available in 12 languages and "
+"matched to the visitor's language automatically."
+msgstr "Tekst op de chatbalk; wordt genegeerd bij de stijl ‘Ronde knop’. Laat leeg om de ingebouwde tekst te gebruiken: beschikbaar in 12 talen en automatisch afgestemd op de taal van de bezoeker."
+
+#: src/Admin/SettingsPage.php:174
+msgid "\"Talk to an Agent\" Button"
+msgstr "Knop ‘Praat met een medewerker’"
+
+#: src/Admin/SettingsPage.php:177
+msgid "Icon only"
+msgstr "Alleen pictogram"
+
+#: src/Admin/SettingsPage.php:178
+msgid "Icon with text"
+msgstr "Pictogram met tekst"
+
+#: src/Admin/SettingsPage.php:179
+msgid "Text only"
+msgstr "Alleen tekst"
+
+#: src/Admin/SettingsPage.php:187
+msgid "\"Talk to an Agent\" Text"
+msgstr "Tekst voor ‘Praat met een medewerker’"
+
+#: src/Admin/SettingsPage.php:189
+msgid ""
+"Wording on that button, which only appears when live-agent handoff is "
+"enabled for your site. Leave empty to use the built-in wording, available in "
+"12 languages. On narrow phone screens \"Icon with text\" shows the icon "
+"alone."
+msgstr "Tekst op die knop, die alleen verschijnt als overdracht aan een medewerker is ingeschakeld voor uw site. Laat leeg om de ingebouwde tekst te gebruiken: beschikbaar in 12 talen. Op smalle telefoonschermen toont ‘Pictogram met tekst’ alleen het pictogram."
+
+#: src/Admin/SettingsPage.php:194
 msgid "Language"
 msgstr "Taal"
 
-msgid "Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active."
-msgstr "Taalcode als fallback (bijv. en, de, fr). Automatisch gedetecteerd via Polylang/WPML indien actief."
+#: src/Admin/SettingsPage.php:196
+msgid ""
+"Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML "
+"when active."
+msgstr ""
+"Taalcode als fallback (bijv. en, de, fr). Automatisch gedetecteerd via "
+"Polylang/WPML indien actief."
 
+#: src/Admin/SettingsPage.php:201
 msgid "Accent Color"
 msgstr "Accentkleur"
 
+#: src/Admin/SettingsPage.php:203
 msgid "Primary accent color for buttons and highlights."
 msgstr "Primaire accentkleur voor knoppen en accenten."
 
+#: src/Admin/SettingsPage.php:208
 msgid "Price Prefix"
 msgstr "Prijsvoorvoegsel"
 
+#: src/Admin/SettingsPage.php:210
 msgid "Prefix for price display in product cards (e.g. \"from\")."
 msgstr "Voorvoegsel voor prijsweergave op productkaarten (bijv. „vanaf“)."
 
-msgid "Custom Colors"
-msgstr "Aangepaste kleuren"
-
-msgid "Override individual CSS color variables. Leave empty to use defaults."
-msgstr "Overschrijf afzonderlijke CSS-kleurvariabelen. Laat leeg om standaardwaarden te gebruiken."
-
-msgid "Primary"
-msgstr "Primair"
-
-msgid "Surface"
-msgstr "Oppervlak"
-
-msgid "Surface Alt"
-msgstr "Oppervlak (alt)"
-
-msgid "Text"
-msgstr "Tekst"
-
-msgid "Text Muted"
-msgstr "Tekst gedempt"
-
-msgid "Border"
-msgstr "Rand"
-
-msgid "User Message BG"
-msgstr "Achtergrond gebruikersbericht"
-
-msgid "Assistant Message BG"
-msgstr "Achtergrond assistentbericht"
-
-msgid "Body Font"
-msgstr "Tekst-lettertype"
-
-msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
-msgstr "CSS font-family voor de broodtekst (bijv. Inter, system-ui, sans-serif)."
-
-msgid "Heading Font"
-msgstr "Kop-lettertype"
-
-msgid "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
-msgstr "CSS font-family voor koppen (bijv. Space Grotesk, system-ui, sans-serif)."
-
-msgid "Select Image"
-msgstr "Afbeelding kiezen"
-
+#: src/Admin/SettingsPage.php:218
 msgid "Behavior"
 msgstr "Gedrag"
 
+#: src/Admin/SettingsPage.php:221
 msgid "Control how the chat window behaves after the page loads."
 msgstr "Bepaal hoe het chatvenster zich gedraagt nadat de pagina is geladen."
 
+#: src/Admin/SettingsPage.php:228
 msgid "Auto-open"
 msgstr "Automatisch openen"
 
+#: src/Admin/SettingsPage.php:231
 msgid "Never"
 msgstr "Nooit"
 
+#: src/Admin/SettingsPage.php:232
 msgid "Once per session"
 msgstr "Eén keer per sessie"
 
+#: src/Admin/SettingsPage.php:233
 msgid "Every page load"
 msgstr "Bij elke paginalading"
 
+#: src/Admin/SettingsPage.php:246
 msgid "Auto-open Delay (seconds)"
 msgstr "Vertraging automatisch openen (seconden)"
 
-msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
-msgstr "Aantal seconden dat na het laden van de pagina wordt gewacht voordat automatisch wordt geopend. Wordt alleen gebruikt wanneer automatisch openen is ingeschakeld."
+#: src/Admin/SettingsPage.php:256
+msgid ""
+"Seconds to wait after page load before auto-opening. Used only when Auto-"
+"open is enabled."
+msgstr ""
+"Aantal seconden dat na het laden van de pagina wordt gewacht voordat "
+"automatisch wordt geopend. Wordt alleen gebruikt wanneer automatisch openen "
+"is ingeschakeld."
+
+#: src/Admin/SettingsPage.php:268
+msgid "Custom Colors"
+msgstr "Aangepaste kleuren"
+
+#: src/Admin/SettingsPage.php:271
+msgid "Override individual CSS color variables. Leave empty to use defaults."
+msgstr ""
+"Overschrijf afzonderlijke CSS-kleurvariabelen. Laat leeg om standaardwaarden "
+"te gebruiken."
+
+#: src/Admin/SettingsPage.php:277
+msgid "Primary"
+msgstr "Primair"
+
+#: src/Admin/SettingsPage.php:278
+msgid "Surface"
+msgstr "Oppervlak"
+
+#: src/Admin/SettingsPage.php:279
+msgid "Surface Alt"
+msgstr "Oppervlak (alt)"
+
+#: src/Admin/SettingsPage.php:280
+msgid "Text"
+msgstr "Tekst"
+
+#: src/Admin/SettingsPage.php:281
+msgid "Text Muted"
+msgstr "Tekst gedempt"
+
+#: src/Admin/SettingsPage.php:282
+msgid "Border"
+msgstr "Rand"
+
+#: src/Admin/SettingsPage.php:283
+msgid "User Message BG"
+msgstr "Achtergrond gebruikersbericht"
+
+#: src/Admin/SettingsPage.php:284
+msgid "Assistant Message BG"
+msgstr "Achtergrond assistentbericht"
+
+#: src/Admin/SettingsPage.php:293
+msgid "Body Font"
+msgstr "Tekst-lettertype"
+
+#: src/Admin/SettingsPage.php:295
+msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
+msgstr ""
+"CSS font-family voor de broodtekst (bijv. Inter, system-ui, sans-serif)."
+
+#: src/Admin/SettingsPage.php:300
+msgid "Heading Font"
+msgstr "Kop-lettertype"
+
+#: src/Admin/SettingsPage.php:302
+msgid ""
+"CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
+msgstr ""
+"CSS font-family voor koppen (bijv. Space Grotesk, system-ui, sans-serif)."
+
+#: src/Admin/SettingsPage.php:475
+msgid "Select Image"
+msgstr "Afbeelding kiezen"
+
+#~ msgid ""
+#~ "Wording on the bar launcher. Leave empty to use the built-in text, which "
+#~ "is translated into 12 languages and follows the visitor's language "
+#~ "automatically."
+#~ msgstr ""
+#~ "Tekst op de chatbalk. Laat leeg om de ingebouwde tekst te gebruiken — die "
+#~ "is vertaald in 12 talen en volgt automatisch de taal van de bezoeker."
+
+#~ msgid "\"Talk to a Person\" Button"
+#~ msgstr "Knop ‘Praat met een medewerker’"
+
+#~ msgid "\"Talk to a Person\" Text"
+#~ msgstr "Tekst voor ‘Praat met een medewerker’"
+
+#~ msgid ""
+#~ "Wording on that button. Leave empty to use the built-in text, which is "
+#~ "translated into 12 languages. On narrow phone screens \"Icon with text\" "
+#~ "falls back to the icon alone."
+#~ msgstr ""
+#~ "Tekst op die knop. Laat leeg om de ingebouwde tekst te gebruiken — die is "
+#~ "vertaald in 12 talen. Op smalle telefoonschermen toont ‘Pictogram met "
+#~ "tekst’ alleen het pictogram."
+
+#~ msgid "Appinio"
+#~ msgstr "Appinio"

@@ -27,15 +27,34 @@ final class ChatWidget
         'appinio_chat_logo_url' => 'logo-url',
         'appinio_chat_theme' => 'theme',
         'appinio_chat_position' => 'position',
+        'appinio_chat_launcher' => 'launcher',
+        'appinio_chat_launcher_text' => 'launcher-text',
+        'appinio_chat_handoff_button' => 'handoff-button',
+        'appinio_chat_handoff_text' => 'handoff-text',
         'appinio_chat_accent_color' => 'accent-color',
         'appinio_chat_price_prefix' => 'price-prefix',
     ];
 
-    /** @var list<string> Options that should be translated via Polylang */
+    /**
+     * Options that should be translated via Polylang.
+     *
+     * Must stay in step with the <admin-texts> keys in wpml-config.xml — WPML filters
+     * get_option() itself, so that file is the whole WPML integration and there is no PHP
+     * call to keep the two honest. TranslatableOptionsTest compares them.
+     *
+     * The launcher and handoff labels are optional: left empty the plugin emits no
+     * attribute at all and the widget falls back to its own string, which is translated
+     * into 12 languages. That is the answer for sites without Polylang or WPML, where
+     * WordPress has a single locale and there is nothing to translate between.
+     *
+     * @var list<string>
+     */
     private const TRANSLATABLE_OPTIONS = [
         'appinio_chat_title',
         'appinio_chat_subtitle',
         'appinio_chat_price_prefix',
+        'appinio_chat_launcher_text',
+        'appinio_chat_handoff_text',
     ];
 
     /** @var array<string, string> Map of option keys to CSS custom properties */
