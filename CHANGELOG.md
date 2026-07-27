@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+### Added
+- **Launcher style and wording (`appinio_chat_launcher`, `appinio_chat_launcher_text`).** The widget gained a second closed-state shape — a bar glued to the bottom edge carrying visible wording, next to the existing round button — and site owners had no way to reach it: `ATTRIBUTE_MAP` forwarded eight attributes and neither was among them. Both are now settings under **Appearance**.
+- **"Talk to a person" button style and wording (`appinio_chat_handoff_button`, `appinio_chat_handoff_text`).** Icon only (unchanged default), icon with wording, or wording alone.
+- **Both wording options are translatable.** Added to `TRANSLATABLE_OPTIONS` (Polylang, via `pll_register_string()` + `pll__()`) and to `wpml-config.xml` (WPML, which filters `get_option()` itself). **Left empty they emit no attribute at all**, and the widget then uses its own string — translated into 12 languages and selected from the `lang` attribute the plugin already sends. That is deliberately the answer for sites running neither plugin: WordPress has a single locale there, so there is nothing to translate between, and shipping an English default in the plugin would have replaced 12 languages with one. It would also have meant maintaining the same sentence in two catalogues with different coverage.
+- **A test that the two translation declarations agree.** `TRANSLATABLE_OPTIONS` and `wpml-config.xml` are written in different languages and were kept in step by hand — an option added to one and not the other translates under Polylang and silently ships English under WPML. `TranslatableOptionsTest` now compares them, and also asserts every translatable option actually reaches the widget as an attribute.
+
+The admin labels quote the wording the widget actually renders, per locale — the setting is called "Talk to an Agent" because that is the button's own text, and the German catalogue names it „Mit einem Mitarbeiter sprechen“ because that is what a German visitor sees. An earlier draft invented "Talk to a Person", which would have left a site owner searching the settings for a button they could not match to anything.
+
+### Fixed
+- **Select settings could store values outside their own option list.** `addSelectField` sanitized with `sanitize_text_field`, and the option array was only ever used to render the `<option>`s — so the markup constrained a browser, not a hand-crafted POST. The two new selects validate against their allowed values and fall back to the default. The three that predate this (`theme`, `position`, `auto_open`) keep their behaviour on purpose; flipping them on is a one-argument follow-up, deliberately not bundled here.
+
 ### Changed
 - **Bumped `slackapi/slack-github-action` to v4.0.0** in the release-notify step. CI only — nothing in the shipped plugin changes. v4's only breaking change is stricter YAML multiline indentation; the release body is `toJSON()`-escaped to a single line inside an indented `payload: |` block, so the payload is unaffected. Matches the sibling repos (api, widget, appin-search) now on v4.
 - **The WordPress.org SVN deploy is live again** — the directory approved the plugin and issued the SVN repo, so `deploy-wordpress-org.yml` gets its `release: [published]` trigger back and every release now publishes to wordpress.org alongside the GitHub Release + R2 zip. CI only; nothing in the shipped plugin changes.

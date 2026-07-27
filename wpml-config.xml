@@ -4,5 +4,7 @@
         <key name="appinio_chat_title" />
         <key name="appinio_chat_subtitle" />
         <key name="appinio_chat_price_prefix" />
+        <key name="appinio_chat_launcher_text" />
+        <key name="appinio_chat_handoff_text" />
     </admin-texts>
 </wpml-config>

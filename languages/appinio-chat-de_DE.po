@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Appinio Chat 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/appinio-chat\n"
+"POT-Creation-Date: 2026-07-27T00:14:19+00:00\n"
 "Last-Translator: Appinio <hello@app-in.io>\n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -11,155 +12,312 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: appinio-chat\n"
 
+#. Plugin Name of the plugin
+#: appinio-chat.php src/Admin/SettingsPage.php:60 src/Admin/SettingsPage.php:61
 msgid "Appinio Chat"
 msgstr "Appinio Chat"
 
+#. Plugin URI of the plugin
+#: appinio-chat.php
+msgid "https://app-in.io"
+msgstr ""
+
+#. Description of the plugin
+#: appinio-chat.php
 msgid "Add an AI chat widget to your WordPress site. Powered by Appinio."
-msgstr "Fügt deiner WordPress-Seite einen KI-Chat-Widget hinzu. Bereitgestellt von Appinio."
+msgstr ""
+"Fügt deiner WordPress-Seite einen KI-Chat-Widget hinzu. Bereitgestellt von "
+"Appinio."
 
-msgid "Appinio"
-msgstr "Appinio"
+#. Author of the plugin
+#: appinio-chat.php
+msgid "appinio"
+msgstr ""
 
+#: src/Admin/SettingsPage.php:52 src/Admin/SettingsPage.php:481
 msgid "Remove"
 msgstr "Entfernen"
 
+#: src/Admin/SettingsPage.php:80
 msgid "Connection"
 msgstr "Verbindung"
 
+#: src/Admin/SettingsPage.php:83
 msgid "Connect your site to the Appinio chat widget."
 msgstr "Verbinde deine Seite mit dem Appinio-Chat-Widget."
 
+#: src/Admin/SettingsPage.php:90
 msgid "Site ID"
 msgstr "Site-ID"
 
-msgid "Web Channel ID from the Appinio dashboard. Required for the widget to work."
-msgstr "Web-Channel-ID aus dem Appinio-Dashboard. Erforderlich, damit das Widget funktioniert."
+#: src/Admin/SettingsPage.php:92
+msgid ""
+"Web Channel ID from the Appinio dashboard. Required for the widget to work."
+msgstr ""
+"Web-Channel-ID aus dem Appinio-Dashboard. Erforderlich, damit das Widget "
+"funktioniert."
 
+#: src/Admin/SettingsPage.php:101
 msgid "Appearance"
 msgstr "Erscheinungsbild"
 
+#: src/Admin/SettingsPage.php:104
 msgid "Customize the look and feel of the chat widget."
 msgstr "Passe das Aussehen und Verhalten des Chat-Widgets an."
 
+#: src/Admin/SettingsPage.php:111
 msgid "Title"
 msgstr "Titel"
 
+#: src/Admin/SettingsPage.php:113
 msgid "Chat header title. Defaults to \"AI Assistant\"."
 msgstr "Titel im Chat-Header. Standard: „AI Assistant“."
 
+#: src/Admin/SettingsPage.php:119
 msgid "Subtitle"
 msgstr "Untertitel"
 
+#: src/Admin/SettingsPage.php:121
 msgid "Chat header subtitle. Leave empty to hide."
 msgstr "Untertitel im Chat-Header. Leer lassen, um ihn auszublenden."
 
+#: src/Admin/SettingsPage.php:126
 msgid "Logo"
 msgstr "Logo"
 
+#: src/Admin/SettingsPage.php:128
 msgid "Image displayed in the chat header."
 msgstr "Bild, das im Chat-Header angezeigt wird."
 
+#: src/Admin/SettingsPage.php:133
 msgid "Theme"
 msgstr "Design"
 
+#: src/Admin/SettingsPage.php:136
 msgid "Light"
 msgstr "Hell"
 
+#: src/Admin/SettingsPage.php:137
 msgid "Dark"
 msgstr "Dunkel"
 
+#: src/Admin/SettingsPage.php:144
 msgid "Position"
 msgstr "Position"
 
+#: src/Admin/SettingsPage.php:147
 msgid "Bottom Right"
 msgstr "Unten rechts"
 
+#: src/Admin/SettingsPage.php:148
 msgid "Bottom Left"
 msgstr "Unten links"
 
+#: src/Admin/SettingsPage.php:155
+msgid "Launcher Style"
+msgstr "Stil des Chat-Einstiegs"
+
+#: src/Admin/SettingsPage.php:158
+msgid "Round button"
+msgstr "Runde Schaltfläche"
+
+#: src/Admin/SettingsPage.php:159
+msgid "Bar with text"
+msgstr "Leiste mit Text"
+
+#: src/Admin/SettingsPage.php:167
+msgid "Launcher Text"
+msgstr "Text des Chat-Einstiegs"
+
+#: src/Admin/SettingsPage.php:169
+msgid ""
+"Wording on the bar launcher; ignored while the style is \"Round button\". "
+"Leave empty to use the built-in wording, available in 12 languages and "
+"matched to the visitor's language automatically."
+msgstr "Text auf der Chat-Leiste; wird beim Stil „Runde Schaltfläche“ ignoriert. Leer lassen, um den integrierten Text zu verwenden: in 12 Sprachen verfügbar und automatisch auf die Sprache des Besuchers abgestimmt."
+
+#: src/Admin/SettingsPage.php:174
+msgid "\"Talk to an Agent\" Button"
+msgstr "Schaltfläche „Mit einem Mitarbeiter sprechen“"
+
+#: src/Admin/SettingsPage.php:177
+msgid "Icon only"
+msgstr "Nur Symbol"
+
+#: src/Admin/SettingsPage.php:178
+msgid "Icon with text"
+msgstr "Symbol mit Text"
+
+#: src/Admin/SettingsPage.php:179
+msgid "Text only"
+msgstr "Nur Text"
+
+#: src/Admin/SettingsPage.php:187
+msgid "\"Talk to an Agent\" Text"
+msgstr "Text für „Mit einem Mitarbeiter sprechen“"
+
+#: src/Admin/SettingsPage.php:189
+msgid ""
+"Wording on that button, which only appears when live-agent handoff is "
+"enabled for your site. Leave empty to use the built-in wording, available in "
+"12 languages. On narrow phone screens \"Icon with text\" shows the icon "
+"alone."
+msgstr "Text auf dieser Schaltfläche, die nur erscheint, wenn die Übergabe an Mitarbeitende für Ihre Website aktiviert ist. Leer lassen, um den integrierten Text zu verwenden: in 12 Sprachen verfügbar. Auf schmalen Handy-Bildschirmen zeigt „Symbol mit Text“ nur das Symbol."
+
+#: src/Admin/SettingsPage.php:194
 msgid "Language"
 msgstr "Sprache"
 
-msgid "Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML when active."
-msgstr "Ersatz-Sprachcode (z. B. en, de, fr). Wird automatisch aus Polylang/WPML erkannt, wenn aktiv."
+#: src/Admin/SettingsPage.php:196
+msgid ""
+"Fallback language code (e.g. en, de, fr). Auto-detected from Polylang/WPML "
+"when active."
+msgstr ""
+"Ersatz-Sprachcode (z. B. en, de, fr). Wird automatisch aus Polylang/WPML "
+"erkannt, wenn aktiv."
 
+#: src/Admin/SettingsPage.php:201
 msgid "Accent Color"
 msgstr "Akzentfarbe"
 
+#: src/Admin/SettingsPage.php:203
 msgid "Primary accent color for buttons and highlights."
 msgstr "Hauptakzentfarbe für Schaltflächen und Hervorhebungen."
 
+#: src/Admin/SettingsPage.php:208
 msgid "Price Prefix"
 msgstr "Preis-Präfix"
 
+#: src/Admin/SettingsPage.php:210
 msgid "Prefix for price display in product cards (e.g. \"from\")."
 msgstr "Präfix für die Preisanzeige in Produktkarten (z. B. „ab“)."
 
-msgid "Custom Colors"
-msgstr "Benutzerdefinierte Farben"
-
-msgid "Override individual CSS color variables. Leave empty to use defaults."
-msgstr "Einzelne CSS-Farbvariablen überschreiben. Leer lassen, um Standardwerte zu verwenden."
-
-msgid "Primary"
-msgstr "Primär"
-
-msgid "Surface"
-msgstr "Oberfläche"
-
-msgid "Surface Alt"
-msgstr "Oberfläche alternativ"
-
-msgid "Text"
-msgstr "Text"
-
-msgid "Text Muted"
-msgstr "Text gedämpft"
-
-msgid "Border"
-msgstr "Rahmen"
-
-msgid "User Message BG"
-msgstr "Hintergrund Nutzernachricht"
-
-msgid "Assistant Message BG"
-msgstr "Hintergrund Assistentennachricht"
-
-msgid "Body Font"
-msgstr "Textschrift"
-
-msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
-msgstr "CSS-font-family für den Fließtext (z. B. Inter, system-ui, sans-serif)."
-
-msgid "Heading Font"
-msgstr "Überschriftenschrift"
-
-msgid "CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
-msgstr "CSS-font-family für Überschriften (z. B. Space Grotesk, system-ui, sans-serif)."
-
-msgid "Select Image"
-msgstr "Bild auswählen"
-
+#: src/Admin/SettingsPage.php:218
 msgid "Behavior"
 msgstr "Verhalten"
 
+#: src/Admin/SettingsPage.php:221
 msgid "Control how the chat window behaves after the page loads."
-msgstr "Steuern Sie, wie sich das Chat-Fenster nach dem Laden der Seite verhält."
+msgstr ""
+"Steuern Sie, wie sich das Chat-Fenster nach dem Laden der Seite verhält."
 
+#: src/Admin/SettingsPage.php:228
 msgid "Auto-open"
 msgstr "Automatisch öffnen"
 
+#: src/Admin/SettingsPage.php:231
 msgid "Never"
 msgstr "Nie"
 
+#: src/Admin/SettingsPage.php:232
 msgid "Once per session"
 msgstr "Einmal pro Sitzung"
 
+#: src/Admin/SettingsPage.php:233
 msgid "Every page load"
 msgstr "Bei jedem Seitenaufruf"
 
+#: src/Admin/SettingsPage.php:246
 msgid "Auto-open Delay (seconds)"
 msgstr "Verzögerung beim automatischen Öffnen (Sekunden)"
 
-msgid "Seconds to wait after page load before auto-opening. Used only when Auto-open is enabled."
-msgstr "Sekunden, die nach dem Laden der Seite gewartet wird, bevor automatisch geöffnet wird. Wird nur verwendet, wenn „Automatisch öffnen“ aktiviert ist."
+#: src/Admin/SettingsPage.php:256
+msgid ""
+"Seconds to wait after page load before auto-opening. Used only when Auto-"
+"open is enabled."
+msgstr ""
+"Sekunden, die nach dem Laden der Seite gewartet wird, bevor automatisch "
+"geöffnet wird. Wird nur verwendet, wenn „Automatisch öffnen“ aktiviert ist."
+
+#: src/Admin/SettingsPage.php:268
+msgid "Custom Colors"
+msgstr "Benutzerdefinierte Farben"
+
+#: src/Admin/SettingsPage.php:271
+msgid "Override individual CSS color variables. Leave empty to use defaults."
+msgstr ""
+"Einzelne CSS-Farbvariablen überschreiben. Leer lassen, um Standardwerte zu "
+"verwenden."
+
+#: src/Admin/SettingsPage.php:277
+msgid "Primary"
+msgstr "Primär"
+
+#: src/Admin/SettingsPage.php:278
+msgid "Surface"
+msgstr "Oberfläche"
+
+#: src/Admin/SettingsPage.php:279
+msgid "Surface Alt"
+msgstr "Oberfläche alternativ"
+
+#: src/Admin/SettingsPage.php:280
+msgid "Text"
+msgstr "Text"
+
+#: src/Admin/SettingsPage.php:281
+msgid "Text Muted"
+msgstr "Text gedämpft"
+
+#: src/Admin/SettingsPage.php:282
+msgid "Border"
+msgstr "Rahmen"
+
+#: src/Admin/SettingsPage.php:283
+msgid "User Message BG"
+msgstr "Hintergrund Nutzernachricht"
+
+#: src/Admin/SettingsPage.php:284
+msgid "Assistant Message BG"
+msgstr "Hintergrund Assistentennachricht"
+
+#: src/Admin/SettingsPage.php:293
+msgid "Body Font"
+msgstr "Textschrift"
+
+#: src/Admin/SettingsPage.php:295
+msgid "CSS font-family for body text (e.g. Inter, system-ui, sans-serif)."
+msgstr ""
+"CSS-font-family für den Fließtext (z. B. Inter, system-ui, sans-serif)."
+
+#: src/Admin/SettingsPage.php:300
+msgid "Heading Font"
+msgstr "Überschriftenschrift"
+
+#: src/Admin/SettingsPage.php:302
+msgid ""
+"CSS font-family for headings (e.g. Space Grotesk, system-ui, sans-serif)."
+msgstr ""
+"CSS-font-family für Überschriften (z. B. Space Grotesk, system-ui, sans-"
+"serif)."
+
+#: src/Admin/SettingsPage.php:475
+msgid "Select Image"
+msgstr "Bild auswählen"
+
+#~ msgid ""
+#~ "Wording on the bar launcher. Leave empty to use the built-in text, which "
+#~ "is translated into 12 languages and follows the visitor's language "
+#~ "automatically."
+#~ msgstr ""
+#~ "Text auf der Chat-Leiste. Leer lassen, um den integrierten Text zu "
+#~ "verwenden — er ist in 12 Sprachen übersetzt und richtet sich automatisch "
+#~ "nach der Sprache des Besuchers."
+
+#~ msgid "\"Talk to a Person\" Button"
+#~ msgstr "Button „Mit einer Person sprechen“"
+
+#~ msgid "\"Talk to a Person\" Text"
+#~ msgstr "Text für „Mit einer Person sprechen“"
+
+#~ msgid ""
+#~ "Wording on that button. Leave empty to use the built-in text, which is "
+#~ "translated into 12 languages. On narrow phone screens \"Icon with text\" "
+#~ "falls back to the icon alone."
+#~ msgstr ""
+#~ "Text auf diesem Button. Leer lassen, um den integrierten Text zu "
+#~ "verwenden — er ist in 12 Sprachen übersetzt. Auf schmalen Handy-"
+#~ "Bildschirmen zeigt „Symbol mit Text“ nur das Symbol."
+
+#~ msgid "Appinio"
+#~ msgstr "Appinio"

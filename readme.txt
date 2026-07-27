@@ -18,10 +18,11 @@ The plugin is a thin integration layer: all AI, indexing, and chat logic runs on
 
 = Features =
 
-* Floating chat widget — light or dark theme, bottom-left or bottom-right position.
+* Floating chat widget — round button or a wider bar with your own wording, bottom-left or bottom-right, light or dark theme.
 * Full visual customization — title, subtitle, logo, accent color, and 8 CSS color variables + body/heading fonts.
+* "Talk to an agent" button shows an icon, an icon with wording, or wording alone (where live-agent handoff is enabled).
 * Multilingual — auto-detects language via Polylang, WPML, or the WordPress locale.
-* Translatable strings (title, subtitle, price prefix) via Polylang String Translation or WPML.
+* Translatable strings (title, subtitle, price prefix, launcher and "talk to an agent" wording) via Polylang String Translation or WPML.
 * Loads as a deferred ES module from the Appinio CDN — zero performance impact on your site.
 
 = Requirements =
@@ -74,7 +75,11 @@ Yes. Appinio Chat has no WooCommerce dependency.
 
 = Can I translate the chat title and subtitle? =
 
-Yes. With Polylang, the plugin auto-registers `appinio_chat_title`, `appinio_chat_subtitle`, and `appinio_chat_price_prefix` via `pll_register_string()` — translate them in **Languages → String Translations**. With WPML, the same strings are registered via `wpml-config.xml` — translate them in **WPML → String Translation**.
+Yes. With Polylang, the plugin auto-registers `appinio_chat_title`, `appinio_chat_subtitle`, `appinio_chat_price_prefix`, `appinio_chat_launcher_text` and `appinio_chat_handoff_text` via `pll_register_string()` — translate them in **Languages → String Translations**. With WPML, the same strings are registered via `wpml-config.xml` — translate them in **WPML → String Translation**.
+
+= I don't use Polylang or WPML. What language will the chat button be in? =
+
+Leave **Launcher Text** and **"Talk to an Agent" Text** empty and the widget uses its own built-in wording, available in 12 languages and matched to the visitor's language automatically. Type something in those fields and that exact wording is used for everyone — which is what you want on a single-language site, and why the fields are empty by default.
 
 = How is the widget language chosen? =
 
@@ -98,6 +103,11 @@ Yes. Under **Behavior** in **Settings → Appinio Chat**, set **Auto-open** to "
 2. WordPress admin settings page — Site ID, appearance options (title, subtitle, logo, theme, position, language, accent color, price prefix).
 
 == Changelog ==
+
+= 1.5.0 =
+* New launcher style — instead of the round button, the chat can open from a wider bar at the bottom of the page with your own wording on it.
+* The "talk to an agent" button can now show an icon, an icon with wording, or wording alone.
+* Both wordings are translatable through Polylang and WPML. Left empty they use the built-in wording, available in 12 languages and matched to the visitor's language automatically — which is the recommended setting on a single-language site.
 
 = 1.4.0 =
 * The plugin is now called **Appinio Chat**. The name, the settings page address and the download link all move from "appin-chat" to "appinio-chat", as required by the WordPress.org plugin directory's rule that a plugin use one distinct prefix throughout. Your settings, the chat widget and its behavior are unchanged. Bookmarks to the old settings page address stop working — reach it at Settings → Appinio Chat.
@@ -140,6 +150,9 @@ Yes. Under **Behavior** in **Settings → Appinio Chat**, set **Auto-open** to "
 * CSS custom properties for full color and font theming.
 
 == Upgrade Notice ==
+
+= 1.5.0 =
+Adds a bar-style chat launcher and display options for the "talk to an agent" button. Nothing changes unless you set them.
 
 = 1.3.0 =
 Settings are renamed internally and migrated for you. WPML users only: re-translate the chat title, subtitle, and price prefix once in String Translation.

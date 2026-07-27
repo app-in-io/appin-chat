@@ -150,6 +150,45 @@ final class SettingsPage
             'bottom-right',
         );
 
+        $this->addSelectField(
+            'appinio_chat_launcher',
+            __('Launcher Style', 'appinio-chat'),
+            'appinio_chat_appearance',
+            [
+                'fab' => __('Round button', 'appinio-chat'),
+                'bar' => __('Bar with text', 'appinio-chat'),
+            ],
+            'fab',
+            true,
+        );
+
+        $this->addTextField(
+            'appinio_chat_launcher_text',
+            __('Launcher Text', 'appinio-chat'),
+            'appinio_chat_appearance',
+            __('Wording on the bar launcher; ignored while the style is "Round button". Leave empty to use the built-in wording, available in 12 languages and matched to the visitor\'s language automatically.', 'appinio-chat'),
+        );
+
+        $this->addSelectField(
+            'appinio_chat_handoff_button',
+            __('"Talk to an Agent" Button', 'appinio-chat'),
+            'appinio_chat_appearance',
+            [
+                'icon' => __('Icon only', 'appinio-chat'),
+                'icon-text' => __('Icon with text', 'appinio-chat'),
+                'text' => __('Text only', 'appinio-chat'),
+            ],
+            'icon',
+            true,
+        );
+
+        $this->addTextField(
+            'appinio_chat_handoff_text',
+            __('"Talk to an Agent" Text', 'appinio-chat'),
+            'appinio_chat_appearance',
+            __('Wording on that button, which only appears when live-agent handoff is enabled for your site. Leave empty to use the built-in wording, available in 12 languages. On narrow phone screens "Icon with text" shows the icon alone.', 'appinio-chat'),
+        );
+
         $this->addTextField(
             'appinio_chat_lang',
             __('Language', 'appinio-chat'),
@@ -297,16 +336,42 @@ final class SettingsPage
         );
     }
 
+    /**
+     * @param  array<string, string>  $options  value => label, also the allowed set when $strict
+     * @param  string  $default  Must be one of the $options keys when $strict — it is what a
+     *                           rejected value falls back to, so a typo here stores a value the
+     *                           <select> cannot show and the widget does not understand.
+     * @param  bool  $strict  Reject anything outside $options instead of storing it. Off by
+     *                        default so the fields that predate it keep their exact behaviour;
+     *                        without it sanitize_text_field lets any hand-crafted POST through,
+     *                        since the option list is only ever used to render the <option>s.
+     */
     private function addSelectField(
         string $key,
         string $label,
         string $section,
         array $options,
         string $default = '',
+        bool $strict = false,
     ): void {
+        // strval, because PHP casts numeric-looking array keys to int: an option list of
+        // ['0' => …, '1' => …] would yield [0, 1], and the strict in_array below would
+        // then reject the string "1" that the form actually posts — freezing the field on
+        // its default with nothing in the logs.
+        $allowed = array_map('strval', array_keys($options));
+
         register_setting(self::OPTION_GROUP, $key, [
             'type' => 'string',
-            'sanitize_callback' => 'sanitize_text_field',
+            'sanitize_callback' => $strict
+                ? static function ($value) use ($allowed, $default): string {
+                    // is_string first: options.php submits null for absent fields, and a
+                    // crafted POST can deliver an array — (string) on either emits a
+                    // notice into the admin's log before the fallback ever runs.
+                    $value = \is_string($value) ? sanitize_text_field($value) : '';
+
+                    return \in_array($value, $allowed, true) ? $value : $default;
+                }
+                : 'sanitize_text_field',
             'default' => $default,
         ]);
 
