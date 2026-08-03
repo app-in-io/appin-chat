@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-08-03
+
 ### Added
 - **Launcher style and wording (`appinio_chat_launcher`, `appinio_chat_launcher_text`).** The widget gained a second closed-state shape — a bar glued to the bottom edge carrying visible wording, next to the existing round button — and site owners had no way to reach it: `ATTRIBUTE_MAP` forwarded eight attributes and neither was among them. Both are now settings under **Appearance**.
 - **"Talk to a person" button style and wording (`appinio_chat_handoff_button`, `appinio_chat_handoff_text`).** Icon only (unchanged default), icon with wording, or wording alone.
@@ -11,6 +13,7 @@
 The admin labels quote the wording the widget actually renders, per locale — the setting is called "Talk to an Agent" because that is the button's own text, and the German catalogue names it „Mit einem Mitarbeiter sprechen“ because that is what a German visitor sees. An earlier draft invented "Talk to a Person", which would have left a site owner searching the settings for a button they could not match to anything.
 
 ### Fixed
+- **The plugin now reports the version it was released as.** `v1.4.0` was tagged from a commit where the plugin header and `readme.txt` both still said `1.3.0`, so wordpress.org advertised 1.4.0 while every install reported 1.3.0 — and WordPress, which reads the header, offered the same update forever. Re-cutting the tag was not an option: 10up's `deploy.sh` exits 0 when the SVN tag already exists, so the directory would have kept the old bits while the CDN zip was replaced, widening the gap instead of closing it. Bumped past it to 1.5.0 with the header, the Stable tag and the CHANGELOG section moved together, which is what makes the update terminate. **There is no 1.4.1** — the version was skipped, not lost.
 - **Select settings could store values outside their own option list.** `addSelectField` sanitized with `sanitize_text_field`, and the option array was only ever used to render the `<option>`s — so the markup constrained a browser, not a hand-crafted POST. The two new selects validate against their allowed values and fall back to the default. The three that predate this (`theme`, `position`, `auto_open`) keep their behaviour on purpose; flipping them on is a one-argument follow-up, deliberately not bundled here.
 
 ### Changed

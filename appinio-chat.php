@@ -4,7 +4,7 @@
  * Plugin Name:       Appinio Chat
  * Plugin URI:        https://app-in.io
  * Description:       Add an AI chat widget to your WordPress site. Powered by Appinio.
- * Version:           1.3.0
+ * Version:           1.5.0
  * Author:            appinio
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
