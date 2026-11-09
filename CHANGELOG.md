@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-11-09
+
+### Changed
+- **`Tested up to` bumped to WordPress 7.1.** WordPress 7.1 is out, and Plugin Check fails `outdated_tested_upto_header` on 7.0. With an outdated value the plugin does not show up in wordpress.org searches. Plugin Check runs the plugin on 7.1 in CI.
+- **No code changes.** The release also publishes the corrected 1.5.0 changelog. The 1.5.0 entry claimed that v1.4.0 shipped a plugin that declared itself 1.3.0. It did not: `release.yml` injects the version into the plugin header, `Plugin::VERSION` and the `readme.txt` Stable tag at build time, so the published 1.4.0 artifact was stamped correctly. The claim is removed from the 1.5.0 section.
+
 ## [1.5.0] - 2026-08-03
 
 ### Added
