@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-11-09
+
+### Changed
+- **No code changes.** Republishes 1.5.0 with a corrected changelog. The 1.5.0 entry claimed that v1.4.0 shipped a plugin that declared itself 1.3.0. It did not: `release.yml` injects the version into the plugin header, `Plugin::VERSION` and the `readme.txt` Stable tag at build time, so the published 1.4.0 artifact was stamped correctly. The claim is removed from the 1.5.0 section.
+
 ## [1.5.0] - 2026-08-03
 
 ### Added

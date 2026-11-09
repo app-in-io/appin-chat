@@ -4,7 +4,7 @@ Tags: chat, ai, chatbot, assistant, multilingual
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,9 @@ Yes. Under **Behavior** in **Settings → Appinio Chat**, set **Auto-open** to "
 2. WordPress admin settings page — Site ID, appearance options (title, subtitle, logo, theme, position, language, accent color, price prefix).
 
 == Changelog ==
+
+= 1.5.1 =
+* Maintenance release. No changes to the plugin's behavior.
 
 = 1.5.0 =
 * New launcher style — instead of the round button, the chat can open from a wider bar at the bottom of the page with your own wording on it.
